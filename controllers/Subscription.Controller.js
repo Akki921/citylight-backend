@@ -25,8 +25,8 @@ module.exports = {
                 frequency:SubscriptionData.frequency,
                 endDate:SubscriptionData.endDate,
                 iscancle:SubscriptionData.iscancle,
-                nosubscriptionFrom:SubscriptionData.nosubscriptionFrom,
-                nosubscriptionTo:SubscriptionData.nosubscriptionTo
+                // nosubscriptionFrom:SubscriptionData.nosubscriptionFrom,
+                // nosubscriptionTo:SubscriptionData.nosubscriptionTo
               });
               newSubscription.save(async (error, Subscription) => {
                 console.log("Subscription,",Subscription);

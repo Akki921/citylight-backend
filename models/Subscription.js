@@ -28,12 +28,12 @@ const subscriptionSchema = new mongoose.Schema({
     type:Boolean,
     default:false
   },
-  nosubscriptionFrom:{
-    type:String,
-  },
-  nosubscriptionTo:{
-    type:String,
-  },
+  // nosubscriptionFrom:{
+  //   type:String,
+  // },
+  // nosubscriptionTo:{
+  //   type:String,
+  // },
 });
 
 module.exports = new mongoose.model("Subscription", subscriptionSchema);

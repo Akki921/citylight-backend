@@ -31,6 +31,7 @@ router.post("/makeTransaction",  async (req, res, next) => {
 
 
   router.get("/getAllTransactionbyid/:id", async (req, res, next) => {
+    console.log('req.params.id,',req.params.id);
     let TransactionGet = await walletHandler.getAllTransactionbyid(req.params.id);
   
     // if (!brandCreate.status) return res.status(400).json(brandCreate);

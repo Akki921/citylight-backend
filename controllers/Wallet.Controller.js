@@ -154,7 +154,7 @@ module.exports = {
                 })
             }
             if(data){
-             Wallet.findOneAndUpdate({id:WalletData.id},{availableBalance:data.availableBalance}, (err,data)=>{
+             Wallet.findOneAndUpdate({_id:data.walletId},{availableBalance:data.availableBalance}, (err,data)=>{
                  if(err){
                  return resolve({
                      status:true,

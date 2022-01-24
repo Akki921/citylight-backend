@@ -15,6 +15,10 @@ const subscriptionSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Order"
       },
+      customer: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+      },
       QtyperDay: {
         type: Number,
       },

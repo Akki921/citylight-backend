@@ -90,7 +90,7 @@ module.exports = {
     return new Promise(async (resolve) => {
       try {
         Order.find({})
-          .populate("product", "productName")
+          .populate("customer","username")
           .exec((error, data) => {
             if (error)
             return resolve({

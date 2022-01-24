@@ -9,7 +9,8 @@ const orderSchema = new mongoose.Schema({
     type: String,
   },
   customer: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
   },
   startDate: {
     type: String,
@@ -26,7 +27,6 @@ const orderSchema = new mongoose.Schema({
   },
   product: {
     type: String,
-   
   },
   qtyperday: {
     type: Number,

@@ -57,44 +57,47 @@ module.exports = {
   // },
 
   createSubscription: async (SubscriptionData) => {
-    console.log('SubscriptionData',SubscriptionData);
+    console.log("SubscriptionData", SubscriptionData);
     return new Promise(async (resolve) => {
-   // console.log(SubscriptionData);
+      console.log(SubscriptionData);
       try {
-        Subscription.findOne({subNo: SubscriptionData.no  }).exec((err, data) => {
-          if (data) {
-            return resolve({
-              status: true,
-              message: "Subscription is already insert !",
-              data: data,
-            });
-          } else {
-            var newSubscription = new Subscription({
-              subNo:SubscriptionData.subNo,
-              subDate:SubscriptionData.subDate,
-              startFrom:SubscriptionData.startFrom,
-              order:SubscriptionData.id,
-              QtyperDay:SubscriptionData.QtyperDay,
-              frequency:SubscriptionData.frequency,
-              endDate:SubscriptionData.enddate,
-            });
-            newSubscription.save(async (error, Subscription) => {
-              console.log(Subscription);
-              if (error)
-                return resolve({
-                  status: false,
-                  message: "Please try after some time",
-                });
-              if (Subscription) {
-                return resolve({
-                  status: true,
-                  data: Subscription,
-                  message: "Subscription has been created",
-                });
-              }
-            });
+        Subscription.findOne({ subNo: SubscriptionData.no }).exec(
+          (err, data) => {
+            if (data) {
+              return resolve({
+                status: true,
+                message: "Subscription is already insert !",
+                data: data,
+              });
+            } else {
+              var newSubscription = new Subscription({
+                subNo: SubscriptionData.subNo,
+                subDate: SubscriptionData.subDate,
+                startFrom: SubscriptionData.startFrom,
+                order: SubscriptionData.id,
+                customer: SubscriptionData.customer,
+                QtyperDay: SubscriptionData.QtyperDay,
+                frequency: SubscriptionData.frequency,
+                endDate: SubscriptionData.enddate,
+              });
+              newSubscription.save(async (error, Subscription) => {
+                console.log(Subscription);
+                if (error)
+                  return resolve({
+                    status: false,
+                    message: "Please try after some time",
+                  });
+                if (Subscription) {
+                  return resolve({
+                    status: true,
+                    data: Subscription,
+                    message: "Subscription has been created",
+                  });
+                }
+              });
+            }
           }
-        });
+        );
       } catch (error) {
         return resolve({
           status: false,
@@ -132,13 +135,13 @@ module.exports = {
       }
     });
   },
- 
 
   getAllSubscription: async () => {
     return new Promise(async (resolve) => {
         try {
             Subscription.find({})
-              .populate("order", " orderNo customer orderDate orderValue coupan orderStatus startDate product slottime")
+              .populate("order", " orderNo orderDate orderValue coupan orderStatus qtyperday startDate product slottime productvalue")
+              .populate("customer","username email")
               .exec((error, data) => {
                
                 if (error)

@@ -76,8 +76,12 @@ module.exports = {
   getAllWallet: async () => {
     return new Promise(async (resolve) => {
       try {
-        Wallet.find({}, async (err, data) => {
-          if (err)
+
+       
+        Wallet.find({})
+          .populate("userId","username")
+          .exec((error, data)  => {
+          if (error)
             return resolve({
               status: false,
               message: "Please try after some time",
@@ -127,17 +131,18 @@ module.exports = {
   
   makeTransaction: async (WalletData) => {
     //   console.log(WalletData);
-    const {availableBalance,debit,credit}=WalletData;
+    const {availableBalance,debit,credit,id}=WalletData;
     const availableBalances=parseInt(availableBalance)
     const credits=parseInt(credit)
     const debits=parseInt(debit)
+    console.log(credits,debits,availableBalances);
     return new Promise(async (resolve) => {
       try {
-          if(availableBalance>=0)
+          if(availableBalances>=0)
           {
           if(debits>0){
         var newTrasaction = new Transaction({
-           walletId:WalletData._id,
+           walletId:WalletData.id,
            debit:debits,
            availableBalance:availableBalances-debits
           });
@@ -149,7 +154,7 @@ module.exports = {
                 })
             }
             if(data){
-             Wallet.findOneAndUpdate({_id:WalletData._id},{availableBalance:data.availableBalance}, (err,data)=>{
+             Wallet.findOneAndUpdate({id:WalletData.id},{availableBalance:data.availableBalance}, (err,data)=>{
                  if(err){
                  return resolve({
                      status:true,
@@ -168,12 +173,14 @@ module.exports = {
         })
 
          }else if(credits>0){
+           console.log('enter into credits',WalletData.id);
             var newTrasaction = new Transaction({
-                walletId:WalletData._id,
+               walletId:WalletData.id,
                 credit:credits,
                 availableBalance:availableBalances+credits
                });
                newTrasaction.save((error,data)=>{
+                 console.log(data);
                    if(error){
                        return resolve({
                         status:true,
@@ -181,7 +188,7 @@ module.exports = {
                        })
                    }
                    if(data){
-                    Wallet.findOneAndUpdate({_id:WalletData._id},{availableBalance:data.availableBalance}, (err,data)=>{
+                    Wallet.findOneAndUpdate({_id:data.walletId},{availableBalance:data.availableBalance}, (err,data)=>{
                         if(err){
                         return resolve({
                             status:true,
@@ -189,6 +196,7 @@ module.exports = {
                         })
                     }
                     if(data){
+                      console.log('succesfull',data);
                         return resolve({
                             status:true,
                             data2:data,

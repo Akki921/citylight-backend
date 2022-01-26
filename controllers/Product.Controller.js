@@ -116,131 +116,172 @@ exports.updateproduct = async (req, res) => {
         productImage,
         thumbnail
       );
-      if (thumbnail.length > 0 && productImage.length == 0) {
+      if (thumbnail !== undefined && productImage === undefined) {
         Product.findOneAndUpdate(
           { _id: id },
           {
-            productName,
-            description,
-            category,
-            availableFor,
-            collectio,
-            thumbnail,
-            tags,
-            sku,
+            productName: productName,
+            description: description,
+            category: category,
+            availableFor: availableFor,
+            collectio: collectio,
+            thumbnail: thumbnail,
+            tags: tags,
+            sku: sku,
           },
           { new: true, upsert: true }
         ).exec((err, data) => {
           if (data) {
-            return resolve({
+            console.log(data);
+            return res.status(200).json({
               status: true,
-              message: "Product is updated !",
               data: data,
+              message: "Product update successfully.",
             });
           } else if (err) {
-            return resolve({
-              status: false,
-              message: "Product updating failed !",
+            return res.status(200).json({
+              status: true,
               data: data,
+              message: "Product not update successfully.",
             });
           }
         });
-      } else if (thumbnail.lenght == 0 && productImage.lenght > 0) {
+      } else if (thumbnail == undefined && productImage !== undefined) {
         Product.findOneAndUpdate(
           { _id: id },
           {
-            productName,
-            description,
-            category,
-            availableFor,
-            collectio,
-
-            productImage,
-            tags,
-            sku,
+            productName: productName,
+            description: description,
+            category: category,
+            availableFor: availableFor,
+            collectio: collectio,
+            productImage: productImage,
+            tags: tags,
+            sku: sku,
           },
           { new: true, upsert: true }
         ).exec((err, data) => {
           if (data) {
-            return resolve({
+            console.log(data);
+            return res.status(200).json({
               status: true,
-              message: "Product is updated !",
               data: data,
+              message: "Product update successfully.",
             });
           } else if (err) {
-            return resolve({
-              status: false,
-              message: "Product updating failed !",
+            return res.status(200).json({
+              status: true,
               data: data,
+              message: "Product not update successfully.",
             });
           }
         });
-      } else if (thumbnail.length > 0 && productImage.length > 0) {
+      } else if (thumbnail !== undefined  && productImage !== undefined) {
         Product.findOneAndUpdate(
           { _id: id },
-          {
-            productName,
-            description,
-            category,
-            availableFor,
-            collectio,
-            thumbnail,
-            productImage,
-            tags,
-         
-          },
-          { new: true, upsert: true }
-        ).exec((err, data) => {
-          if (data) {
-            return resolve({
-              status: true,
-              message: "Product is updated !",
-              data: data,
-            });
-          } else if (err) {
-            return resolve({
-              status: false,
-              message: "Product updating failed !",
-              data: data,
-            });
-          }
-        });
+                {
+                  productName: productName,
+                  description: description,
+                  category: category,
+                  availableFor: availableFor,
+                  collectio: collectio,
+                  thumbnail: thumbnail,
+                  productImage: productImage,
+                  tags: tags,
+                  sku: sku,
+                },
+                { new: true, upsert: true }
+                ).exec((err, data) => {
+                  if (data) {
+                    console.log(data);
+                      return res.status(200).json({
+                        status: true,
+                        data: data,
+                        message: "Product get successfully.",
+                      });
+                    } else if (err) {
+                      return res.status(200).json({
+                        status: true,
+                        data: data,
+                        message: "Product not get successfully.",
+                      });
+                    }
+                  });
       } else {
-        console.log(req.body);
-        let rests = Product.findOneAndUpdate(
-          { _id: id },
-          {
-            productName,
-            description,
-            category,
-            availableFor,
-            collectio,
-            tags,
-            sku,
-          },
-          { new: true, upsert: true }
-        ).exec((err, data) => {
-          if (data) {
-            return resolve({
-              status: true,
-              message: "Product is updated !",
-              data: data,
-            });
-          } else if (err) {
-            return resolve({
-              status: false,
-              message: "Product updating failed !",
-              data: data,
-            });
-          }
+        Product.findOneAndUpdate(
+        { _id: id },
+              {
+                productName: productName,
+                description: description,
+                category: category,
+                availableFor: availableFor,
+                collectio: collectio,
+                tags: tags,
+                sku: sku,
+              },
+              { new: true, upsert: true }
+              ).exec((err, data) => {
+                if (data) {
+                  console.log(data);
+                    return res.status(200).json({
+                      status: true,
+                      data: data,
+                      message: "Product get successfully.",
+                    });
+                  } else if (err) {
+                    return res.status(200).json({
+                      status: true,
+                      data: data,
+                      message: "Product not get successfully.",
+                    });
+                  }
+                });
+    } 
+   }
+  catch (err) {
+        return res.status(200).json({
+          status: false,
+          message: "Please try after some time" + err,
         });
       }
-      
-    } catch (error) {
-      return resolve({
-        status: false,
-        message: "Please try after some time" + error,
-      });
-    }
-  });
-};
+    });
+  }
+  //   try {
+  //     let rests = Product.findOneAndUpdate(
+  //       { _id: id },
+  //       {
+  //         productName: productName,
+  //         description: description,
+  //         category: category,
+  //         availableFor: availableFor,
+  //         collectio: collectio,
+  //         thumbnail: thumbnail,
+  //         productImage: productImage,
+  //         tags: tags,
+  //         sku: sku,
+  //       },
+  //       { new: true, upsert: true }
+  //       ).exec((err, data) => {
+  //         if (data) {
+  //           console.log(data);
+  //             return res.status(200).json({
+  //               status: true,
+  //               data: data,
+  //               message: "Product get successfully.",
+  //             });
+  //           } else if (err) {
+  //             return res.status(200).json({
+  //               status: true,
+  //               data: data,
+  //               message: "Product not get successfully.",
+  //             });
+  //           }
+  //         });
+  //   } catch (err) {
+  //     return res.status(200).json({
+  //       status: false,
+  //       message: "Please try after some time" + err,
+  //     });
+  //   }
+  // });
+//};

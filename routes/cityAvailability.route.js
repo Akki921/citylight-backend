@@ -11,9 +11,13 @@ router.post("/addavaibilitycity",async(req,res)=>{
 })
 
 router.get("/getallavaibilitycity",async(req,res)=>{
-    const getCity= await CityAvaibilityHandler.getAllCityAvailability();
+    const getCity= await CityAvaibilityHandler.getAllCityAvailabilitycustomer();
     if(!getCity) return res.status(400).json(getCity);
     res.status(200).json(getCity);
 })
-
+router.get("/getallavaibilitycityadmin",async(req,res)=>{
+    const getCity= await CityAvaibilityHandler.getAllCityAvailabilityadmin();
+    if(!getCity) return res.status(400).json(getCity);
+    res.status(200).json(getCity);
+})
 module.exports=router;

@@ -80,7 +80,35 @@ module.exports = {
 //     });
 //   },
 
-  getAllCityAvailability: async () => {
+  getAllCityAvailabilityadmin: async () => {
+    return new Promise(async (resolve) => {
+      try {
+
+          CityAvailability.find({})
+          .populate("city", "id cityName")
+          .exec((error, data) => {
+            if (error)
+          if (err)
+            return resolve({
+              status: false,
+              message: "Please try after some time",
+            });
+          if (data)
+            return resolve({
+              status: true,
+              data: data,
+              message: "locality retrieved successfully",
+            });
+        });
+      } catch (error) {
+        return resolve({
+          status: false,
+          message: "Please try after some time",
+        });
+      }
+    });
+  },
+  getAllCityAvailabilitycustomer: async () => {
     return new Promise(async (resolve) => {
       try {
 

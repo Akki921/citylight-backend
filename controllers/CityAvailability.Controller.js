@@ -108,15 +108,15 @@ module.exports = {
       }
     });
   },
-  getAllCityAvailabilitycustomer: async () => {
+  getAllCityAvailabilitycustomer: async (id) => {
+    console.log(id);
     return new Promise(async (resolve) => {
       try {
 
-          CityAvailability.find({"availability": true})
+          CityAvailability.find({"availability": true, "city": { "_id":id, }})
           .populate("city", "id cityName")
           .exec((error, data) => {
-            if (error)
-          if (err)
+          if (error)
             return resolve({
               status: false,
               message: "Please try after some time",

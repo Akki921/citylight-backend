@@ -10,8 +10,9 @@ router.post("/addavaibilitycity",async(req,res)=>{
     res.status(200).json(addCity);
 })
 
-router.get("/getallavaibilitycity",async(req,res)=>{
-    const getCity= await CityAvaibilityHandler.getAllCityAvailabilitycustomer();
+router.get("/getallavaibilitycity/:id",async(req,res)=>{
+    console.log('req.params.id,',req.params.id);
+    const getCity= await CityAvaibilityHandler.getAllCityAvailabilitycustomer(req.params.id);
     if(!getCity) return res.status(400).json(getCity);
     res.status(200).json(getCity);
 })

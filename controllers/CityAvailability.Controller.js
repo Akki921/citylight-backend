@@ -84,7 +84,7 @@ module.exports = {
     return new Promise(async (resolve) => {
       try {
 
-          CityAvailability.find({})
+          CityAvailability.find({"availability": true})
           .populate("city", "id cityName")
           .exec((error, data) => {
             if (error)

@@ -15,6 +15,7 @@ const BrandRoute=require("./routes/brand.route");
 const WalletRoute=require("./routes/Wallet.route");
 const RefferalRoute=require("./routes/refferal.route");
 const CityRoute =require("./routes/city.route");
+const CityAvaibilityRoute =require("./routes/cityAvailability.route");
 const StockRoute =require("./routes/stock.route");
 const OrderRoute =require("./routes/order.route");
 const SubscriptionRoute =require("./routes/subscription.route");
@@ -65,6 +66,7 @@ mongoose
   app.use("/api/coupanCode",coupanCode);
   app.use("/api/refferal",RefferalRoute);
   app.use("/api/city",CityRoute);
+  app.use("/api/cityavaibility",CityAvaibilityRoute);
   app.use("/api/stock",StockRoute);
   app.use("/api/order",OrderRoute);
   app.use("/api/subscription",SubscriptionRoute);

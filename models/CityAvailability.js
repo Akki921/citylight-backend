@@ -2,36 +2,30 @@ const mongoose = require("mongoose");
 
 const cityAvailabilitySchema = new mongoose.Schema({
   city: {
-    // id:mongoose.Schema.Types.ObjectId, ref:"City",
-    type:String
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "City",
   },
-  locality:{
-      type:String,
-  },
-  availability:{
-      type:Boolean,
-      default:false,
-  },
-  time:{
-type:String,
-},
-  isDeleted: {
-    type: Boolean,
-    default: false,
-  },
-  createdDate: {
-    type: Date,
-  },
-  createdBy: {
+  locality: {
     type: String,
-    default:"admin"
   },
-  modifiedDate: {
-    type: Date,
+  availability: {
+    type: Boolean,
+  },
+  morning: {
+    type: Boolean,
+  },
+  evening: {
+    type: Boolean, 
+  },
+  morningtime: {
+    type: String,
+  },
+  eveningtime: {
+    type: String,
   },
   modifiedBy: {
     type: String,
-    default:"admin"
+    default: "admin",
   },
 });
 

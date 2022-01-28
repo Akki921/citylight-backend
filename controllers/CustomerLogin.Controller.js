@@ -7,27 +7,7 @@ module.exports = {
       console.log(Data);
       try {
         CustomerLogin.findOne({ phone: Data.phone }).exec((err, data) => {
-          if (data) {
-            const otp = generateOTP(6);
-                console.log("otp", otp);
-            //var newLogin = new CustomerLogin({
-           //   phone: Data.phone,
-            //      phone: Data.phone,
-            // });
-            // newLogin.save(async (error, Login) => {
-            //   if (error)
-            //     return resolve({
-            //       status: false,
-            //       message: "Please try after some time",
-            //     });
-            //   if (Login) {
-            //     return resolve({
-            //       status: true,
-            //       data: Login,
-            //       message: "Login has been created",
-            //     });
-            //   }
-            // });
+          if (data) { 
             CustomerLogin.findOneAndUpdate(
               { _id: data._id },
               {
@@ -53,7 +33,7 @@ module.exports = {
                 }
               });
           } else {
-            const otp = generateOTP(6);
+            const otp = generateOTP(4);
             console.log("otp", otp);
             var newLogin = new CustomerLogin({
               phone: Data.phone,

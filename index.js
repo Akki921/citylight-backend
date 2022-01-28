@@ -3,6 +3,7 @@ const path = require("path");
 const app = express();
 const roleRoute = require("./routes/role.router");
 const userRoute = require("./routes/User.route");
+const cLoginRoute = require("./routes/coustomerlogin.route");
 const userRoleRoute = require("./routes/userRole.route");
 const settingRoute=require("./routes/setting.route");
 const mongoose = require("mongoose");
@@ -57,6 +58,8 @@ mongoose
   app.use("/api/userrole", userRoleRoute);
   app.use("/api/role", roleRoute);
   app.use("/api/user", userRoute);
+  app.use("/api/login", cLoginRoute);
+  
   app.use("/api/setting", settingRoute);
   app.use("/api/module",moduleRoute);
   app.use("/api/brand",BrandRoute);

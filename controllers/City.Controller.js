@@ -5,6 +5,7 @@ module.exports = {
 
   createCity: async (cityData) => {
     return new Promise(async (resolve) => {
+      console.log(cityData);
       try {
             City.findOne({"cityName": cityData.cityName }
          )

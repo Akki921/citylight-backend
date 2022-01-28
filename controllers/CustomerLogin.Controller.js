@@ -8,6 +8,7 @@ module.exports = {
       try {
         CustomerLogin.findOne({ phone: Data.phone }).exec((err, data) => {
           if (data) { 
+           if (data.city !== undefined || data.locality !== undefined ) {
             CustomerLogin.findOneAndUpdate(
               { _id: data._id },
               {
@@ -32,6 +33,32 @@ module.exports = {
                   });
                 }
               });
+           } else {
+            CustomerLogin.findOneAndUpdate(
+              { _id: data._id },
+              {
+                phone:data.phone,
+                phoneotp:data.phoneotp,
+                city:Data.city,
+                locality:Data.locality,
+              },
+              { new: true, upsert: true }
+            ).exec((err, data) => { 
+              if (data) {
+                  return resolve({
+                    status: true,
+                    message: "login details  is updated !",
+                    data: data,
+                  });
+                } else if (err) {
+                  return resolve({
+                    status: false,
+                    message: "login details is updating failed !",
+                    data: data,
+                  });
+                }
+              });
+           }
           } else {
             const otp = generateOTP(4);
             console.log("otp", otp);

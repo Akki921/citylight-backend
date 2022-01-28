@@ -8,7 +8,8 @@ module.exports = {
       try {
         CustomerLogin.findOne({ phone: Data.phone }).exec((err, data) => {
           if (data) { 
-           if (data.city !== undefined || data.locality !== undefined ) {
+            console.log(Data,data);
+           if (Data.city === undefined &&  Data.locality === undefined ) {
             CustomerLogin.findOneAndUpdate(
               { _id: data._id },
               {
@@ -34,6 +35,7 @@ module.exports = {
                 }
               });
            } else {
+             console.log('inside else',Data.city);
             CustomerLogin.findOneAndUpdate(
               { _id: data._id },
               {

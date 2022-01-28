@@ -6,8 +6,7 @@ const cityAvailabilitySchema = new mongoose.Schema({
     ref: "City",
   },
   locality: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "CityAvailability", 
+    type: String,
   },
   availability: {
     type: Boolean,

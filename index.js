@@ -19,6 +19,7 @@ const CityRoute =require("./routes/city.route");
 const CityAvaibilityRoute =require("./routes/cityAvailability.route");
 const StockRoute =require("./routes/stock.route");
 const OrderRoute =require("./routes/order.route");
+const CustomerProfile =require("./routes/CustomerProfile.route");
 const SubscriptionRoute =require("./routes/subscription.route");
 const cors = require("cors");
 const multer = require("multer");
@@ -59,7 +60,7 @@ mongoose
   app.use("/api/role", roleRoute);
   app.use("/api/user", userRoute);
   app.use("/api/login", cLoginRoute);
-  
+  app.use("/api/profile", CustomerProfile);
   app.use("/api/setting", settingRoute);
   app.use("/api/module",moduleRoute);
   app.use("/api/brand",BrandRoute);

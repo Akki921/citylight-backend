@@ -176,4 +176,34 @@ createcProfile: async (Data) => {
       }
     });
   },
+
+  getprofilebyloginid: async (id) => {
+    console.log(id);
+    return new Promise(async (resolve) => {
+      try {
+
+        CustomerProfile.find({ "login": { "_id":id, }})
+          .populate("city", "id cityName")
+          .populate("locality", "id locality")
+          .exec((error, data) => {
+          if (error)
+            return resolve({
+              status: false,
+              message: "Please try after some time",
+            });
+          if (data)
+            return resolve({
+              status: true,
+              data: data,
+              message: "customer profile retrieved successfully",
+            });
+        });
+      } catch (error) {
+        return resolve({
+          status: false,
+          message: "Please try after some time",
+        });
+      }
+    });
+  },
 };

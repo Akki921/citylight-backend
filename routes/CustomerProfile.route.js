@@ -21,5 +21,11 @@ router.get("/getallProfile",async(req,res)=>{
     if(!addProfile) return res.status(400).json(addProfile);
     res.status(200).json(addProfile);
 })
+router.get("/getcustomerprofile/:id",async(req,res)=>{
+    console.log('req.params.id,',req.params.id);
+    const addProfile= await CustomerProfileHandler.getprofilebyloginid(req.params.id);
+    if(!addProfile) return res.status(400).json(addProfile);
+    res.status(200).json(addProfile);
+})
 
 module.exports=router;

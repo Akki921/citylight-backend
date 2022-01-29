@@ -10,6 +10,12 @@ router.post("/createProfile",async(req,res)=>{
     res.status(200).json(addProfile);
 })
 
+router.post("/createcProfile",async(req,res)=>{
+    const addProfile=await CustomerProfileHandler.createcProfile(req.body);
+    if(!addProfile) return res.status(400).json(addProfile);
+    res.status(200).json(addProfile);
+})
+
 router.get("/getallProfile",async(req,res)=>{
     const addProfile= await CustomerProfileHandler.getProfiles();
     if(!addProfile) return res.status(400).json(addProfile);

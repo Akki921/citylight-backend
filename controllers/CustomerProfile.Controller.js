@@ -106,34 +106,74 @@ module.exports = {
     });
   },
 
-//   editCityAvailability: async (CityData)=>{
-//     return new Promise(async (resolve) => {
-//         try {
-//           CityAvailability.findOneAndUpdate({_id:CityData._id},{ CityName: CityData.CityName,
-
-//             },{new:true,upsert:true}).exec((err, data) => { 
-//                 if( data){
-//                     return resolve({
-//                         status: true,
-//                         message: "City Availability is updated !",
-//                         data:data,
-//                       });
-//                    }else if(err){
-//                     return resolve({
-//                         status: false,
-//                         message: "City Availability updating failed !",
-//                         data:data,
-//                       });
-//                    }
-//             });
+//   
+createcProfile: async (Data) => {
+    return new Promise(async (resolve) => {
+      console.log(Data);
+      try {
+        CustomerProfile.findOne({ login: Data.login }).exec((err, data) => {
+          if (data) { 
+            CustomerProfile.findOneAndUpdate(
+                { _id: data._id },
+                {
+                    login: data.login,
+                    username: data.username,
+                    houseno: data.houseno,
+                    address: data.address,
+                    city: data.city,
+                    locality: data.locality,
+                    ringtheBell: data.ringtheBell,
+                },
+                { new: true, upsert: true }
+              ).exec((err, data) => { 
+                if (data) {
+                    return resolve({
+                      status: true,
+                      message: "login details  is updated !",
+                      data: data,
+                    });
+                  } else if (err) {
+                    return resolve({
+                      status: false,
+                      message: "login details is updating failed !",
+                      data: data,
+                    });
+                  }
+                });
+          } else {
            
-//         } catch (error) {
-//             return resolve({
-//               status: false,
-//               message: "Please try after some time"+e,
-//             });
-//           }
-//         });
-//   },
-
+            var newCustomerProfile = new CustomerProfile({
+                login: Data.login,
+                username: Data.username,
+                houseno: Data.houseno,
+                address: Data.address,
+                city: Data.city,
+                locality: Data.locality,
+                ringtheBell: Data.ringtheBell,
+            });
+            newCustomerProfile.save(async (error, Profile) => {
+              if (error)
+                return resolve({
+                  status: false,
+                  message: "Please try after some time",
+                });
+              if (Profile) {
+              
+                return resolve({
+                  status: true,
+                  data: Profile,
+                  message: "Profile has been created",
+                });
+              }
+            });
+          }
+        });
+      } catch (error) {
+        return resolve({
+          status: false,
+          message: "Please try after some time" + error,
+        });
+      }
+    });
+  },
 };

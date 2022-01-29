@@ -24,13 +24,9 @@ const CustomerProfileSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "CityAvailability",
   },
-  isActive: {
+  ringtheBell: {
     type: Boolean,
-    default: true,
-  },
-  isDeleted: {
-    type: Boolean,
-    default: false,
+    default:true,
   },
  
 });

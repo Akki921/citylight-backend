@@ -113,12 +113,12 @@ module.exports = {
 
   updateStock: async (stockData) => {
     return new Promise(async (resolve) => {
-      console.log(stockData);
+      console.log('stockData,',stockData);
       try {
         let rests = Stock.findOneAndUpdate(
             { _id: stockData.id },
             {
-             stockName: stockData.categoryname,
+             stockName: stockData.stockNamec,
              category: stockData.category,
              sku: stockData.sku,
              quantity: stockData.quantity,
@@ -144,7 +144,44 @@ module.exports = {
                 });
               }
             });
-      } catch (error) {
+      } 
+      // try {
+      //   Stock.findOne({ stockName: stockData.stockName }).exec((err, data) => {
+      //     if (data) { 
+      //       console.log('inside find one',data);
+      //       Stock.findOneAndUpdate(
+      //         { _id: data.id },
+      //       {
+      //        stockName: data.stockName,
+      //        category: data.category,
+      //        sku: data.sku,
+      //        quantity: data.quantity,
+      //        deliveryToday: data.deliveryToday,
+      //        deliveryTomorrow: data.deliveryTomorrow,
+      //        city: data.city,
+      //        productType: data.productType,
+      //        tags: data.tags,
+      //       },
+      //         { new: true, upsert: true }
+      //       ).exec((err, data) => { 
+      //         if (data) {
+      //             return resolve({
+      //               status: true,
+      //               message: "Stock is updated !",
+      //               data: data,
+      //             });
+      //           } else if (err) {
+      //             return resolve({
+      //               status: false,
+      //               message: "Stock is updating failed !",
+      //             });
+      //           }
+      //         });
+           
+      //     } 
+      //   });
+      // }
+      catch (error) {
         return resolve({
           status: false,
           message: "Please try after some time" + error,
@@ -152,4 +189,46 @@ module.exports = {
       }
     });
   },
+
+  // updateStockqty: async (stockData) => {
+  //   return new Promise(async (resolve) => {
+  //     console.log(stockData);
+  //     try {
+  //       let rests = Stock.findOneAndUpdate(
+  //           { _id: stockData.id },
+  //           {
+  //            stockName: stockData.categoryname,
+  //            category: stockData.category,
+  //            sku: stockData.sku,
+  //            quantity: stockData.quantity,
+  //            deliveryToday: stockData.deliveryToday,
+  //            deliveryTomorrow: stockData.deliveryTomorrow,
+  //            city: stockData.city,
+  //            productType: stockData.productType,
+  //            tags: stockData.tags,
+  //           },
+  //           { new: true, upsert: true }
+  //         ).exec((err, data) => { 
+  //           if (data) {
+  //               return resolve({
+  //                 status: true,
+  //                 message: "stock is updated !",
+  //                 data: data,
+  //               });
+  //             } else if (err) {
+  //               return resolve({
+  //                 status: false,
+  //                 message: "stock updating failed !",
+  //                 data: data,
+  //               });
+  //             }
+  //           });
+  //     } catch (error) {
+  //       return resolve({
+  //         status: false,
+  //         message: "Please try after some time" + error,
+  //       });
+  //     }
+  //   });
+  // },
 };

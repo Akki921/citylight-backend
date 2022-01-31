@@ -91,6 +91,7 @@ module.exports = {
       try {
         Order.find({})
           .populate("customer","username")
+          .populate("product","productName ")
           .exec((error, data) => {
             if (error)
             return resolve({

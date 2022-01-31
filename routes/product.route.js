@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { createProduct,getproduct,updateproduct} = require("../controllers/Product.Controller");
+const { createProduct,getproduct,updateproduct,updateproductqty} = require("../controllers/Product.Controller");
 
 router.post(
   "/addproduct",
@@ -9,7 +9,8 @@ router.post(
 
 router.post("/editupdateProduct",
 updateproduct);
-
+router.post("/updateqty",
+updateproductqty);
 router.get("/getproduct", getproduct);
 
 // router.get("/product/deleteproduct/:id", async (req, res) => {

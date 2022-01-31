@@ -76,6 +76,7 @@ module.exports = {
                 startFrom: SubscriptionData.startFrom,
                 order: SubscriptionData.id,
                 customer: SubscriptionData.customer,
+                product: SubscriptionData.product,
                 QtyperDay: SubscriptionData.QtyperDay,
                 frequency: SubscriptionData.frequency,
                 endDate: SubscriptionData.enddate,
@@ -142,6 +143,7 @@ module.exports = {
             Subscription.find({})
               .populate("order", " orderNo orderDate orderValue coupan orderStatus qtyperday startDate product slottime productvalue")
               .populate("customer","username email")
+              .populate("product","productName")
               .exec((error, data) => {
                
                 if (error)

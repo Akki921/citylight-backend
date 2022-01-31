@@ -26,7 +26,8 @@ const orderSchema = new mongoose.Schema({
     default: "new",
   },
   product: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Product",
   },
   qtyperday: {
     type: Number,

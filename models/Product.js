@@ -6,6 +6,10 @@ const productSchema = mongoose.Schema({
     required: true,
     trim: true,
   },
+  brand: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Brand",
+  },
   category: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Category",
@@ -25,13 +29,32 @@ const productSchema = mongoose.Schema({
   tags: {
     type: String,
   },
-
+  quantity: {
+    type: Number,
+  },
+  stock: {
+    type: Boolean,
+  },
+  price: {
+    type: Number,
+  },
+  sellingprice: {
+    type: Number,
+  },
+  offerprice: {
+    type: Number,
+  },
+  offerfornewcustomer: {
+    type: Number,
+  },
+  thumbnail: {
+    type: String,
+  },
   productImage: {
     type: String,
   },
-
-  thumbnail: {
-    type: String,
+  createdDate: {
+    type: Date,
   },
 });
 module.exports = new mongoose.model("Product", productSchema);

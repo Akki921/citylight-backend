@@ -81,8 +81,9 @@ mongoose
   const fileStorageEngine = multer.diskStorage({
     destination: (req, file, cb) => {
       let pathimage = path.join(
-        "D:/Adee infotech/AKSHAY/developerzonehere-countrydelight-dfe810547ff2/src/",
-        "uploads"
+        // "D:/Adee infotech/AKSHAY/developerzonehere-countrydelight-dfe810547ff2/src/",
+        // "uploads"
+       './uploads','product'
       );
       if (!fs.existsSync(pathimage)) {
         fs.mkdirSync(pathimage, { recursive: true });

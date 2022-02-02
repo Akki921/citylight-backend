@@ -1,3 +1,4 @@
+const { ObjectId } = require("mongodb");
 const Subscription = require("../models/Subscription");
 module.exports = {
   // createSubscription: async (SubscriptionData) => {
@@ -141,10 +142,10 @@ module.exports = {
     return new Promise(async (resolve) => {
       console.log(datas);
       try {
-        Subscription.findOneAndUpdate({ _id: datas.sid }).exec((err, data) => {
+        Subscription.findOne({ _id:new ObjectId(`${datas.subid}`) }).exec((err, data) => {
           console.log(data);
           if (data) {
-            if (isSelected === undefined) {
+            if (datas.isSelected === undefined) {
               Subscription.findOneAndUpdate(
                 { _id: data._id },
                 {
@@ -163,13 +164,13 @@ module.exports = {
                 { new: true, upsert: true }
               ).exec((err, data) => {
                 if (data) {
-                  return res.status(200).json({
+                  return  resolve({
                     status: true,
                     message: "subscription details  is updated !",
                     data: data,
                   });
                 } else if (err) {
-                  return res.status(200).json({
+                  return  resolve({
                     status: false,
                     message: "subscription details is updating failed !",
                     data: data,
@@ -178,7 +179,7 @@ module.exports = {
               });
             } else {
               console.log("inside else");
-              Product.findOneAndUpdate(
+         
                 Subscription.findOneAndUpdate(
                   { _id: data._id },
                   {
@@ -197,20 +198,19 @@ module.exports = {
                   { new: true, upsert: true }
                 ).exec((err, data) => {
                   if (data) {
-                    return res.status(200).json({
+                    return resolve({
                       status: true,
                       message: "subscription   is updated !",
                       data: data,
                     });
                   } else if (err) {
-                    return res.status(200).json({
+                    return  resolve({
                       status: false,
                       message: "subscription   details is updating failed !",
                       data: data,
                     });
                   }
                 })
-              );
             }
           }
         });

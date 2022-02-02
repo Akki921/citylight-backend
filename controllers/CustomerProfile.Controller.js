@@ -119,6 +119,7 @@ createcProfile: async (Data) => {
                 {
                     login: data.login,
                     username: data.username,
+                    phone: data.phone,
                     houseno: data.houseno,
                     address: data.address,
                     city: data.city,
@@ -147,6 +148,7 @@ createcProfile: async (Data) => {
                 login: Data.login,
                 username: Data.username,
                 houseno: Data.houseno,
+                phone: Data.phone,
                 address: Data.address,
                 city: Data.city,
                 locality: Data.locality,

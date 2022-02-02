@@ -137,6 +137,35 @@ module.exports = {
     });
   },
 
+  updateisselected: async (datas) => {
+    return new Promise(async (resolve) => {
+      try {
+        Subscription.findOneAndUpdate(
+          { _id: datas._id },
+          { isSelected: datas.isSelected },
+          { new: true, upsert: true }
+        ).exec((err, data) => {
+          if (err)
+            return resolve({
+              status: false,
+              message: "Please try after some time" + err,
+            });
+          if (data)
+            return resolve({
+              status: true,
+              data: data,
+              message: "Data retrieved successfully",
+            });
+        });
+      } catch (error) {
+        return resolve({
+          status: false,
+          message: "Please try after some time2" + error,
+        });
+      }
+    });
+  },
+
   getAllSubscription: async () => {
     return new Promise(async (resolve) => {
         try {

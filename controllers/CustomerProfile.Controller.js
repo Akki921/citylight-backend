@@ -22,6 +22,7 @@ module.exports = {
             var newprofile = new CustomerProfile({
               login: Data.login,
               username: Data.username,
+              phone: Data.phone,
               houseno: Data.houseno,
               address: Data.address,
               city: Data.city,

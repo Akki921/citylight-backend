@@ -24,4 +24,9 @@ router.post("/updatesubscription", async (req, res, next) => {
     res.status(200).json(stockUpdate);
   });
 
+  router.post("/updateisselected", async (req, res, next) => {
+    let subscriptionupdate = await SubscriptionHandler.updateisSelcted(req.body);
+    if (!subscriptionupdate.status) return res.status(400).json(subscriptionupdate);
+    res.status(200).json(subscriptionupdate);
+  });
 module.exports=router;

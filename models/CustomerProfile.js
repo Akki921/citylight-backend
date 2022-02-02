@@ -10,6 +10,9 @@ const CustomerProfileSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  phone: {
+    type: Number,
+  },
   houseno: {
     type: String,
   },

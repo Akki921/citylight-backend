@@ -257,6 +257,72 @@ module.exports = {
     });
   },
 
+  updateAllSelcted: async (datas) => {
+    return new Promise(async (resolve) => {
+      console.log(datas);
+   
+  console.log(datas);
+      try {
+      
+            if (datas.isSelected === false) {
+              Subscription.updateMany(
+               {isSelected: true},
+                {
+                  $set: {  isSelected:false }
+                },
+                { new: true, upsert: true }
+              ).exec((err, data) => {
+                if (data) {
+                  return  resolve({
+                    status: true,
+                    message: "subscription details  is updated !",
+                    data: data,
+                  });
+                } else if (err) {
+                  return  resolve({
+                    status: false,
+                    message: "subscription details is updating failed !",
+                    data: data,
+                  });
+                }
+              });
+            } else {
+              console.log("inside else");
+         
+                Subscription.updateMany(
+                  {isSelected: false},
+                  {
+                    $set: {  isSelected:true }
+                  },
+                  { new: true, upsert: true }
+                ).exec((err, data) => {
+                  if (data) {
+                    return resolve({
+                      status: true,
+                      message: "subscription   is updated !",
+                      data: data,
+                    });
+                  } else if (err) {
+                    return  resolve({
+                      status: false,
+                      message: "subscription   details is updating failed !",
+                      data: data,
+                    });
+                  }
+                })
+            }
+      } catch (error) {
+        return resolve({
+          status: false,
+          message: "Please try after some time2" + error,
+        });
+      }
+    });
+  },
+
+
+
+
   // editupdatecategory: async (CategoryData) => {
   //   return new Promise(async (resolve) => {
   //    // console.log('CategoryData',CategoryData)

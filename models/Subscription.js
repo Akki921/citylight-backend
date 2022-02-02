@@ -36,6 +36,10 @@ const subscriptionSchema = new mongoose.Schema({
     type:Boolean,
     default:false
   },
+ isSelected :{
+    type:Boolean,
+    default:false
+  },
   // nosubscriptionFrom:{
   //   type:String,
   // },

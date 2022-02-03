@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const app = express();
+const addressRoute = require("./routes/addressslip.route");
 const roleRoute = require("./routes/role.router");
 const userRoute = require("./routes/User.route");
 const cLoginRoute = require("./routes/coustomerlogin.route");
@@ -56,6 +57,8 @@ mongoose
   app.use(cors());
    
   //Route middleware
+
+  app.use("/api/address",  addressRoute);
   app.use("/api/userrole", userRoleRoute);
   app.use("/api/role", roleRoute);
   app.use("/api/user", userRoute);

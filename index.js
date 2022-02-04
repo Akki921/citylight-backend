@@ -78,7 +78,7 @@ mongoose
   app.use("/api/order",OrderRoute);
   app.use("/api/subscription",SubscriptionRoute);
   //app.use('/uploads', express.static(path.join(__dirname, '/uploads/product')));
-  app.use('/uploads', express.static('uploads'));
+  app.use('/uploads/product', express.static('uploads'));
  
  
   const fileStorageEngine = multer.diskStorage({
@@ -108,6 +108,11 @@ mongoose
     res.send("single file upload succecsfuly");
   });
 
+  var single = upload.fields([{ name: "catimg"}]);
+  app.post("/catimg",single, (req, res) => {
+    console.log(req.file);
+    res.send("single file upload succecsfuly");
+  });
 app.listen(PORT,()=>{
     console.log(`server running at port:${PORT}`)
 })

@@ -13,7 +13,7 @@ const orderSchema = new mongoose.Schema({
     ref: "User",
   },
   startDate: {
-    type: String,
+    type: Array,
   },
   orderValue: {
     type: Number,
@@ -35,9 +35,7 @@ const orderSchema = new mongoose.Schema({
   frequency: {
     type: String,
   },
-  endDate: {
-    type: String,
-  },
+
 });
 
 module.exports = new mongoose.model("Order", orderSchema);

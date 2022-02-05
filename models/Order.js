@@ -10,7 +10,7 @@ const orderSchema = new mongoose.Schema({
   },
   customer: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: "CustomerLogin",
   },
   startDate: [{Start:Date, qtyperday:Number}],
   orderValue: {
@@ -25,6 +25,13 @@ const orderSchema = new mongoose.Schema({
   },
   frequency: {
     type: String,
+  },
+  address: {
+    type: String,
+  },
+  locality: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "CityAvailability",
   },
 });
 

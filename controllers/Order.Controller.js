@@ -26,6 +26,8 @@ module.exports = {
                 product:OrderData.product,
                 qtyperday:OrderData.qtyperday,
                 frequency:OrderData.frequency,
+                address:OrderData.address,
+                locality:OrderData.locality,
               });
               newOrder.save(async (error, Order) => {
                 if (error)
@@ -88,6 +90,36 @@ module.exports = {
     return new Promise(async (resolve) => {
       try {
         Order.find({})
+          .populate("customer","username")
+          .populate("product","productName ")
+          .exec((error, data) => {
+            if (error)
+            return resolve({
+                status: true,
+                data: data,
+                message: "Order retrieved successfully",
+              });
+            if (data) {
+              return resolve({
+                status: true,
+                data: data,
+                message: "Order retrieved successfully",
+              });
+            }
+          });
+      } catch (error) {
+        return resolve({
+          status: false,
+          message: "Please try after some time",
+        });
+      }
+    });
+  },
+
+  getOrderbyloginid: async (id) => {
+    return new Promise(async (resolve) => {
+      try {
+        Order.find({'customer': { "_id":id }})
           .populate("customer","username")
           .populate("product","productName ")
           .exec((error, data) => {

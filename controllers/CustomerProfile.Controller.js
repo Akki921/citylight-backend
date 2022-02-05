@@ -86,7 +86,11 @@ module.exports = {
   getProfiles: async () => {
     return new Promise(async (resolve) => {
       try {
-        CustomerProfile.find({}, async (err, data) => {
+        CustomerProfile.find({})
+          .populate("login","phone")
+          .populate("city","cityName")
+          .populate("locality","locality")
+          .exec((err, data) => {
           if (err)
             return resolve({
               status: false,

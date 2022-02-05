@@ -3,59 +3,58 @@ const CustomerProfile= require("../models/CustomerProfile");
 const CityAvailability = require("../models/CityAvailability");
 module.exports = {
 
-  createCustomerProfile: async (Data) => {
-    return new Promise(async (resolve) => {
-      console.log(Data);
-      try {
-        CustomerProfile.findOne({"login": Data.login }
-         )
-          .exec((err, data) => {         
+  // createCustomerProfile: async (Data) => {
+  //   return new Promise(async (resolve) => {
+  //     console.log(Data);
+  //     try {
+  //       CustomerProfile.findOne({"login": Data.login }
+  //        )
+  //         .exec((err, data) => {         
            
-            if (data)
-            {
-              return resolve({
-                status: true,
-                message: "profile is already created !",
-                data:data,
-              });
-            }else{
-            var newprofile = new CustomerProfile({
-              login: Data.login,
-              username: Data.username,
-              phone: Data.phone,
-              houseno: Data.houseno,
-              address: Data.address,
-              city: Data.city,
-              locality: Data.locality,
-              ringtheBell: Data.ringtheBell,
-              slottime: Data.slottime,
-              note: Data.note,
-            });
-            newprofile.save(async (error, data) => {
-              if (error)
-                return resolve({
-                  status: false,
-                  message: "Please try after some time",
-                });
-                if(data){
-              return resolve({
-                status: true,
-                data: City,
-                message: "Profile has been created",
-              });
-            }
-            });
-            }
-          }
-        );
-      } catch (error) {
-        return resolve({
-          status: false,
-          message: "Please try after some time"+error,
-        });
-      }
-    });
-  },
+  //           if (data)
+  //           {
+  //             return resolve({
+  //               status: true,
+  //               message: "profile is already created !",
+  //               data:data,
+  //             });
+  //           }else{
+  //           var newprofile = new CustomerProfile({
+  //             login: Data.login,
+  //             username: Data.username,
+  //             phone: Data.phone,
+  //             houseno: Data.houseno,
+  //             address: Data.address,
+  //             city: Data.city,
+  //             locality: Data.locality,
+  //             ringtheBell: Data.ringtheBell,
+  //             slottime: Data.slottime,
+  //           });
+  //           newprofile.save(async (error, data) => {
+  //             if (error)
+  //               return resolve({
+  //                 status: false,
+  //                 message: "Please try after some time",
+  //               });
+  //               if(data){
+  //             return resolve({
+  //               status: true,
+  //               data: City,
+  //               message: "Profile has been created",
+  //             });
+  //           }
+  //           });
+  //           }
+  //         }
+  //       );
+  //     } catch (error) {
+  //       return resolve({
+  //         status: false,
+  //         message: "Please try after some time"+error,
+  //       });
+  //     }
+  //   });
+  // },
 
 //   getCityByID: async (data) => {
 //     return new Promise(async (resolve) => {
@@ -128,7 +127,6 @@ createcProfile: async (Data) => {
                     locality: data.locality,
                     ringtheBell: data.ringtheBell,
                     slottime: data.slottime,
-                    note: data.note,
                 },
                 { new: true, upsert: true }
               ).exec((err, data) => { 
@@ -158,7 +156,6 @@ createcProfile: async (Data) => {
                 locality: Data.locality,
                 ringtheBell: Data.ringtheBell,
                 slottime: data.slottime,
-                note: Data.note,
             });
             newCustomerProfile.save(async (error, Profile) => {
               if (error)

@@ -34,6 +34,9 @@ const CustomerProfileSchema = new mongoose.Schema({
   slottime: {
     type: String,
   },
+  slottime: {
+    type: String,
+  },
 });
 
 module.exports = new mongoose.model("CustomerProfile", CustomerProfileSchema);

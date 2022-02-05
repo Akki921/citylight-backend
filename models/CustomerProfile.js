@@ -31,6 +31,12 @@ const CustomerProfileSchema = new mongoose.Schema({
     type: Boolean,
     default:true,
   },
+  slottime: {
+    type: String,
+  },
+  note: {
+    type: String,
+  },
  
 });
 

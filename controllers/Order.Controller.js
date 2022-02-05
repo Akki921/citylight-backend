@@ -26,8 +26,6 @@ module.exports = {
                 product:OrderData.product,
                 qtyperday:OrderData.qtyperday,
                 frequency:OrderData.frequency,
-                endDate:OrderData.endDate,
-                orderStatus:OrderData.orderStatus,
               });
               newOrder.save(async (error, Order) => {
                 if (error)
@@ -55,36 +53,36 @@ module.exports = {
     });
   },
 
-  updateStatus: async (datas) => {
-    return new Promise(async (resolve) => {
-        console.log(datas)
-      try {
-        Order.findOneAndUpdate(
-          { _id: datas.id },
-          { orderStatus:datas.status },
-          { new: true, upsert: true }
-        ).exec((err, data) => {
-          if (err)
-            return resolve({
-              status: false,
-              message: "Please try after some time" + err,
-            });
-          if (data)
-            return resolve({
-              status: true,
-              data: data,
-              message: "ordar status retrieved successfully",
-            });
-        });
-      } catch (error) {
-        return resolve({
-          status: false,
-          data: data,
-          message: "Please try after some time2" + error,
-        });
-      }
-    });
-  },
+  // updateStatus: async (datas) => {
+  //   return new Promise(async (resolve) => {
+  //       console.log(datas)
+  //     try {
+  //       Order.findOneAndUpdate(
+  //         { _id: datas.id },
+  //         { orderStatus:datas.status },
+  //         { new: true, upsert: true }
+  //       ).exec((err, data) => {
+  //         if (err)
+  //           return resolve({
+  //             status: false,
+  //             message: "Please try after some time" + err,
+  //           });
+  //         if (data)
+  //           return resolve({
+  //             status: true,
+  //             data: data,
+  //             message: "ordar status retrieved successfully",
+  //           });
+  //       });
+  //     } catch (error) {
+  //       return resolve({
+  //         status: false,
+  //         data: data,
+  //         message: "Please try after some time2" + error,
+  //       });
+  //     }
+  //   });
+  // },
 
   getAllOrder: async () => {
     return new Promise(async (resolve) => {

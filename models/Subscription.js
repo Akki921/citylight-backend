@@ -8,9 +8,7 @@ const subscriptionSchema = new mongoose.Schema({
      subDate: {
         type: String,
       },
-      startFrom: {
-        type: String,
-      },
+      startFrom: [{Start:Date, qtyperday:Number}], 
       order: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Order"
@@ -29,9 +27,6 @@ const subscriptionSchema = new mongoose.Schema({
       frequency :{
         type:String,
     },
-    endDate:{
-      type:String,
-  },
   iscancle:{
     type:Boolean,
     default:false
@@ -40,12 +35,6 @@ const subscriptionSchema = new mongoose.Schema({
     type:Boolean,
     default:false
   },
-  // nosubscriptionFrom:{
-  //   type:String,
-  // },
-  // nosubscriptionTo:{
-  //   type:String,
-  // },
 });
 
 module.exports = new mongoose.model("Subscription", subscriptionSchema);

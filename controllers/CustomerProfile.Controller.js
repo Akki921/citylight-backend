@@ -28,6 +28,8 @@ module.exports = {
               city: Data.city,
               locality: Data.locality,
               ringtheBell: Data.ringtheBell,
+              slottime: Data.slottime,
+              note: Data.note,
             });
             newprofile.save(async (error, data) => {
               if (error)
@@ -125,6 +127,8 @@ createcProfile: async (Data) => {
                     city: data.city,
                     locality: data.locality,
                     ringtheBell: data.ringtheBell,
+                    slottime: data.slottime,
+                    note: data.note,
                 },
                 { new: true, upsert: true }
               ).exec((err, data) => { 
@@ -153,6 +157,8 @@ createcProfile: async (Data) => {
                 city: Data.city,
                 locality: Data.locality,
                 ringtheBell: Data.ringtheBell,
+                slottime: data.slottime,
+                note: Data.note,
             });
             newCustomerProfile.save(async (error, Profile) => {
               if (error)

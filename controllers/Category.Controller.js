@@ -1,7 +1,7 @@
 const Category = require("../models/Category");
 module.exports = {
   createCategory: async (CategoryData) => {
-
+console.log(CategoryData);
     return new Promise(async (resolve) => {
       try {
        // console.log('CategoryData',CategoryData);
@@ -20,6 +20,7 @@ module.exports = {
                 CategoryName: CategoryData.name,
                 Description: CategoryData.discription,
                 Status: CategoryData.status,
+                categoryImage: CategoryData.catimage,
                 createdDate: new Date(),
                 // createdBy: CategoryData.userId,
               });
@@ -54,7 +55,8 @@ module.exports = {
       try {
         Category.findOneAndUpdate(
           { _id: datas._id },
-          { Status: datas.Status },
+          { Status: datas.Status, 
+            categoryImage: datas.catimage,},
           { new: true, upsert: true }
         ).exec((err, data) => {
           if (err)
@@ -113,6 +115,7 @@ module.exports = {
             CategoryName: CategoryData.categoryname,
             Description: CategoryData.discription,
             Status: CategoryData.status,
+            categoryImage: CategoryData.catimage,
           },
           { new: true, upsert: true }
         ).exec((err, data) => {

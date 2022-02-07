@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 const walletSchema = new mongoose.Schema({
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'CustomerLogin', required: true },
     FirstName:{type:String},
-    email:{type:String},
+    Mobile:{type:Number},
     availableBalance:{type: Number, default: 0}
 })
     

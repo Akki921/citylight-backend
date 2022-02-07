@@ -25,7 +25,7 @@ module.exports = {
             var newWallet = new Wallet({
               userId: WalletData.userId,
               FirstName: WalletData.FirstName,
-              email: WalletData.email,
+              Mobile: WalletData.mobile,
               CreatedDate: new Date(),
               CreatedBy: 0,
             });

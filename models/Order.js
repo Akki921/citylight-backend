@@ -10,7 +10,7 @@ const orderSchema = new mongoose.Schema({
   },
   customer: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "CustomerLogin",
+    ref: "CustomerProfile",
   },
   startDate: [{Start:Date, qtyperday:Number}],
   orderValue: {

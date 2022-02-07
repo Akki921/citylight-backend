@@ -15,7 +15,7 @@ const subscriptionSchema = new mongoose.Schema({
       },
       customer: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
+        ref: "CustomerProfile"
       },
       product: {
         type: mongoose.Schema.Types.ObjectId,

@@ -1,6 +1,7 @@
 const CustomerLogin = require("../models/CustomerLogin");
 const CityAvailability = require("../models/CityAvailability");
 const { generateOTP, fast2sms } = require("../utils/otp.util");
+const { options } = require("../routes/role.router");
 module.exports = {
   createLogin: async (Data) => {
     return new Promise(async (resolve) => {
@@ -36,11 +37,12 @@ module.exports = {
               });
            } else {
              console.log('inside else',Data.city);
+             const otp = generateOTP(4);
             CustomerLogin.findOneAndUpdate(
               { _id: data._id },
               {
                 phone:data.phone,
-                phoneotp:data.phoneotp,
+                phoneotp:otp,
                 city:Data.city,
                 locality:Data.locality,
               },

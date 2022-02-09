@@ -323,39 +323,37 @@ module.exports = {
 
 
 
-  // editupdatecategory: async (CategoryData) => {
-  //   return new Promise(async (resolve) => {
-  //    // console.log('CategoryData',CategoryData)
-  //     try {
-  //       let rests = Category.findOneAndUpdate(
-  //         { _id: CategoryData.id },
-  //         {
-  //           CategoryName: CategoryData.categoryname,
-  //           Description: CategoryData.discription,
-  //           Status: CategoryData.status,
-  //         },
-  //         { new: true, upsert: true }
-  //       ).exec((err, data) => {
-  //         if (data) {
-  //           return resolve({
-  //             status: true,
-  //             message: "Category is updated !",
-  //             data: data,
-  //           });
-  //         } else if (err) {
-  //           return resolve({
-  //             status: false,
-  //             message: "Category updating failed !",
-  //             data: data,
-  //           });
-  //         }
-  //       });
-  //     } catch (error) {
-  //       return resolve({
-  //         status: false,
-  //         message: "Please try after some time" + e,
-  //       });
-  //     }
-  //   });
-  // },
+  getSubscriptionbyloginid: async (id) => {
+    return new Promise(async (resolve) => {
+      try {
+        Subscription.find({'customer': { "_id":id }})
+          .populate(
+            "order",
+            " orderNo orderDate orderValue coupan orderStatus qtyperday startDate product slottime productvalue"
+          )
+          .populate("customer", "username login")
+          .populate("product", "productName")
+          .exec((error, data) => {
+            if (error)
+            return resolve({
+                status: true,
+                data: data,
+                message: "Subscription retrieved successfully",
+              });
+            if (data) {
+              return resolve({
+                status: true,
+                data: data,
+                message: "Subscription retrieved successfully",
+              });
+            }
+          });
+      } catch (error) {
+        return resolve({
+          status: false,
+          message: "Please try after some time",
+        });
+      }
+    });
+  },
 };

@@ -35,4 +35,11 @@ router.post("/updatesubscription", async (req, res, next) => {
     if (!subscriptionupdate.status) return res.status(400).json(subscriptionupdate);
     res.status(200).json(subscriptionupdate);
   });
+
+  router.get("/getsubscriptionbylogin/:id",async(req,res)=>{
+    console.log('req.params.id,',req.params.id);
+    const subscriptionupdate= await SubscriptionHandler.getSubscriptionbyloginid(req.params.id);
+    if(!subscriptionupdate) return res.status(400).json(subscriptionupdate);
+    res.status(200).json(subscriptionupdate);
+  })
 module.exports=router;

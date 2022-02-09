@@ -8,13 +8,14 @@ module.exports = {
        Order.findOne({ orderNo: OrderData.orderNo }).exec(
           (err, data) => {
             if (data) {
-              Order.Update(
+              console.log('inside first id,',OrderData)
+              Order.findOneAndUpdate(
                 { _id: data._id },
                 {
-                  orderNo: OrderData.orderNo,
-                  orderDate: OrderData.orderDate,
-                  customer: OrderData.customer,
-                  startDate: OrderData.startDate,
+                  orderNo:OrderData.orderNo,
+                  orderDate:OrderData.orderDate,
+                  customer:OrderData.customer,
+                  startDate:OrderData.startDate,
                   orderValue:OrderData.orderValue,
                   coupan:OrderData.coupan,
                   product:OrderData.product,
@@ -28,13 +29,13 @@ module.exports = {
                 if (data) {
                   return  resolve({
                     status: true,
-                    message: "subscription details  is updated !",
+                    message: "order details  is updated !",
                     data: data,
                   });
                 } else if (err) {
                   return  resolve({
                     status: false,
-                    message: "subscription details is updating failed !",
+                    message: "order details is updating failed !",
                     data: data,
                   });
                 }
@@ -64,7 +65,7 @@ module.exports = {
                   return resolve({
                     status: true,
                     data: Order,
-                    message: "Category has been created",
+                    message: "order has been created",
                   });
                 }
               });

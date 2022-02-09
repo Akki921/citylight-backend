@@ -6,7 +6,7 @@ const subscriptionSchema = new mongoose.Schema({
         required: true,
       },
      subDate: {
-        type: String,
+        type: Date,
       },
       startFrom: [{Start:Date, qtyperday:Number}], 
       order: {

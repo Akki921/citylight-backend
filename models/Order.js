@@ -6,7 +6,7 @@ const orderSchema = new mongoose.Schema({
     required: true,
   },
   orderDate: {
-    type: String,
+    type: Date,
   },
   customer: {
     type: mongoose.Schema.Types.ObjectId,

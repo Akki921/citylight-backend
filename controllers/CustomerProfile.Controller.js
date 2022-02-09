@@ -159,7 +159,7 @@ createcProfile: async (Data) => {
                 city: Data.city,
                 locality: Data.locality,
                 ringtheBell: Data.ringtheBell,
-                slottime: data.slottime,
+                slottime: Data.slottime,
             });
             newCustomerProfile.save(async (error, Profile) => {
               if (error)

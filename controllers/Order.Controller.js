@@ -8,12 +8,37 @@ module.exports = {
        Order.findOne({ orderNo: OrderData.orderNo }).exec(
           (err, data) => {
             if (data) {
-              console.log("update");
-              return resolve({
-                status: true,
-                message: "order is already insert !",
-                data: data,
-              });
+              Order.Update(
+                { _id: data._id },
+                {
+                  orderNo: OrderData.orderNo,
+                  orderDate: OrderData.orderDate,
+                  customer: OrderData.customer,
+                  startDate: OrderData.startDate,
+                  orderValue:OrderData.orderValue,
+                  coupan:OrderData.coupan,
+                  product:OrderData.product,
+                  qtyperday:OrderData.qtyperday,
+                  frequency:OrderData.frequency,
+                  address:OrderData.address,
+                  locality:OrderData.locality,
+                },
+                { new: true, upsert: true }
+              ).exec((err, data) => {
+                if (data) {
+                  return  resolve({
+                    status: true,
+                    message: "subscription details  is updated !",
+                    data: data,
+                  });
+                } else if (err) {
+                  return  resolve({
+                    status: false,
+                    message: "subscription details is updating failed !",
+                    data: data,
+                  });
+                }
+              })
             } else {
               console.log("create");
               var newOrder= new Order({

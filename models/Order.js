@@ -6,13 +6,13 @@ const orderSchema = new mongoose.Schema({
     required: true,
   },
   orderDate: {
-    type: String,
+    type: Date,
   },
   customer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "CustomerProfile",
   },
-  startDate: [{Start:String, qtyperday:Number}],
+  startDate: [{Start:Date, qtyperday:Number}],
   orderValue: {
     type: Number,
   },

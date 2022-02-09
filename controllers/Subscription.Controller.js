@@ -65,7 +65,7 @@ module.exports = {
         Subscription.findOne({ subNo: SubscriptionData.no }).exec(
           (err, data) => {
             if (data) {
-              Subscription.Update(
+              Subscription.findOneAndUpdate(
                 { _id: data._id },
                 {
                 subNo: SubscriptionData.subNo,

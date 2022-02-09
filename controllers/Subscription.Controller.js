@@ -65,11 +65,35 @@ module.exports = {
         Subscription.findOne({ subNo: SubscriptionData.no }).exec(
           (err, data) => {
             if (data) {
-              return resolve({
-                status: true,
-                message: "Subscription is already insert !",
-                data: data,
-              });
+              Subscription.Update(
+                { _id: data._id },
+                {
+                subNo: SubscriptionData.subNo,
+                subDate: SubscriptionData.subDate,
+                startFrom: SubscriptionData.startFrom,
+                order: SubscriptionData.id,
+                customer: SubscriptionData.customer,
+                product: SubscriptionData.product,
+                QtyperDay: SubscriptionData.QtyperDay,
+                frequency: SubscriptionData.frequency,
+                endDate: SubscriptionData.enddate,
+                },
+                { new: true, upsert: true }
+              ).exec((err, data) => {
+                if (data) {
+                  return  resolve({
+                    status: true,
+                    message: "subscription details  is updated !",
+                    data: data,
+                  });
+                } else if (err) {
+                  return  resolve({
+                    status: false,
+                    message: "subscription details is updating failed !",
+                    data: data,
+                  });
+                }
+              })
             } else {
               var newSubscription = new Subscription({
                 subNo: SubscriptionData.subNo,
@@ -344,7 +368,7 @@ module.exports = {
               return resolve({
                 status: true,
                 data: data,
-                message: "Subscription retrieved successfully",
+                message: "Order retrieved successfully",
               });
             }
           });

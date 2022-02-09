@@ -62,7 +62,7 @@ module.exports = {
     return new Promise(async (resolve) => {
       console.log(SubscriptionData);
       try {
-        Subscription.findOne({ subNo: SubscriptionData.no }).exec(
+        Subscription.findOne({ subNo: SubscriptionData.subNo }).exec(
           (err, data) => {
             if (data) {
               Subscription.findOneAndUpdate(

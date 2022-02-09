@@ -7,9 +7,6 @@ const BrandSchema = new mongoose.Schema({
   Manufacture:{
       type:String,
   },
-  noofProduct:{
-    type:String,
-  },
   comment:{
     type:String,
   },

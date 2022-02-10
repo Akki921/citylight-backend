@@ -356,7 +356,7 @@ module.exports = {
             " orderNo orderDate orderValue coupan orderStatus qtyperday startDate product slottime productvalue"
           )
           .populate("customer", "username login")
-          .populate("product", "productName thumbnail")
+          .populate("product", "productName thumbnail sellingprice offerprice")
           .exec((error, data) => {
             if (error)
             return resolve({

@@ -97,6 +97,7 @@ module.exports = {
   },
 
   editupdateBrand: async (BrandData) => {
+    console.log(BrandData)
     return new Promise(async (resolve) => {
       try {
         let rests = Brand.findOneAndUpdate(

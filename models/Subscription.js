@@ -1,37 +1,37 @@
 const mongoose = require("mongoose");
 
 const subscriptionSchema = new mongoose.Schema({
-    subNo: {
-        type: String,
-        required: true,
-      },
-     subDate: {
-        type: Date,
-      },
-      startFrom: [{Start:Date, qtyperday:Number}], 
-      order: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Order"
-      },
-      customer: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "CustomerProfile"
-      },
-      product: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Product"
-      },
-      
-      frequency :{
-        type:String,
-    },
-  iscancle:{
-    type:Boolean,
-    default:false
+  subNo: {
+    type: String,
+    required: true,
   },
- isSelected :{
-    type:Boolean,
-    default:false
+  subDate: {
+    type: Date,
+  },
+  startFrom: [{ Start: Date, qtyperday: Number }],
+  order: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Order",
+  },
+  customer: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "CustomerProfile",
+  },
+  product: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Product",
+  },
+
+  frequency: {
+    type: String,
+  },
+  iscancle: {
+    type: Boolean,
+    default: false,
+  },
+  isSelected: {
+    type: Boolean,
+    default: false,
   },
 });
 

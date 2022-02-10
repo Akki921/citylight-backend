@@ -1,6 +1,6 @@
 const CustomerCollection =require("../models/CustomerCollection")
 const mongoose=require("mongoose");
-
+const CustomerProfile =require("../models/CustomerProfile")
 module.exports = {
   //register new CustomerCollection
   createCustomerCollection: async (CustomerCollectionData) => {
@@ -42,6 +42,35 @@ module.exports = {
             });
           }
         );
+      } catch (error) {
+        return resolve({
+          status: false,
+          message: "Please try after some time",
+        });
+      }
+    });
+  },
+
+
+  createCustomerCollectionquery: async (CustomerCollectionData) => {
+    return new Promise(async (resolve) => {
+      console.log(CustomerCollectionData)
+      try {
+        const df =CustomerCollectionData.dd; 
+        CustomerProfile.find(df, async (err, data) => {
+          console.log(data)
+          if (err)
+            return resolve({
+              status: false,
+              message: "Please try after some time",
+            });
+          if (data)
+            return resolve({
+              status: true,
+              data: data,
+              message: "Data retrieved successfully",
+            });
+        });
       } catch (error) {
         return resolve({
           status: false,

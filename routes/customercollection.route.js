@@ -5,7 +5,15 @@ var CustomerCollectionHandler=require("../controllers/CustomerCollection.Control
 
 
 router.post("/createcollection",  async (req, res, next) => {
-  let CustomerCollectionCreate = await CustomerCollectionHandler.createBrand(req.body);
+  let CustomerCollectionCreate = await CustomerCollectionHandler.createCustomerCollection(req.body);
+
+  if (!CustomerCollectionCreate.status) return res.status(400).json(CustomerCollectionCreate);
+
+  res.status(200).json(CustomerCollectionCreate);
+});
+
+router.post("/query",  async (req, res, next) => {
+  let CustomerCollectionCreate = await CustomerCollectionHandler.createCustomerCollectionquery(req.body);
 
   if (!CustomerCollectionCreate.status) return res.status(400).json(CustomerCollectionCreate);
 
@@ -14,7 +22,7 @@ router.post("/createcollection",  async (req, res, next) => {
 
 
 router.get("/getallcollection", async (req, res, next) => {
-  let CustomerCollectionCreate = await CustomerCollectionHandler.getAllBand();
+  let CustomerCollectionCreate = await CustomerCollectionHandler.getAllCustomerCollection();
 
   if (!CustomerCollectionCreate.status) return res.status(400).json(CustomerCollectionCreate);
 

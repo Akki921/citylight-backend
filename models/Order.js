@@ -16,6 +16,9 @@ const orderSchema = new mongoose.Schema({
   orderValue: {
     type: Number,
   },
+ productValue: {
+    type: Number,
+  },
   coupan: {
     type: String,
   },

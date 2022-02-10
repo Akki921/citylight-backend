@@ -21,6 +21,7 @@ const CityAvaibilityRoute =require("./routes/cityAvailability.route");
 const StockRoute =require("./routes/stock.route");
 const OrderRoute =require("./routes/order.route");
 const CustomerProfile =require("./routes/CustomerProfile.route");
+const CustomerCollection =require("./routes/customercollection.route");
 const SubscriptionRoute =require("./routes/subscription.route");
 const cors = require("cors");
 const multer = require("multer");
@@ -74,6 +75,7 @@ mongoose
   app.use("/api/refferal",RefferalRoute);
   app.use("/api/city",CityRoute);
   app.use("/api/cityavaibility",CityAvaibilityRoute);
+  app.use("/api/customercollection",CustomerCollection);
   app.use("/api/stock",StockRoute);
   app.use("/api/order",OrderRoute);
   app.use("/api/subscription",SubscriptionRoute);

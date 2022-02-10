@@ -75,8 +75,7 @@ module.exports = {
                 customer: SubscriptionData.customer,
                 product: SubscriptionData.product,
                 QtyperDay: SubscriptionData.QtyperDay,
-                frequency: SubscriptionData.frequency,
-                endDate: SubscriptionData.enddate,
+                frequency: SubscriptionData.frequency
                 },
                 { new: true, upsert: true }
               ).exec((err, data) => {
@@ -104,7 +103,6 @@ module.exports = {
                 product: SubscriptionData.product,
                 QtyperDay: SubscriptionData.QtyperDay,
                 frequency: SubscriptionData.frequency,
-                endDate: SubscriptionData.enddate,
               });
               newSubscription.save(async (error, Subscription) => {
                 console.log(Subscription);

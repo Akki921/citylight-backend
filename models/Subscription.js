@@ -21,7 +21,9 @@ const subscriptionSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Product",
   },
-
+  QtyperDay: {
+    type: Number,
+  },
   frequency: {
     type: String,
   },

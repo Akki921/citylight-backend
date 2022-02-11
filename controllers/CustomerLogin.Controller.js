@@ -65,7 +65,7 @@ module.exports = {
            }
           } else {
             const otp = generateOTP(4);
-            console.log("otp", otp);
+            console.log("otp inside else", otp);
             var newLogin = new CustomerLogin({
               phone: Data.phone,
               phoneotp:otp,

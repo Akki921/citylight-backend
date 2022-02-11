@@ -5,22 +5,15 @@ const orderSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  orderDate: {
-    type: Date,
-  },
+
   customer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "CustomerProfile",
   },
-  startDate: [{Start:Date, qtyperday:Number}],
-  orderValue: {
+  startDate: { type: Date },
+
+  productValue: {
     type: Number,
-  },
- productValue: {
-    type: Number,
-  },
-  coupan: {
-    type: String,
   },
   product: {
     type: mongoose.Schema.Types.ObjectId,

@@ -14,7 +14,6 @@ router.post("/create",  async (req, res, next) => {
 
 router.post("/editupdateBrand",async(req,res,next)=>{
     let brandCreate = await brandHandler.editupdateBrand(req.body);
-
   if (!brandCreate.status) return res.status(400).json(brandCreate);
 
   res.status(200).json(brandCreate);

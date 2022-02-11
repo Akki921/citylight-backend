@@ -65,8 +65,8 @@ module.exports = {
         Subscription.findOne({ subNo: SubscriptionData.subNo }).exec(
           (err, data) => {
             if (data) {
-
-              if (SubscriptionData.customDates[0] !== undefined || SubscriptionData.QtyperDay === 0 ) {
+              console.log('SubscriptionData.customDates',SubscriptionData.customDates)
+              if (SubscriptionData.customDates !== undefined || SubscriptionData.QtyperDay === 0 ) {
                 Subscription.findOneAndUpdate(
                   { _id: data._id },
                   {
@@ -130,7 +130,8 @@ module.exports = {
                 })
               }
             } else {
-              if (SubscriptionData.customDates[0] !== undefined) {
+              console.log('SubscriptionData.customDates',SubscriptionData.customDates)
+              if (SubscriptionData.customDates !== undefined) {
                 var newSubscription = new Subscription({
                   subNo: SubscriptionData.subNo,
                 //  subDate: SubscriptionData.subDate,

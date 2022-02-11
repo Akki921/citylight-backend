@@ -160,7 +160,7 @@ module.exports = {
               } else {
                 var newSubscription = new Subscription({
                   subNo: SubscriptionData.subNo,
-                  subDate: SubscriptionData.subDate,
+                  //subDate: SubscriptionData.subDate,
                //   startFrom: SubscriptionData.startFrom,
                   order: SubscriptionData.order,
                   customer: SubscriptionData.customer,

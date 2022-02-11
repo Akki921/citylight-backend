@@ -21,7 +21,7 @@ const subscriptionSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Product",
   },
-  customDates: [{ Start: Date, qtyperday: Number }],
+  customDates: [{ Start: Date}],
   // QtyperDay: {
   //   type: Number,
   // },

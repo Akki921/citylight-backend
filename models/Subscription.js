@@ -5,9 +5,9 @@ const subscriptionSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  subDate: {
-    type: Date,
-  },
+  // subDate: {
+  //   type: Date,
+  // },
   // startFrom: [{ Start: Date, qtyperday: Number }],
   order: {
     type: mongoose.Schema.Types.ObjectId,
@@ -22,9 +22,9 @@ const subscriptionSchema = new mongoose.Schema({
     ref: "Product",
   },
   customDates: [{ Start: Date}],
-  // QtyperDay: {
-  //   type: Number,
-  // },
+  QtyperDay: {
+    type: Number,
+  },
   // frequency: {
   //   type: String,
   // },

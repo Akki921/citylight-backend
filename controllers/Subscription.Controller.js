@@ -317,7 +317,7 @@ module.exports = {
         Subscription.find({})
           .populate(
             "order",
-            " orderNo qtyperday startDate product frequency productValue"
+            "orderNo qtyperday startDate product frequency productValue  address locality"
           )
           .populate("customer", "username login")
           .populate("product", "productName thumbnail")
@@ -417,7 +417,7 @@ module.exports = {
         Subscription.find({'customer': { "_id":id }})
           .populate(
             "order",
-            "orderNo qtyperday startDate product productValue frequency"
+            "orderNo qtyperday startDate product productValue frequency address locality"
           )
           .populate("customer", "username login")
           .populate("product", "productName thumbnail sellingprice offerprice")

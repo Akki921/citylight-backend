@@ -66,17 +66,18 @@ module.exports = {
           (err, data) => {
             if (data) {
 
-              if (SubscriptionData.customDates[0] !== undefined) {
+              if (SubscriptionData.customDates[0] !== undefined || SubscriptionData.QtyperDay === 0 ) {
                 Subscription.findOneAndUpdate(
                   { _id: data._id },
                   {
                   subNo: SubscriptionData.subNo,
-                  subDate: SubscriptionData.subDate,
+                 // subDate: SubscriptionData.subDate,
                   // startFrom: SubscriptionData.startFrom,
                   order: SubscriptionData.order,
                   customer: SubscriptionData.customer,
                   product: SubscriptionData.product,
                   customDates: SubscriptionData.customDates,
+                  iscancle:true,
                   // QtyperDay: SubscriptionData.QtyperDay,
                   // frequency: SubscriptionData.frequency
                   },
@@ -103,7 +104,7 @@ module.exports = {
                   { _id: data._id },
                   {
                   subNo: SubscriptionData.subNo,
-                  subDate: SubscriptionData.subDate,
+                  //subDate: SubscriptionData.subDate,
                   // startFrom: SubscriptionData.startFrom,
                   order: SubscriptionData.order,
                   customer: SubscriptionData.customer,
@@ -132,7 +133,7 @@ module.exports = {
               if (SubscriptionData.customDates[0] !== undefined) {
                 var newSubscription = new Subscription({
                   subNo: SubscriptionData.subNo,
-                  subDate: SubscriptionData.subDate,
+                //  subDate: SubscriptionData.subDate,
                //   startFrom: SubscriptionData.startFrom,
                   order: SubscriptionData.order,
                   customer: SubscriptionData.customer,

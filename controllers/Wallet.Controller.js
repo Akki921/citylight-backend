@@ -253,17 +253,14 @@ module.exports = {
     return new Promise(async (resolve) => {
       console.log(Data);
       try {
-        CustomerProfile.findOne({"customer": Data.user }
-         )
-          .exec((err, data) => {         
-            if (data)
-            {
-              return resolve({
-                status: true,
-                message: "profile is already created !",
-                data:data,
-              });
-            }else{
+        CustomerProfile.findOne({ customer: Data.user }).exec((err, data) => {
+          if (data) {
+            return resolve({
+              status: true,
+              message: "profile is already created !",
+              data: data,
+            });
+          } else {
             var newprofile = new CustomerProfile({
               login: Data.login,
               username: Data.username,
@@ -279,121 +276,72 @@ module.exports = {
                   status: false,
                   message: "Please try after some time",
                 });
-                if(data){
-              return resolve({
-                status: true,
-                data: City,
-                message: "Profile has been created",
-              });
-            }
+              if (data) {
+                return resolve({
+                  status: true,
+                  data: City,
+                  message: "Profile has been created",
+                });
+              }
             });
-            }
           }
-        );
+        });
       } catch (error) {
         return resolve({
           status: false,
-          message: "Please try after some time"+error,
+          message: "Please try after some time" + error,
         });
       }
     });
   },
 
-
-  makeAllTransaction: async (WalletData) => {
-    //   console.log(WalletData);
-    const { availableBalance, debit, credit, id } = WalletData;
-    const availableBalances = parseInt(availableBalance);
-    const credits = parseInt(credit);
-    const debits = parseInt(debit);
-    console.log(credits, debits, availableBalances);
+  makefullfilledorder: async (WalletData) => {
     return new Promise(async (resolve) => {
+      //console.log(WalletData);
       try {
-        if (availableBalances >= 0) {
-          if (debits > 0) {
-            var newTrasaction = new Transaction({
-              walletId: WalletData.id,
-              debit: debits,
-              availableBalance: availableBalances - debits,
-            });
-            newTrasaction.save((error, data) => {
-              if (error) {
-                return resolve({
-                  status: true,
-                  message: "something went wrong",
-                });
+        if (WalletData) {
+          let dd = await Transaction.insertMany(WalletData.Debiteddata);
+          console.log('dd',dd)
+          if (dd) {
+            dd.map((data)=>{ 
+            Wallet.updateMany(
+              { _id: data.walletId },
+              { availableBalance: data.availableBalance },
+              (err, data) => {
+                if (err) {
+                  return resolve({
+                    status: true,
+                    message: "there is a problem",
+                  });
+                }
+                if (data) {
+                  console.log("succesfull", data);
+                  return resolve({
+                    status: true,
+                    data2: data,
+                    message: "Wallet Recharged successfully",
+                  });
+                }
               }
-              if (data) {
-                Wallet.findOneAndUpdate(
-                  { _id: data.walletId },
-                  { availableBalance: data.availableBalance },
-                  (err, data) => {
-                    if (err) {
-                      return resolve({
-                        status: true,
-                        message: "there is a problem",
-                      });
-                    }
-                    if (data) {
-                      return resolve({
-                        status: true,
-                        data1: data,
-                        message: "Wallet Recharged successfully",
-                      });
-                    }
-                  }
-                );
-              }
-            });
-          } else if (credits > 0) {
-            console.log("enter into credits", WalletData.id);
-            var newTrasaction = new Transaction({
-              walletId: WalletData.id,
-              credit: credits,
-              availableBalance: availableBalances + credits,
-            });
-            newTrasaction.save((error, data) => {
-              console.log(data);
-              if (error) {
-                return resolve({
-                  status: true,
-                  message: "something went wrong",
-                });
-              }
-              if (data) {
-                Wallet.findOneAndUpdate(
-                  { _id: data.walletId },
-                  { availableBalance: data.availableBalance },
-                  (err, data) => {
-                    if (err) {
-                      return resolve({
-                        status: true,
-                        message: "there is a problem",
-                      });
-                    }
-                    if (data) {
-                      console.log("succesfull", data);
-                      return resolve({
-                        status: true,
-                        data2: data,
-                        message: "Wallet Recharged successfully",
-                      });
-                    }
-                  }
-                );
-              }
+            );
+          })
+          } else {
+            return resolve({
+              status: true,
+              data: dd,
+              message: "Transection has not been created",
             });
           }
         } else {
           return resolve({
             status: true,
-            message: "You Do not Enough Balance",
+            message: "transection is failed because of no data",
           });
         }
       } catch (error) {
         return resolve({
           status: false,
-          message: "Please try after some time",
+          message: "Please try after some time" + error,
         });
       }
     });

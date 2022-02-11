@@ -8,7 +8,7 @@ const subscriptionSchema = new mongoose.Schema({
   subDate: {
     type: Date,
   },
-  startFrom: [{ Start: Date, qtyperday: Number }],
+  // startFrom: [{ Start: Date, qtyperday: Number }],
   order: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Order",
@@ -21,12 +21,12 @@ const subscriptionSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Product",
   },
-  QtyperDay: {
-    type: Number,
-  },
-  frequency: {
-    type: String,
-  },
+  // QtyperDay: {
+  //   type: Number,
+  // },
+  // frequency: {
+  //   type: String,
+  // },
   iscancle: {
     type: Boolean,
     default: false,

@@ -70,12 +70,12 @@ module.exports = {
                 {
                 subNo: SubscriptionData.subNo,
                 subDate: SubscriptionData.subDate,
-                startFrom: SubscriptionData.startFrom,
+                // startFrom: SubscriptionData.startFrom,
                 order: SubscriptionData.order,
                 customer: SubscriptionData.customer,
                 product: SubscriptionData.product,
-                QtyperDay: SubscriptionData.QtyperDay,
-                frequency: SubscriptionData.frequency
+                // QtyperDay: SubscriptionData.QtyperDay,
+                // frequency: SubscriptionData.frequency
                 },
                 { new: true, upsert: true }
               ).exec((err, data) => {
@@ -97,12 +97,12 @@ module.exports = {
               var newSubscription = new Subscription({
                 subNo: SubscriptionData.subNo,
                 subDate: SubscriptionData.subDate,
-                startFrom: SubscriptionData.startFrom,
+             //   startFrom: SubscriptionData.startFrom,
                 order: SubscriptionData.order,
                 customer: SubscriptionData.customer,
                 product: SubscriptionData.product,
-                QtyperDay: SubscriptionData.QtyperDay,
-                frequency: SubscriptionData.frequency,
+                // QtyperDay: SubscriptionData.QtyperDay,
+                // frequency: SubscriptionData.frequency,
               });
               newSubscription.save(async (error, Subscription) => {
                 console.log(Subscription);
@@ -173,12 +173,12 @@ module.exports = {
                 {
                   subNo: data.subNo,
                   subDate: data.subDate,
-                  startFrom: data.startFrom,
+                 // startFrom: data.startFrom,
                   order: data.order,
                   customer: data.customer,
                   product: data.product,
-                  QtyperDay: data.QtyperDay,
-                  frequency: data.frequency,
+                  // QtyperDay: data.QtyperDay,
+                  // frequency: data.frequency,
                   endDate: data.endDate,
                   iscancle: data.iscancle,
                   isSelected: data.isSelected,
@@ -207,13 +207,13 @@ module.exports = {
                   {
                     subNo: data.subNo,
                     subDate: data.subDate,
-                    startFrom: data.startFrom,
+                   // startFrom: data.startFrom,
                     order: data.order,
                     customer: data.customer,
                     product: data.product,
-                    QtyperDay: data.QtyperDay,
-                    frequency: data.frequency,
-                    endDate: data.endDate,
+                    // QtyperDay: data.QtyperDay,
+                    // frequency: data.frequency,
+                    // endDate: data.endDate,
                     iscancle: data.iscancle,
                     isSelected: datas.isSelected,
                   },

@@ -78,7 +78,7 @@ module.exports = {
                   product: SubscriptionData.product,
                   customDates: SubscriptionData.customDates,
                   iscancle:true,
-                  // QtyperDay: SubscriptionData.QtyperDay,
+                   QtyperDay: SubscriptionData.QtyperDay,
                   // frequency: SubscriptionData.frequency
                   },
                   { new: true, upsert: true }
@@ -109,7 +109,7 @@ module.exports = {
                   order: SubscriptionData.order,
                   customer: SubscriptionData.customer,
                   product: SubscriptionData.product,
-                  // QtyperDay: SubscriptionData.QtyperDay,
+                  QtyperDay: SubscriptionData.QtyperDay,
                   // frequency: SubscriptionData.frequency
                   },
                   { new: true, upsert: true }
@@ -140,7 +140,7 @@ module.exports = {
                   customer: SubscriptionData.customer,
                   product: SubscriptionData.product,
                   customDates: SubscriptionData.customDates,
-                  // QtyperDay: SubscriptionData.QtyperDay,
+                   QtyperDay: SubscriptionData.QtyperDay,
                   // frequency: SubscriptionData.frequency,
                 });
                 newSubscription.save(async (error, Subscription) => {
@@ -166,7 +166,7 @@ module.exports = {
                   order: SubscriptionData.order,
                   customer: SubscriptionData.customer,
                   product: SubscriptionData.product,
-                  // QtyperDay: SubscriptionData.QtyperDay,
+                   QtyperDay: SubscriptionData.QtyperDay,
                   // frequency: SubscriptionData.frequency,
                 });
                 newSubscription.save(async (error, Subscription) => {

@@ -65,60 +65,124 @@ module.exports = {
         Subscription.findOne({ subNo: SubscriptionData.subNo }).exec(
           (err, data) => {
             if (data) {
-              Subscription.findOneAndUpdate(
-                { _id: data._id },
-                {
-                subNo: SubscriptionData.subNo,
-                subDate: SubscriptionData.subDate,
-                // startFrom: SubscriptionData.startFrom,
-                order: SubscriptionData.order,
-                customer: SubscriptionData.customer,
-                product: SubscriptionData.product,
-                // QtyperDay: SubscriptionData.QtyperDay,
-                // frequency: SubscriptionData.frequency
-                },
-                { new: true, upsert: true }
-              ).exec((err, data) => {
-                if (data) {
-                  return  resolve({
-                    status: true,
-                    message: "subscription details  is updated !",
-                    data: data,
-                  });
-                } else if (err) {
-                  return  resolve({
-                    status: false,
-                    message: "subscription details is updating failed !",
-                    data: data,
-                  });
-                }
-              })
+
+              if (SubscriptionData.customDates[0] !== undefined) {
+                Subscription.findOneAndUpdate(
+                  { _id: data._id },
+                  {
+                  subNo: SubscriptionData.subNo,
+                  subDate: SubscriptionData.subDate,
+                  // startFrom: SubscriptionData.startFrom,
+                  order: SubscriptionData.order,
+                  customer: SubscriptionData.customer,
+                  product: SubscriptionData.product,
+                  customDates: SubscriptionData.customDates,
+                  // QtyperDay: SubscriptionData.QtyperDay,
+                  // frequency: SubscriptionData.frequency
+                  },
+                  { new: true, upsert: true }
+                ).exec((err, data) => {
+                  if (data) {
+                    return  resolve({
+                      status: true,
+                      message: "subscription details  is updated !",
+                      data: data,
+                    });
+                  } else if (err) {
+                    return  resolve({
+                      status: false,
+                      message: "subscription details is updating failed !",
+                      data: data,
+                    });
+                  }
+                })
+              }
+              else
+              {
+                Subscription.findOneAndUpdate(
+                  { _id: data._id },
+                  {
+                  subNo: SubscriptionData.subNo,
+                  subDate: SubscriptionData.subDate,
+                  // startFrom: SubscriptionData.startFrom,
+                  order: SubscriptionData.order,
+                  customer: SubscriptionData.customer,
+                  product: SubscriptionData.product,
+                  // QtyperDay: SubscriptionData.QtyperDay,
+                  // frequency: SubscriptionData.frequency
+                  },
+                  { new: true, upsert: true }
+                ).exec((err, data) => {
+                  if (data) {
+                    return  resolve({
+                      status: true,
+                      message: "subscription details  is updated !",
+                      data: data,
+                    });
+                  } else if (err) {
+                    return  resolve({
+                      status: false,
+                      message: "subscription details is updating failed !",
+                      data: data,
+                    });
+                  }
+                })
+              }
             } else {
-              var newSubscription = new Subscription({
-                subNo: SubscriptionData.subNo,
-                subDate: SubscriptionData.subDate,
-             //   startFrom: SubscriptionData.startFrom,
-                order: SubscriptionData.order,
-                customer: SubscriptionData.customer,
-                product: SubscriptionData.product,
-                // QtyperDay: SubscriptionData.QtyperDay,
-                // frequency: SubscriptionData.frequency,
-              });
-              newSubscription.save(async (error, Subscription) => {
-                console.log(Subscription);
-                if (error)
-                  return resolve({
-                    status: false,
-                    message: "Please try after some time",
-                  });
-                if (Subscription) {
-                  return resolve({
-                    status: true,
-                    data: Subscription,
-                    message: "Subscription has been created",
-                  });
-                }
-              });
+              if (SubscriptionData.customDates[0] !== undefined) {
+                var newSubscription = new Subscription({
+                  subNo: SubscriptionData.subNo,
+                  subDate: SubscriptionData.subDate,
+               //   startFrom: SubscriptionData.startFrom,
+                  order: SubscriptionData.order,
+                  customer: SubscriptionData.customer,
+                  product: SubscriptionData.product,
+                  customDates: SubscriptionData.customDates,
+                  // QtyperDay: SubscriptionData.QtyperDay,
+                  // frequency: SubscriptionData.frequency,
+                });
+                newSubscription.save(async (error, Subscription) => {
+                  console.log(Subscription);
+                  if (error)
+                    return resolve({
+                      status: false,
+                      message: "Please try after some time",
+                    });
+                  if (Subscription) {
+                    return resolve({
+                      status: true,
+                      data: Subscription,
+                      message: "Subscription has been created",
+                    });
+                  }
+                });
+              } else {
+                var newSubscription = new Subscription({
+                  subNo: SubscriptionData.subNo,
+                  subDate: SubscriptionData.subDate,
+               //   startFrom: SubscriptionData.startFrom,
+                  order: SubscriptionData.order,
+                  customer: SubscriptionData.customer,
+                  product: SubscriptionData.product,
+                  // QtyperDay: SubscriptionData.QtyperDay,
+                  // frequency: SubscriptionData.frequency,
+                });
+                newSubscription.save(async (error, Subscription) => {
+                  console.log(Subscription);
+                  if (error)
+                    return resolve({
+                      status: false,
+                      message: "Please try after some time",
+                    });
+                  if (Subscription) {
+                    return resolve({
+                      status: true,
+                      data: Subscription,
+                      message: "Subscription has been created",
+                    });
+                  }
+                });
+              }
             }
           }
         );

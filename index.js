@@ -23,6 +23,7 @@ const OrderRoute =require("./routes/order.route");
 const CustomerProfile =require("./routes/CustomerProfile.route");
 const CustomerCollection =require("./routes/customercollection.route");
 const SubscriptionRoute =require("./routes/subscription.route");
+const VoccationRoute =require("./routes/Voccation.route");
 const cors = require("cors");
 const multer = require("multer");
 //const path = require("path/posix");
@@ -79,6 +80,7 @@ mongoose
   app.use("/api/stock",StockRoute);
   app.use("/api/order",OrderRoute);
   app.use("/api/subscription",SubscriptionRoute);
+  app.use("/api/voccation",VoccationRoute);
   //app.use('/uploads', express.static(path.join(__dirname, '/uploads/product')));
   app.use('/uploads', express.static('uploads'));
  

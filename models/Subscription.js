@@ -25,9 +25,14 @@ const subscriptionSchema = new mongoose.Schema({
   QtyperDay: {
     type: Number,
   },
-  // frequency: {
-  //   type: String,
-  // },
+   QtyFullfilled: {
+    type: Number,
+   default: 0,
+  },
+  Status: {
+    type: String,
+    default: 'pending',
+  },
   iscancle: {
     type: Boolean,
     default: false,

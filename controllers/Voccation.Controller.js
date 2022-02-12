@@ -64,7 +64,7 @@ module.exports = {
       console.log('data',ProfileId)
     return new Promise(async (resolve) => {
       try {
-        Voccation.find({  " ProfileId": { "_id":ProfileId, }}, async (err, data) => {
+        Voccation.find({ "ProfileId": {"_id":ProfileId}}, async (err, data) => {
           if (err)
             return resolve({
               status: false,

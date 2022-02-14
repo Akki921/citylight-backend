@@ -194,7 +194,7 @@ createcProfile: async (Data) => {
 
         CustomerProfile.find({ "login": { "_id":id, }})
           .populate("city", "id cityName")
-          .populate("locality", "id locality")
+    .populate("locality", "id locality availability morning morningtime evening eveningtime")
           .exec((error, data) => {
           if (error)
             return resolve({

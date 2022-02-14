@@ -11,6 +11,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     unique: true,
   },
+  mobile: {
+    type: Number,
+    unique: true,
+  },
   password: {
     type: String,
   },
@@ -32,7 +36,7 @@ const userSchema = new mongoose.Schema({
     type: Date,
   },
   modifiedBy: {
-    type: Date,
+    type: Number,
   },
 });
 

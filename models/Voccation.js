@@ -7,6 +7,9 @@ const VoccationSchema = new mongoose.Schema({
     required: true,
   },
   StartDate: { type: Date, required: true },
+  EndDate: {
+    type: Date,
+  },
   city: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "City",
@@ -15,7 +18,7 @@ const VoccationSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "CityAvailability",
   },
-  EndDate: { type: Date },
+
   cutOffTime: {
     type: String,
   },

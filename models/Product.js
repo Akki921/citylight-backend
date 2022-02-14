@@ -50,9 +50,19 @@ const productSchema = mongoose.Schema({
   thumbnail: {
     type: String,
   },
-  productImage: {
+  HSNCODE: {
     type: String,
   },
+  CGST: {
+    type:Number,
+  },
+  CGST: {
+    type: Number,
+  },
+  IGST: {
+    type: Number,
+  },
+
   createdDate: {
     type: Date,
   },

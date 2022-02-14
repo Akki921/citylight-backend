@@ -15,6 +15,7 @@ const VoccationSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "CityAvailability",
   },
+ EndDate: { type: Date, required: true },
   cutOffTime: {
     type: String,
   },

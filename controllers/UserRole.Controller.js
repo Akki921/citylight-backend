@@ -94,7 +94,7 @@ module.exports = {
   getUserRole: async () => {
     return new Promise(async (resolve) => {
       try {
-        UserRoleMapping.find({}).populate("roleId","roleName").populate("userId","email").exec((err, data) => {
+        UserRoleMapping.find({}).populate("roleId","roleName").populate("userId","email username").exec((err, data) => {
           if (err)
             return resolve({
               status: false,

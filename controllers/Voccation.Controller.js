@@ -28,7 +28,7 @@ module.exports = {
                 } else if (err) {
                   return resolve({
                     status: false,
-                    message: "Voccation details is updating failed !",
+                    message: "Voccation details is updating failed !"+err,
                     data: data,
                   });
                 }

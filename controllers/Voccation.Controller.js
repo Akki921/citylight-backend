@@ -6,13 +6,14 @@ module.exports = {
       try {
         Voccation.findOne({ ProfileId: VoccationData.ProfileId }).exec(
           (err, data) => {
+            console.log(data)
             if (data) {
               Voccation.findOneAndUpdate(
                 { _id: data._id },
                 {
                   ProfileId: VoccationData.ProfileId,
                   StartDate: VoccationData.StartDate,
-                  EndDate: VoccationData.EndDate,
+                   EndDate: VoccationData.EndDate,
                   city: VoccationData.city,
                   locality: VoccationData.locality,
                   cutOffTime: VoccationData.cutOffTime,
@@ -47,7 +48,7 @@ module.exports = {
                 if (error)
                   return resolve({
                     status: false,
-                    message: "Please try after some time",
+                    message: "Please try after some time"+error,
                   });
                 if (brand) {
                   return resolve({

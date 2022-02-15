@@ -249,51 +249,51 @@ module.exports = {
     });
   },
 
-  createAddressSlip: async (Data) => {
-    return new Promise(async (resolve) => {
-      console.log(Data);
-      try {
-        CustomerProfile.findOne({ customer: Data.user }).exec((err, data) => {
-          if (data) {
-            return resolve({
-              status: true,
-              message: "profile is already created !",
-              data: data,
-            });
-          } else {
-            var newprofile = new CustomerProfile({
-              login: Data.login,
-              username: Data.username,
-              houseno: Data.houseno,
-              address: Data.address,
-              city: Data.city,
-              locality: Data.locality,
-              ringtheBell: Data.ringtheBell,
-            });
-            newprofile.save(async (error, data) => {
-              if (error)
-                return resolve({
-                  status: false,
-                  message: "Please try after some time",
-                });
-              if (data) {
-                return resolve({
-                  status: true,
-                  data: City,
-                  message: "Profile has been created",
-                });
-              }
-            });
-          }
-        });
-      } catch (error) {
-        return resolve({
-          status: false,
-          message: "Please try after some time" + error,
-        });
-      }
-    });
-  },
+  // createAddressSlip: async (Data) => {
+  //   return new Promise(async (resolve) => {
+  //     console.log(Data);
+  //     try {
+  //       CustomerProfile.findOne({ customer: Data.user }).exec((err, data) => {
+  //         if (data) {
+  //           return resolve({
+  //             status: true,
+  //             message: "profile is already created !",
+  //             data: data,
+  //           });
+  //         } else {
+  //           var newprofile = new CustomerProfile({
+  //             login: Data.login,
+  //             username: Data.username,
+  //             houseno: Data.houseno,
+  //             address: Data.address,
+  //             city: Data.city,
+  //             locality: Data.locality,
+  //             ringtheBell: Data.ringtheBell,
+  //           });
+  //           newprofile.save(async (error, data) => {
+  //             if (error)
+  //               return resolve({
+  //                 status: false,
+  //                 message: "Please try after some time",
+  //               });
+  //             if (data) {
+  //               return resolve({
+  //                 status: true,
+  //                 data: City,
+  //                 message: "Profile has been created",
+  //               });
+  //             }
+  //           });
+  //         }
+  //       });
+  //     } catch (error) {
+  //       return resolve({
+  //         status: false,
+  //         message: "Please try after some time" + error,
+  //       });
+  //     }
+  //   });
+  // },
 
   makefullfilledorder: async (WalletData) => {
     return new Promise(async (resolve) => {

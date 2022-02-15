@@ -6,7 +6,7 @@ var userHandler = require("../controllers/User.Controller");
 router.post("/createuser",  async (req, res, next) => {
  
   let userCreate = await userHandler.createUser(req.body);
-
+ 
   // if (!userCreate.status) return res.status(400).json(userCreate);
 
   res.status(200).json(userCreate);

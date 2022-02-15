@@ -22,6 +22,12 @@ exports.createProduct = (req, res) => {
     sellingprice,
     offerprice,
     offerfornewcustomer,
+    HSNCODE,
+    CGST,
+    IGST,
+    SGST,
+    city,
+    locality,
   } = req.body;
   console.log(
     " req.body,",
@@ -42,7 +48,13 @@ exports.createProduct = (req, res) => {
     price,
     sellingprice,
     offerprice,
-    offerfornewcustomer
+    offerfornewcustomer,
+    HSNCODE,
+    CGST,
+    IGST,
+    SGST,
+    city,
+    locality
   );
   if (productImage.length > 0 && thumbnail.length == 0) {
     product = new Product({
@@ -63,6 +75,12 @@ exports.createProduct = (req, res) => {
       sellingprice,
       offerprice,
       offerfornewcustomer,
+      HSNCODE,
+      CGST,
+      IGST,
+      SGST,
+      city,
+      locality,
     });
   } else if (productImage.length == 0 && thumbnail.length > 0) {
     product = new Product({
@@ -82,6 +100,12 @@ exports.createProduct = (req, res) => {
       sellingprice,
       offerprice,
       offerfornewcustomer,
+      HSNCODE,
+      CGST,
+      IGST,
+      SGST,
+      city,
+      locality,
     });
   } else if (productImage.length > 0 && thumbnail.length > 0) {
     product = new Product({
@@ -102,6 +126,12 @@ exports.createProduct = (req, res) => {
       sellingprice,
       offerprice,
       offerfornewcustomer,
+      HSNCODE,
+      CGST,
+      IGST,
+      SGST,
+      city,
+      locality,
     });
   } else {
     product = new Product({
@@ -120,6 +150,12 @@ exports.createProduct = (req, res) => {
       sellingprice,
       offerprice,
       offerfornewcustomer,
+      HSNCODE,
+      CGST,
+      IGST,
+      SGST,
+      city,
+      locality,
     });
   }
 
@@ -135,6 +171,7 @@ exports.getproduct = async (req, res) => {
   Product.find({})
     .populate("category", "CategoryName Description")
     .populate("brand", " BrandName")
+    .populate("city")
     .exec((error, Product1) => {
       if (error)
         return res.status(400).json({
@@ -174,6 +211,12 @@ exports.updateproduct = async (req, res) => {
         sellingprice,
         offerprice,
         offerfornewcustomer,
+        HSNCODE,
+        CGST,
+        IGST,
+        SGST,
+        city,
+        locality,
       } = req.body;
 
       console.log(
@@ -195,7 +238,13 @@ exports.updateproduct = async (req, res) => {
         price,
         sellingprice,
         offerprice,
-        offerfornewcustomer
+        offerfornewcustomer,
+        HSNCODE,
+        CGST,
+        IGST,
+        SGST,
+        city,
+        locality
       );
       if (thumbnail !== undefined && productImage === undefined) {
         Product.findOneAndUpdate(
@@ -218,6 +267,12 @@ exports.updateproduct = async (req, res) => {
             sellingprice: sellingprice,
             offerprice: offerprice,
             offerfornewcustomer: offerfornewcustomer,
+            HSNCODE: HSNCODE,
+            CGST: CGST,
+            IGST: IGST,
+            SGST: SGST,
+            city: city,
+            locality: locality,
           },
           { new: true, upsert: true }
         ).exec((err, data) => {
@@ -257,6 +312,12 @@ exports.updateproduct = async (req, res) => {
             sellingprice: sellingprice,
             offerprice: offerprice,
             offerfornewcustomer: offerfornewcustomer,
+            HSNCODE: HSNCODE,
+            CGST: CGST,
+            IGST: IGST,
+            SGST: SGST,
+            city: city,
+            locality: locality,
           },
           { new: true, upsert: true }
         ).exec((err, data) => {
@@ -297,6 +358,12 @@ exports.updateproduct = async (req, res) => {
             sellingprice: sellingprice,
             offerprice: offerprice,
             offerfornewcustomer: offerfornewcustomer,
+            HSNCODE: HSNCODE,
+            CGST: CGST,
+            IGST: IGST,
+            SGST: SGST,
+            city: city,
+            locality: locality,
           },
           { new: true, upsert: true }
         ).exec((err, data) => {
@@ -335,6 +402,12 @@ exports.updateproduct = async (req, res) => {
             sellingprice: sellingprice,
             offerprice: offerprice,
             offerfornewcustomer: offerfornewcustomer,
+            HSNCODE: HSNCODE,
+            CGST: CGST,
+            IGST: IGST,
+            SGST: SGST,
+            city: city,
+            locality: locality,
           },
           { new: true, upsert: true }
         ).exec((err, data) => {
@@ -365,7 +438,7 @@ exports.updateproduct = async (req, res) => {
 
 exports.updateproductqty = async (req, res) => {
   const { product, qty } = req.body;
-  console.log(product,qty);
+  console.log(product, qty);
   if (product !== undefined) {
     Product.findOneAndUpdate({ _id: product }).exec((err, data) => {
       if (data) {
@@ -388,7 +461,13 @@ exports.updateproductqty = async (req, res) => {
               offerprice: data.offerprice,
               offerfornewcustomer: data.offerfornewcustomer,
               thumbnail: data.thumbnail,
-              productImage: data.productImage ,
+              productImage: data.productImage,
+              HSNCODE: data.HSNCODE,
+              CGST: data.CGST,
+              IGST: data.IGST,
+              SGST: data.SGST,
+              city: data.city,
+              locality: data.locality,
             },
             { new: true, upsert: true }
           ).exec((err, data) => {
@@ -407,7 +486,7 @@ exports.updateproductqty = async (req, res) => {
             }
           });
         } else {
-          console.log("inside else",);
+          console.log("inside else");
           Product.findOneAndUpdate(
             { _id: data._id },
             {
@@ -419,14 +498,20 @@ exports.updateproductqty = async (req, res) => {
               availableFor: data.availableFor,
               sku: data.sku,
               tags: data.tags,
-              quantity: data.quantity-qty,
+              quantity: data.quantity - qty,
               stock: data.stock,
               price: data.price,
               sellingprice: data.sellingprice,
               offerprice: data.offerprice,
               offerfornewcustomer: data.offerfornewcustomer,
               thumbnail: data.thumbnail,
-              productImage: data.productImage ,
+              productImage: data.productImage,
+              HSNCODE: data.HSNCODE,
+              CGST: data.CGST,
+              IGST: data.IGST,
+              SGST: data.SGST,
+              city: data.city,
+              locality: data.locality,
             },
             { new: true, upsert: true }
           ).exec((err, data) => {
@@ -454,5 +539,4 @@ exports.updateproductqty = async (req, res) => {
       data: data,
     });
   }
-  
 };

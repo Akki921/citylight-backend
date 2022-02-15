@@ -9,10 +9,7 @@ const subscriptionSchema = new mongoose.Schema({
   //   type: Date,
   // },
   // startFrom: [{ Start: Date, qtyperday: Number }],
-  order: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Order",
-  },
+
   customer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "CustomerProfile",
@@ -21,17 +18,27 @@ const subscriptionSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Product",
   },
+  startDate: { type: Date },
+  productValue: {
+    type: Number,
+  },
+  frequency: {
+    type: String,
+  },
+  address: {
+    type: String,
+  },
+  city: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "City",
+  },
+  locality: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "CityAvailability",
+  },
   customDates: [{ Start: Date}],
   QtyperDay: {
     type: Number,
-  },
-   QtyFullfilled: {
-    type: Number,
-   default: 0,
-  },
-  Status: {
-    type: String,
-    default: 'pending',
   },
   iscancle: {
     type: Boolean,

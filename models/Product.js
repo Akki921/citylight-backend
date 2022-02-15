@@ -50,19 +50,29 @@ const productSchema = mongoose.Schema({
   thumbnail: {
     type: String,
   },
+  productImage: {
+    type: String,
+  },
   HSNCODE: {
     type: String,
   },
   CGST: {
     type:Number,
   },
-  CGST: {
+  SGST: {
     type: Number,
   },
   IGST: {
     type: Number,
   },
-
+  city:[{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "City",
+  }],
+  locality:[{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "CityAvailability",
+  }],
   createdDate: {
     type: Date,
   },

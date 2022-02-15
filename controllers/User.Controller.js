@@ -6,11 +6,11 @@ const mongoose = require("mongoose");
 module.exports = {
   //register new user
   createUser: async (req) => {
-    
+     console.log("req,",req )
     return new Promise(async (resolve) => {
       try {
         var emailData = await User.findOne({
-          email: req.email,phoneno:req.phoneno,
+          email: req.email,mobile:req.mobile,
         });
         if (emailData?._id != req._id && emailData?._id != null)
           return resolve({
@@ -22,8 +22,8 @@ module.exports = {
             _id: mongoose.Types.ObjectId(UserData._id),
           });
           if (user) {
-            user.Name = req.name;
-            user.phoneno=req.phoneno
+            user.Username = req.Username;
+            user.mobile=req.mobile
             user.email = req.email;
             user.modifiedDate = new Date();
             user.modifiedBy = 0;
@@ -54,8 +54,8 @@ module.exports = {
           }
         } else {
           var user = new User({
-            Name: req.name,
-            phoneno: req.phoneno,
+            Username: req.Username,
+            mobile: req.mobile,
             email: req.email,
             password: req.password,
             createdDate: new Date(),
@@ -64,6 +64,7 @@ module.exports = {
           user = await user.save();
           var roleMapping = [];
           req.roles.forEach((role) => {
+            console.log("first",role)
             roleMapping.push(
               new UserRoleMapping({
                 RoleId: role,
@@ -76,15 +77,16 @@ module.exports = {
           await UserRoleMapping.insertMany(roleMapping);
           if(user){
             
+            console.log("user",user)
             UserRoleMapping.find({ UserId: user._id }, (err, userRoleMapping) => {
               if (err) {
                 resolve({
                   status: false,
-                  message: "Please try after some time",
+                  message: "Please try after some time"+err,
                 });
               }
               if (userRoleMapping){
-               
+               console.log("userRoleMapping",userRoleMapping)
                 Role.find({ _id: userRoleMapping[0].RoleId }, (err, role) => {
                   if (err) {
                     resolve({
@@ -93,7 +95,7 @@ module.exports = {
                     });
                   }
                   if (role){
-                   
+                   console.log("final role",role)
                     return resolve({
                       status: true,
                       message: "User has been successfully created!",

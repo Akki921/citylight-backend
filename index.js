@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+var cookieParser = require('cookie-parser')
 const app = express();
 const addressRoute = require("./routes/addressslip.route");
 const roleRoute = require("./routes/role.router");
@@ -24,6 +25,7 @@ const CustomerProfile =require("./routes/CustomerProfile.route");
 const CustomerCollection =require("./routes/customercollection.route");
 const SubscriptionRoute =require("./routes/subscription.route");
 const VoccationRoute =require("./routes/Voccation.route");
+const DelivaryRoute =require("./routes/delivary.route");
 const cors = require("cors");
 const multer = require("multer");
 //const path = require("path/posix");
@@ -57,6 +59,7 @@ mongoose
 
   app.use(express.json()); 
   app.use(cors());
+  app.use(cookieParser());
    
   //Route middleware
 
@@ -81,6 +84,8 @@ mongoose
   app.use("/api/order",OrderRoute);
   app.use("/api/subscription",SubscriptionRoute);
   app.use("/api/voccation",VoccationRoute);
+  app.use("/api/delivary",DelivaryRoute);
+  
   //app.use('/uploads', express.static(path.join(__dirname, '/uploads/product')));
   app.use('/uploads', express.static('uploads'));
  

@@ -1,5 +1,7 @@
 const { ObjectId } = require("mongodb");
 const Subscription = require("../models/Subscription");
+let prevdata=[];
+
 module.exports = {
   // createSubscription: async (SubscriptionData) => {
 
@@ -71,15 +73,17 @@ module.exports = {
                   { _id: data._id },
                   {
                   subNo: SubscriptionData.subNo,
-                 // subDate: SubscriptionData.subDate,
-                  // startFrom: SubscriptionData.startFrom,
-                  order: SubscriptionData.order,
                   customer: SubscriptionData.customer,
                   product: SubscriptionData.product,
                   customDates: SubscriptionData.customDates,
                   iscancle:true,
                    QtyperDay: SubscriptionData.QtyperDay,
-                  // frequency: SubscriptionData.frequency
+                   frequency: SubscriptionData.frequency,
+                   address: SubscriptionData.address,
+                   locality: SubscriptionData.locality,
+                   city: SubscriptionData.city,
+                   startDate: SubscriptionData.startDate,
+                   productValue: SubscriptionData.productValue,
                   },
                   { new: true, upsert: true }
                 ).exec((err, data) => {
@@ -104,13 +108,16 @@ module.exports = {
                   { _id: data._id },
                   {
                   subNo: SubscriptionData.subNo,
-                  //subDate: SubscriptionData.subDate,
-                  // startFrom: SubscriptionData.startFrom,
-                  order: SubscriptionData.order,
                   customer: SubscriptionData.customer,
                   product: SubscriptionData.product,
-                  QtyperDay: SubscriptionData.QtyperDay,
-                  // frequency: SubscriptionData.frequency
+                  customDates: SubscriptionData.customDates,
+                   QtyperDay: SubscriptionData.QtyperDay,
+                   frequency: SubscriptionData.frequency,
+                   address: SubscriptionData.address,
+                   locality: SubscriptionData.locality,
+                   city: SubscriptionData.city,
+                   startDate: SubscriptionData.startDate,
+                   productValue: SubscriptionData.productValue,
                   },
                   { new: true, upsert: true }
                 ).exec((err, data) => {
@@ -134,14 +141,16 @@ module.exports = {
               if (SubscriptionData.customDates !== undefined) {
                 var newSubscription = new Subscription({
                   subNo: SubscriptionData.subNo,
-                //  subDate: SubscriptionData.subDate,
-               //   startFrom: SubscriptionData.startFrom,
-                  order: SubscriptionData.order,
                   customer: SubscriptionData.customer,
                   product: SubscriptionData.product,
                   customDates: SubscriptionData.customDates,
                    QtyperDay: SubscriptionData.QtyperDay,
-                  // frequency: SubscriptionData.frequency,
+                   frequency: SubscriptionData.frequency,
+                   address: SubscriptionData.address,
+                   locality: SubscriptionData.locality,
+                   city: SubscriptionData.city,
+                   startDate: SubscriptionData.startDate,
+                   productValue: SubscriptionData.productValue,
                 });
                 newSubscription.save(async (error, Subscription) => {
                   console.log(Subscription);
@@ -161,13 +170,16 @@ module.exports = {
               } else {
                 var newSubscription = new Subscription({
                   subNo: SubscriptionData.subNo,
-                  //subDate: SubscriptionData.subDate,
-               //   startFrom: SubscriptionData.startFrom,
-                  order: SubscriptionData.order,
                   customer: SubscriptionData.customer,
                   product: SubscriptionData.product,
+                  customDates: SubscriptionData.customDates,
                    QtyperDay: SubscriptionData.QtyperDay,
-                  // frequency: SubscriptionData.frequency,
+                   frequency: SubscriptionData.frequency,
+                   address: SubscriptionData.address,
+                   locality: SubscriptionData.locality,
+                   city: SubscriptionData.city,
+                   startDate: SubscriptionData.startDate,
+                   productValue: SubscriptionData.productValue,
                 });
                 newSubscription.save(async (error, Subscription) => {
                   console.log(Subscription);
@@ -314,13 +326,12 @@ module.exports = {
   getAllSubscription: async () => {
     return new Promise(async (resolve) => {
       try {
+        console.log('prevdata',prevdata)
         Subscription.find({})
-          .populate(
-            "order",
-            "orderNo qtyperday startDate product frequency productValue  address locality"
-          )
           .populate("customer", "username login")
           .populate("product", "productName thumbnail")
+          .populate("city", "cityName")
+          .populate("locality", "locality")
           .exec((error, data) => {
             if (error)
               return resolve({
@@ -415,12 +426,11 @@ module.exports = {
     return new Promise(async (resolve) => {
       try {
         Subscription.find({'customer': { "_id":id }})
-          .populate(
-            "order",
-            "orderNo qtyperday startDate product productValue frequency address locality"
-          )
+         
           .populate("customer", "username login")
           .populate("product", "productName thumbnail sellingprice offerprice")
+          .populate("city", "cityName")
+          .populate("locality", "locality")
           .exec((error, data) => {
             if (error)
             return resolve({
@@ -440,6 +450,108 @@ module.exports = {
         return resolve({
           status: false,
           message: "Please try after some time",
+        });
+      }
+    });
+  },
+
+
+  createupdateSubscriptiononce: async (SubscriptionData) => {
+    console.log("SubscriptionData", SubscriptionData);
+    return new Promise(async (resolve) => {
+      console.log(SubscriptionData);
+      try {
+        if (SubscriptionData) {
+      SubscriptionData.map((data)=>{ 
+          Subscription.updateMany(
+            { _id: data.walletId },
+          
+            (err, data) => {
+              if (err) {
+                return resolve({
+                  status: true,
+                  message: "there is a problem",
+                });
+              }
+              if (data) {
+                console.log("succesfull", data);
+                return resolve({
+                  status: true,
+                  data2: data,
+                  message: "Wallet Recharged successfully",
+                });
+              }
+            }
+          );
+        })
+        } else {
+          return resolve({
+            status: true,
+            data: dd,
+            message: "Transection has not been created",
+          });
+        }
+      } catch (error) {
+        return resolve({
+          status: false,
+          message: "Please try after some time" + error,
+        });
+      }
+    });
+  },
+
+  updatesubscriptiononword: async (datas) => {
+    return new Promise(async (resolve) => {
+      console.log(datas);
+      try {
+        let test=[];
+
+        for(let i = 0; i < datas.length; i++) {
+        //  console. log( Data.slipdata[i]);
+          test.push( datas[i]._id)
+      }
+        Subscription.find({ "_id":{$in:test} }).exec((err, data) => {
+          console.log(data);
+          if (data) {
+            DelivaryData.map((data)=>{ 
+              Delivary.updateMany(
+                { _id: data._id },
+                {
+                  subNo: data.subNo,
+                 // subDate: data.subDate,
+                  // startFrom: data.startFrom,
+                  order: data.order,
+                  customer: data.customer,
+                  product: data.product,
+                  customDates: data.customDates,
+                 // iscancle:true,
+                   QtyperDay: data.QtyperDay,
+                  // frequency: SubscriptionData.frequency
+                 },
+                (err, data) => {
+                  if (err) {
+                    return resolve({
+                      status: true,
+                      message: "there is a problem",
+                    });
+                  }
+                  if (data) {
+                    console.log("succesfull", data);
+                    return resolve({
+                      status: true,
+                      data2: data,
+                      message: "subscription  update successfully",
+                    });
+                  }
+                }
+              );
+            })
+          }
+        });
+      } catch (error) {
+        return resolve({
+          status: false,
+          message: "Please try after some time2" + error,
         });
       }
     });

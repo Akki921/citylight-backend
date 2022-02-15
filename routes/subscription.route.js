@@ -41,4 +41,10 @@ router.get("/getallSubscription",async(req,res)=>{
     if(!subscriptionupdate) return res.status(400).json(subscriptionupdate);
     res.status(200).json(subscriptionupdate);
   })
+  router.post("/createSubscriptionAndUpdateonce",async(req,res)=>{
+    const addSubscription=await SubscriptionHandler.createupdateSubscriptiononce(req.body);
+    if(!addSubscription) return res.status(400).json(addSubscription);
+    res.status(200).json(addSubscription);
+})
+
 module.exports=router;

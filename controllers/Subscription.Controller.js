@@ -468,7 +468,7 @@ module.exports = {
   createupdateSubscriptiononce: async (SubscriptionData) => {
     console.log("SubscriptionData", SubscriptionData);
     return new Promise(async (resolve) => {
-      console.log(SubscriptionData);
+      console.log(SubscriptionData[0].OnceUpdate);
       try {
         let test = [];
 
@@ -494,7 +494,7 @@ module.exports = {
                   city: data.city,
                   startDate: data.startDate,
                   productValue: data.productValue,
-                  OnceUpdate:data.OnnceUpdate
+                  OnceUpdate:data.OnceUpdate
                 },
                 { new: true, upsert: true },
                 (err, data) => {

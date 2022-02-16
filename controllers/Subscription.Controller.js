@@ -465,66 +465,66 @@ module.exports = {
     });
   },
 
-  createupdateSubscriptiononce: async (SubscriptionData) => {
-    console.log("SubscriptionData", SubscriptionData);
-    return new Promise(async (resolve) => {
-      console.log(SubscriptionData);
-      try {
-        let test = [];
+  // createupdateSubscriptiononce: async (SubscriptionData) => {
+  //   console.log("SubscriptionData", SubscriptionData);
+  //   return new Promise(async (resolve) => {
+  //     console.log(SubscriptionData);
+  //     try {
+  //       let test = [];
 
-        for (let i = 0; i < SubscriptionData.length; i++) {
-            console. log(SubscriptionData[i]);
-          test.push(SubscriptionData[i]._id);
-        }
-        Subscription.find({ _id: { $in: test } }).exec((err, data) => {
-          console.log(data);
-          if (data) {
-            SubscriptionData.map((data) => {
-              Subscription.updateMany(
-                { _id: data._id },
-                {
-                  subNo: data.subNo,
-                  customer: data.customer,
-                  product: data.product,
-                  customDates: data.customDates,
-                  QtyperDay: data.QtyperDay,
-                  frequency: data.frequency,
-                  address: data.address,
-                  locality: data.locality,
-                  city: data.city,
-                  startDate: data.startDate,
-                  productValue: data.productValue,
-                  OnceUpdate:data.OnnceUpdate
-                },
-                { new: true, upsert: true },
-                (err, data) => {
-                  if (err) {
-                    return resolve({
-                      status: true,
-                      message: "there is a problem",
-                    });
-                  }
-                  if (data) {
-                    console.log("succesfull", data);
-                    return resolve({
-                      status: true,
-                      data2: data,
-                      message: "subscription  update successfully",
-                    });
-                  }
-                }
-              );
-            });
-          }
-        });
-      } catch (error) {
-        return resolve({
-          status: false,
-          message: "Please try after some time2" + error,
-        });
-      }
-    });
-  },
+  //       for (let i = 0; i < SubscriptionData.length; i++) {
+  //           console. log(SubscriptionData[i]);
+  //         test.push(SubscriptionData[i]._id);
+  //       }
+  //       Subscription.find({ _id: { $in: test } }).exec((err, data) => {
+  //         console.log(data);
+  //         if (data) {
+  //           SubscriptionData.map((data) => {
+  //             Subscription.updateMany(
+  //               { _id: data._id },
+  //               {
+  //                 subNo: data.subNo,
+  //                 customer: data.customer,
+  //                 product: data.product,
+  //                 customDates: data.customDates,
+  //                 QtyperDay: data.QtyperDay,
+  //                 frequency: data.frequency,
+  //                 address: data.address,
+  //                 locality: data.locality,
+  //                 city: data.city,
+  //                 startDate: data.startDate,
+  //                 productValue: data.productValue,
+  //                 OnceUpdate:data.OnnceUpdate
+  //               },
+  //               { new: true, upsert: true },
+  //               (err, data) => {
+  //                 if (err) {
+  //                   return resolve({
+  //                     status: true,
+  //                     message: "there is a problem",
+  //                   });
+  //                 }
+  //                 if (data) {
+  //                   console.log("succesfull", data);
+  //                   return resolve({
+  //                     status: true,
+  //                     data2: data,
+  //                     message: "subscription  update successfully",
+  //                   });
+  //                 }
+  //               }
+  //             );
+  //           });
+  //         }
+  //       });
+  //     } catch (error) {
+  //       return resolve({
+  //         status: false,
+  //         message: "Please try after some time2" + error,
+  //       });
+  //     }
+  //   });
+  // },
 
   updatesubscriptiononword: async (datas) => {
     return new Promise(async (resolve) => {

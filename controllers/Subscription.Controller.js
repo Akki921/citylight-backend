@@ -1,6 +1,6 @@
 const { ObjectId } = require("mongodb");
 const Subscription = require("../models/Subscription");
-let prevdata = [];
+let prevdata=[];
 
 module.exports = {
   // createSubscription: async (SubscriptionData) => {
@@ -67,97 +67,90 @@ module.exports = {
         Subscription.findOne({ subNo: SubscriptionData.subNo }).exec(
           (err, data) => {
             if (data) {
-              console.log(
-                "SubscriptionData.customDates",
-                SubscriptionData.customDates
-              );
-              if (
-                SubscriptionData.customDates !== undefined ||
-                SubscriptionData.QtyperDay === 0
-              ) {
+              console.log('SubscriptionData.customDates',SubscriptionData.customDates)
+              if (SubscriptionData.customDates !== undefined || SubscriptionData.QtyperDay === 0 ) {
                 Subscription.findOneAndUpdate(
                   { _id: data._id },
                   {
-                    subNo: SubscriptionData.subNo,
-                    customer: SubscriptionData.customer,
-                    product: SubscriptionData.product,
-                    customDates: SubscriptionData.customDates,
-                    iscancle: true,
-                    QtyperDay: SubscriptionData.QtyperDay,
-                    frequency: SubscriptionData.frequency,
-                    address: SubscriptionData.address,
-                    locality: SubscriptionData.locality,
-                    city: SubscriptionData.city,
-                    startDate: SubscriptionData.startDate,
-                    productValue: SubscriptionData.productValue,
+                  subNo: SubscriptionData.subNo,
+                  customer: SubscriptionData.customer,
+                  product: SubscriptionData.product,
+                  customDates: SubscriptionData.customDates,
+                  iscancle:true,
+                   QtyperDay: SubscriptionData.QtyperDay,
+                   frequency: SubscriptionData.frequency,
+                   address: SubscriptionData.address,
+                   locality: SubscriptionData.locality,
+                   city: SubscriptionData.city,
+                   startDate: SubscriptionData.startDate,
+                   productValue: SubscriptionData.productValue,
                   },
                   { new: true, upsert: true }
                 ).exec((err, data) => {
                   if (data) {
-                    return resolve({
+                    return  resolve({
                       status: true,
                       message: "subscription details  is updated !",
                       data: data,
                     });
                   } else if (err) {
-                    return resolve({
+                    return  resolve({
                       status: false,
                       message: "subscription details is updating failed !",
                       data: data,
                     });
                   }
-                });
-              } else {
+                })
+              }
+              else
+              {
                 Subscription.findOneAndUpdate(
                   { _id: data._id },
                   {
-                    subNo: SubscriptionData.subNo,
-                    customer: SubscriptionData.customer,
-                    product: SubscriptionData.product,
-                    customDates: SubscriptionData.customDates,
-                    QtyperDay: SubscriptionData.QtyperDay,
-                    frequency: SubscriptionData.frequency,
-                    address: SubscriptionData.address,
-                    locality: SubscriptionData.locality,
-                    city: SubscriptionData.city,
-                    startDate: SubscriptionData.startDate,
-                    productValue: SubscriptionData.productValue,
+                  subNo: SubscriptionData.subNo,
+                  customer: SubscriptionData.customer,
+                  product: SubscriptionData.product,
+                  customDates: SubscriptionData.customDates,
+                   QtyperDay: SubscriptionData.QtyperDay,
+                   frequency: SubscriptionData.frequency,
+                   address: SubscriptionData.address,
+                   locality: SubscriptionData.locality,
+                   city: SubscriptionData.city,
+                   startDate: SubscriptionData.startDate,
+                   productValue: SubscriptionData.productValue,
                   },
                   { new: true, upsert: true }
                 ).exec((err, data) => {
                   if (data) {
-                    return resolve({
+                    return  resolve({
                       status: true,
                       message: "subscription details  is updated !",
                       data: data,
                     });
                   } else if (err) {
-                    return resolve({
+                    return  resolve({
                       status: false,
                       message: "subscription details is updating failed !",
                       data: data,
                     });
                   }
-                });
+                })
               }
             } else {
-              console.log(
-                "SubscriptionData.customDates",
-                SubscriptionData.customDates
-              );
+              console.log('SubscriptionData.customDates',SubscriptionData.customDates)
               if (SubscriptionData.customDates !== undefined) {
                 var newSubscription = new Subscription({
                   subNo: SubscriptionData.subNo,
                   customer: SubscriptionData.customer,
                   product: SubscriptionData.product,
                   customDates: SubscriptionData.customDates,
-                  QtyperDay: SubscriptionData.QtyperDay,
-                  frequency: SubscriptionData.frequency,
-                  address: SubscriptionData.address,
-                  locality: SubscriptionData.locality,
-                  city: SubscriptionData.city,
-                  startDate: SubscriptionData.startDate,
-                  productValue: SubscriptionData.productValue,
+                   QtyperDay: SubscriptionData.QtyperDay,
+                   frequency: SubscriptionData.frequency,
+                   address: SubscriptionData.address,
+                   locality: SubscriptionData.locality,
+                   city: SubscriptionData.city,
+                   startDate: SubscriptionData.startDate,
+                   productValue: SubscriptionData.productValue,
                 });
                 newSubscription.save(async (error, Subscription) => {
                   console.log(Subscription);
@@ -175,26 +168,26 @@ module.exports = {
                   }
                 });
               } else {
-                console.log("inside else");
+                console.log('inside else')
                 var newSubscription = new Subscription({
                   subNo: SubscriptionData.subNo,
                   customer: SubscriptionData.customer,
                   product: SubscriptionData.product,
                   customDates: SubscriptionData.customDates,
-                  QtyperDay: SubscriptionData.QtyperDay,
-                  frequency: SubscriptionData.frequency,
-                  address: SubscriptionData.address,
-                  locality: SubscriptionData.locality,
-                  city: SubscriptionData.city,
-                  startDate: SubscriptionData.startDate,
-                  productValue: SubscriptionData.productValue,
+                   QtyperDay: SubscriptionData.QtyperDay,
+                   frequency: SubscriptionData.frequency,
+                   address: SubscriptionData.address,
+                   locality: SubscriptionData.locality,
+                   city: SubscriptionData.city,
+                   startDate: SubscriptionData.startDate,
+                   productValue: SubscriptionData.productValue,
                 });
                 newSubscription.save(async (error, Subscription) => {
                   console.log(Subscription);
                   if (error)
                     return resolve({
                       status: false,
-                      message: "Please try after some time" + error,
+                      message: "Please try after some time"+error,
                     });
                   if (Subscription) {
                     return resolve({
@@ -250,61 +243,56 @@ module.exports = {
     return new Promise(async (resolve) => {
       console.log(datas);
       try {
-        Subscription.findOne({ _id: new ObjectId(`${datas.subid}`) }).exec(
-          (err, data) => {
-            console.log(data);
-            if (data) {
-              if (datas.isSelected === undefined) {
+        Subscription.findOne({ _id:new ObjectId(`${datas.subid}`) }).exec((err, data) => {
+          console.log(data);
+          if (data) {
+            if (datas.isSelected === undefined) {
+              Subscription.findOneAndUpdate(
+                { _id: data._id },
+                {
+                  subNo: data.subNo,
+                  subDate: data.subDate,
+                 // startFrom: data.startFrom,
+                  order: data.order,
+                  customer: data.customer,
+                  product: data.product,
+                  // QtyperDay: data.QtyperDay,
+                  // frequency: data.frequency,
+                  endDate: data.endDate,
+                  iscancle: data.iscancle,
+                  isSelected: data.isSelected,
+                },
+                { new: true, upsert: true }
+              ).exec((err, data) => {
+                if (data) {
+                  return  resolve({
+                    status: true,
+                    message: "subscription details  is updated !",
+                    data: data,
+                  });
+                } else if (err) {
+                  return  resolve({
+                    status: false,
+                    message: "subscription details is updating failed !",
+                    data: data,
+                  });
+                }
+              });
+            } else {
+              console.log("inside else");
+         
                 Subscription.findOneAndUpdate(
                   { _id: data._id },
                   {
                     subNo: data.subNo,
+                    subDate: data.subDate,
+                   // startFrom: data.startFrom,
+                    order: data.order,
                     customer: data.customer,
                     product: data.product,
-                    customDates: data.customDates,
-                    QtyperDay: data.QtyperDay,
-                    frequency: data.frequency,
-                    address: data.address,
-                    locality: data.locality,
-                    city: data.city,
-                    startDate: data.startDate,
-                    productValue: data.productValue,
-                    iscancle: data.iscancle,
-                    isSelected: data.isSelected,
-                  },
-                  { new: true, upsert: true }
-                ).exec((err, data) => {
-                  if (data) {
-                    return resolve({
-                      status: true,
-                      message: "subscription details  is updated !",
-                      data: data,
-                    });
-                  } else if (err) {
-                    return resolve({
-                      status: false,
-                      message: "subscription details is updating failed !",
-                      data: data,
-                    });
-                  }
-                });
-              } else {
-                console.log("inside else");
-
-                Subscription.findOneAndUpdate(
-                  { _id: data._id },
-                  {
-                    subNo: data.subNo,
-                    customer: data.customer,
-                    product: data.product,
-                    customDates: data.customDates,
-                    QtyperDay: data.QtyperDay,
-                    frequency: data.frequency,
-                    address: data.address,
-                    locality: data.locality,
-                    city: data.city,
-                    startDate: data.startDate,
-                    productValue: data.productValue,
+                    // QtyperDay: data.QtyperDay,
+                    // frequency: data.frequency,
+                    // endDate: data.endDate,
                     iscancle: data.iscancle,
                     isSelected: datas.isSelected,
                   },
@@ -317,17 +305,16 @@ module.exports = {
                       data: data,
                     });
                   } else if (err) {
-                    return resolve({
+                    return  resolve({
                       status: false,
                       message: "subscription   details is updating failed !",
                       data: data,
                     });
                   }
-                });
-              }
+                })
             }
           }
-        );
+        });
       } catch (error) {
         return resolve({
           status: false,
@@ -340,7 +327,7 @@ module.exports = {
   getAllSubscription: async () => {
     return new Promise(async (resolve) => {
       try {
-        console.log("prevdata", prevdata);
+        console.log('prevdata',prevdata)
         Subscription.find({})
           .populate("customer", "username login")
           .populate("product", "productName thumbnail")
@@ -373,56 +360,57 @@ module.exports = {
   updateAllSelcted: async (datas) => {
     return new Promise(async (resolve) => {
       console.log(datas);
-
-      console.log(datas);
+   
+  console.log(datas);
       try {
-        if (datas.isSelected === false) {
-          Subscription.updateMany(
-            { isSelected: true },
-            {
-              $set: { isSelected: false },
-            },
-            { new: true, upsert: true }
-          ).exec((err, data) => {
-            if (data) {
-              return resolve({
-                status: true,
-                message: "subscription details  is updated !",
-                data: data,
+      
+            if (datas.isSelected === false) {
+              Subscription.updateMany(
+               {isSelected: true},
+                {
+                  $set: {  isSelected:false }
+                },
+                { new: true, upsert: true }
+              ).exec((err, data) => {
+                if (data) {
+                  return  resolve({
+                    status: true,
+                    message: "subscription details  is updated !",
+                    data: data,
+                  });
+                } else if (err) {
+                  return  resolve({
+                    status: false,
+                    message: "subscription details is updating failed !",
+                    data: data,
+                  });
+                }
               });
-            } else if (err) {
-              return resolve({
-                status: false,
-                message: "subscription details is updating failed !",
-                data: data,
-              });
+            } else {
+              console.log("inside else");
+         
+                Subscription.updateMany(
+                  {isSelected: false},
+                  {
+                    $set: {  isSelected:true }
+                  },
+                  { new: true, upsert: true }
+                ).exec((err, data) => {
+                  if (data) {
+                    return resolve({
+                      status: true,
+                      message: "subscription   is updated !",
+                      data: data,
+                    });
+                  } else if (err) {
+                    return  resolve({
+                      status: false,
+                      message: "subscription   details is updating failed !",
+                      data: data,
+                    });
+                  }
+                })
             }
-          });
-        } else {
-          console.log("inside else");
-
-          Subscription.updateMany(
-            { isSelected: false },
-            {
-              $set: { isSelected: true },
-            },
-            { new: true, upsert: true }
-          ).exec((err, data) => {
-            if (data) {
-              return resolve({
-                status: true,
-                message: "subscription   is updated !",
-                data: data,
-              });
-            } else if (err) {
-              return resolve({
-                status: false,
-                message: "subscription   details is updating failed !",
-                data: data,
-              });
-            }
-          });
-        }
       } catch (error) {
         return resolve({
           status: false,
@@ -432,18 +420,21 @@ module.exports = {
     });
   },
 
+
+
+
   getSubscriptionbyloginid: async (id) => {
     return new Promise(async (resolve) => {
       try {
-        Subscription.find({ customer: { _id: id } })
-
+        Subscription.find({'customer': { "_id":id }})
+         
           .populate("customer", "username login")
           .populate("product", "productName thumbnail sellingprice offerprice")
           .populate("city", "cityName")
           .populate("locality", "locality")
           .exec((error, data) => {
             if (error)
-              return resolve({
+            return resolve({
                 status: true,
                 data: data,
                 message: "Subscription retrieved successfully",
@@ -465,95 +456,79 @@ module.exports = {
     });
   },
 
-  // createupdateSubscriptiononce: async (SubscriptionData) => {
-  //   console.log("SubscriptionData", SubscriptionData);
-  //   return new Promise(async (resolve) => {
-  //     console.log(SubscriptionData);
-  //     try {
-  //       let test = [];
 
-  //       for (let i = 0; i < SubscriptionData.length; i++) {
-  //           console. log(SubscriptionData[i]);
-  //         test.push(SubscriptionData[i]._id);
-  //       }
-  //       Subscription.find({ _id: { $in: test } }).exec((err, data) => {
-  //         console.log(data);
-  //         if (data) {
-  //           SubscriptionData.map((data) => {
-  //             Subscription.updateMany(
-  //               { _id: data._id },
-  //               {
-  //                 subNo: data.subNo,
-  //                 customer: data.customer,
-  //                 product: data.product,
-  //                 customDates: data.customDates,
-  //                 QtyperDay: data.QtyperDay,
-  //                 frequency: data.frequency,
-  //                 address: data.address,
-  //                 locality: data.locality,
-  //                 city: data.city,
-  //                 startDate: data.startDate,
-  //                 productValue: data.productValue,
-  //                 OnceUpdate:data.OnnceUpdate
-  //               },
-  //               { new: true, upsert: true },
-  //               (err, data) => {
-  //                 if (err) {
-  //                   return resolve({
-  //                     status: true,
-  //                     message: "there is a problem",
-  //                   });
-  //                 }
-  //                 if (data) {
-  //                   console.log("succesfull", data);
-  //                   return resolve({
-  //                     status: true,
-  //                     data2: data,
-  //                     message: "subscription  update successfully",
-  //                   });
-  //                 }
-  //               }
-  //             );
-  //           });
-  //         }
-  //       });
-  //     } catch (error) {
-  //       return resolve({
-  //         status: false,
-  //         message: "Please try after some time2" + error,
-  //       });
-  //     }
-  //   });
-  // },
+  createupdateSubscriptiononce: async (SubscriptionData) => {
+    console.log("SubscriptionData", SubscriptionData);
+    return new Promise(async (resolve) => {
+      console.log(SubscriptionData);
+      try {
+        if (SubscriptionData) {
+      SubscriptionData.map((data)=>{ 
+          Subscription.updateMany(
+            { _id: data. },
+          
+            (err, data) => {
+              if (err) {
+                return resolve({
+                  status: true,
+                  message: "there is a problem",
+                });
+              }
+              if (data) {
+                console.log("succesfull", data);
+                return resolve({
+                  status: true,
+                  data2: data,
+                  message: "Wallet Recharged successfully",
+                });
+              }
+            }
+          );
+        })
+        } else {
+          return resolve({
+            status: true,
+            data: dd,
+            message: "Transection has not been created",
+          });
+        }
+      } catch (error) {
+        return resolve({
+          status: false,
+          message: "Please try after some time" + error,
+        });
+      }
+    });
+  },
 
   updatesubscriptiononword: async (datas) => {
     return new Promise(async (resolve) => {
       console.log(datas);
       try {
-        let test = [];
+        let test=[];
 
-        for (let i = 0; i < datas.length; i++) {
-          //  console. log( Data.slipdata[i]);
-          test.push(datas[i]._id);
-        }
-        Subscription.find({ _id: { $in: test } }).exec((err, data) => {
+        for(let i = 0; i < datas.length; i++) {
+        //  console. log( Data.slipdata[i]);
+          test.push( datas[i]._id)
+      }
+        Subscription.find({ "_id":{$in:test} }).exec((err, data) => {
           console.log(data);
           if (data) {
-            DelivaryData.map((data) => {
+            DelivaryData.map((data)=>{ 
               Delivary.updateMany(
                 { _id: data._id },
                 {
                   subNo: data.subNo,
-                  // subDate: data.subDate,
+                 // subDate: data.subDate,
                   // startFrom: data.startFrom,
                   order: data.order,
                   customer: data.customer,
                   product: data.product,
                   customDates: data.customDates,
-                  // iscancle:true,
-                  QtyperDay: data.QtyperDay,
+                 // iscancle:true,
+                   QtyperDay: data.QtyperDay,
                   // frequency: SubscriptionData.frequency
-                },
+                 },
                 (err, data) => {
                   if (err) {
                     return resolve({
@@ -571,7 +546,7 @@ module.exports = {
                   }
                 }
               );
-            });
+            })
           }
         });
       } catch (error) {

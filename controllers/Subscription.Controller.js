@@ -89,7 +89,7 @@ module.exports = {
                     locality: SubscriptionData.locality,
                     city: SubscriptionData.city,
                     startDate: SubscriptionData.startDate,
-                    OnceUpdate:SubscriptionData.OnceUpdate,
+                    OnceUpdate: SubscriptionData.OnceUpdate,
                     productValue: SubscriptionData.productValue,
                   },
                   { new: true, upsert: true }
@@ -121,7 +121,7 @@ module.exports = {
                     address: SubscriptionData.address,
                     locality: SubscriptionData.locality,
                     city: SubscriptionData.city,
-                    OnceUpdate:SubscriptionData.OnceUpdate,
+                    OnceUpdate: SubscriptionData.OnceUpdate,
                     startDate: SubscriptionData.startDate,
                     productValue: SubscriptionData.productValue,
                   },
@@ -159,7 +159,7 @@ module.exports = {
                   locality: SubscriptionData.locality,
                   city: SubscriptionData.city,
                   startDate: SubscriptionData.startDate,
-                  OnceUpdate:SubscriptionData.OnceUpdate,
+                  OnceUpdate: SubscriptionData.OnceUpdate,
                   productValue: SubscriptionData.productValue,
                 });
                 newSubscription.save(async (error, Subscription) => {
@@ -190,7 +190,7 @@ module.exports = {
                   locality: SubscriptionData.locality,
                   city: SubscriptionData.city,
                   startDate: SubscriptionData.startDate,
-                  OnceUpdate:SubscriptionData.OnceUpdate,
+                  OnceUpdate: SubscriptionData.OnceUpdate,
                   productValue: SubscriptionData.productValue,
                 });
                 newSubscription.save(async (error, Subscription) => {
@@ -273,7 +273,7 @@ module.exports = {
                     city: data.city,
                     startDate: data.startDate,
                     productValue: data.productValue,
-                    OnceUpdate:data.OnceUpdate,
+                    OnceUpdate: data.OnceUpdate,
                     iscancle: data.iscancle,
                     isSelected: data.isSelected,
                   },
@@ -295,8 +295,7 @@ module.exports = {
                 });
               } else {
                 console.log("inside else");
-
-                Subscription.findOneAndUpdate(
+               Subscription.findOneAndUpdate(
                   { _id: data._id },
                   {
                     subNo: data.subNo,
@@ -310,7 +309,7 @@ module.exports = {
                     city: data.city,
                     startDate: data.startDate,
                     productValue: data.productValue,
-                    OnceUpdate:data.OnceUpdate,
+                    OnceUpdate: data.OnceUpdate,
                     iscancle: data.iscancle,
                     isSelected: datas.isSelected,
                   },
@@ -380,7 +379,6 @@ module.exports = {
     return new Promise(async (resolve) => {
       console.log(SubscriptionData);
 
-      
       try {
         if (SubscriptionData.isSelected === false) {
           SubscriptionData.alldata.map((data) => {
@@ -398,8 +396,8 @@ module.exports = {
                 city: data.city,
                 startDate: data.startDate,
                 productValue: data.productValue,
-                OnceUpdate:data.OnceUpdate,
-                isSelected:SubscriptionData.isSelected,
+                OnceUpdate: data.OnceUpdate,
+                isSelected: SubscriptionData.isSelected,
               },
               { new: true, upsert: true },
               (err, data) => {
@@ -437,8 +435,8 @@ module.exports = {
                 city: data.city,
                 startDate: data.startDate,
                 productValue: data.productValue,
-                OnceUpdate:data.OnceUpdate,
-                isSelected:SubscriptionData.isSelected,
+                OnceUpdate: data.OnceUpdate,
+                isSelected: SubscriptionData.isSelected,
               },
               { new: true, upsert: true },
               (err, data) => {
@@ -510,7 +508,7 @@ module.exports = {
         let test = [];
 
         for (let i = 0; i < SubscriptionData.length; i++) {
-            console. log(SubscriptionData[i]);
+          console.log(SubscriptionData[i]);
           test.push(SubscriptionData[i]._id);
         }
         Subscription.find({ _id: { $in: test } }).exec((err, data) => {
@@ -531,7 +529,7 @@ module.exports = {
                   city: data.city,
                   startDate: data.startDate,
                   productValue: data.productValue,
-                  OnceUpdate:data.OnceUpdate
+                  OnceUpdate: data.OnceUpdate,
                 },
                 { new: true, upsert: true },
                 (err, data) => {

@@ -376,57 +376,88 @@ module.exports = {
     });
   },
 
-  updateAllSelcted: async (datas) => {
+  updateAllSelcted: async (daSubscriptionDatatas) => {
     return new Promise(async (resolve) => {
-      console.log(datas);
+      console.log(SubscriptionData);
 
-      console.log(datas);
+      
       try {
-        if (datas.isSelected === false) {
-          Subscription.updateMany(
-            { isSelected: true },
-            {
-              $set: { isSelected: false },
-            },
-            { new: true, upsert: true }
-          ).exec((err, data) => {
-            if (data) {
-              return resolve({
-                status: true,
-                message: "subscription details  is updated !",
-                data: data,
-              });
-            } else if (err) {
-              return resolve({
-                status: false,
-                message: "subscription details is updating failed !",
-                data: data,
-              });
-            }
+        if (SubscriptionData[0].isSelected === false) {
+          SubscriptionData.map((data) => {
+            Subscription.updateMany(
+              { _id: data._id },
+              {
+                subNo: data.subNo,
+                customer: data.customer,
+                product: data.product,
+                customDates: data.customDates,
+                QtyperDay: data.QtyperDay,
+                frequency: data.frequency,
+                address: data.address,
+                locality: data.locality,
+                city: data.city,
+                startDate: data.startDate,
+                productValue: data.productValue,
+                OnceUpdate:data.OnceUpdate,
+                isSelected:true,
+              },
+              { new: true, upsert: true },
+              (err, data) => {
+                if (err) {
+                  return resolve({
+                    status: true,
+                    message: "there is a problem",
+                  });
+                }
+                if (data) {
+                  console.log("succesfull", data);
+                  return resolve({
+                    status: true,
+                    data2: data,
+                    message: "subscription  update successfully",
+                  });
+                }
+              }
+            );
           });
         } else {
           console.log("inside else");
-
-          Subscription.updateMany(
-            { isSelected: false },
-            {
-              $set: { isSelected: true },
-            },
-            { new: true, upsert: true }
-          ).exec((err, data) => {
-            if (data) {
-              return resolve({
-                status: true,
-                message: "subscription   is updated !",
-                data: data,
-              });
-            } else if (err) {
-              return resolve({
-                status: false,
-                message: "subscription   details is updating failed !",
-                data: data,
-              });
-            }
+          SubscriptionData.map((data) => {
+            Subscription.updateMany(
+              { _id: data._id },
+              {
+                subNo: data.subNo,
+                customer: data.customer,
+                product: data.product,
+                customDates: data.customDates,
+                QtyperDay: data.QtyperDay,
+                frequency: data.frequency,
+                address: data.address,
+                locality: data.locality,
+                city: data.city,
+                startDate: data.startDate,
+                productValue: data.productValue,
+                OnceUpdate:data.OnceUpdate,
+                isSelected:false,
+              },
+              { new: true, upsert: true },
+              (err, data) => {
+                if (err) {
+                  return resolve({
+                    status: true,
+                    message: "there is a problem",
+                  });
+                }
+                if (data) {
+                  console.log("succesfull", data);
+                  return resolve({
+                    status: true,
+                    data2: data,
+                    message: "subscription  update successfully",
+                  });
+                }
+              }
+            );
           });
         }
       } catch (error) {

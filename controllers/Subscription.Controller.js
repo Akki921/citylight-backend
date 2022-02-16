@@ -457,49 +457,49 @@ module.exports = {
   },
 
 
-  createupdateSubscriptiononce: async (SubscriptionData) => {
-    console.log("SubscriptionData", SubscriptionData);
-    return new Promise(async (resolve) => {
-      console.log(SubscriptionData);
-      try {
-        if (SubscriptionData) {
-      SubscriptionData.map((data)=>{ 
-          Subscription.updateMany(
-            { _id: data. },
+  // createupdateSubscriptiononce: async (SubscriptionData) => {
+  //   console.log("SubscriptionData", SubscriptionData);
+  //   return new Promise(async (resolve) => {
+  //     console.log(SubscriptionData);
+  //     try {
+  //       if (SubscriptionData) {
+  //     SubscriptionData.map((data)=>{ 
+  //         Subscription.updateMany(
+  //           { _id: data. },
           
-            (err, data) => {
-              if (err) {
-                return resolve({
-                  status: true,
-                  message: "there is a problem",
-                });
-              }
-              if (data) {
-                console.log("succesfull", data);
-                return resolve({
-                  status: true,
-                  data2: data,
-                  message: "Wallet Recharged successfully",
-                });
-              }
-            }
-          );
-        })
-        } else {
-          return resolve({
-            status: true,
-            data: dd,
-            message: "Transection has not been created",
-          });
-        }
-      } catch (error) {
-        return resolve({
-          status: false,
-          message: "Please try after some time" + error,
-        });
-      }
-    });
-  },
+  //           (err, data) => {
+  //             if (err) {
+  //               return resolve({
+  //                 status: true,
+  //                 message: "there is a problem",
+  //               });
+  //             }
+  //             if (data) {
+  //               console.log("succesfull", data);
+  //               return resolve({
+  //                 status: true,
+  //                 data2: data,
+  //                 message: "Wallet Recharged successfully",
+  //               });
+  //             }
+  //           }
+  //         );
+  //       })
+  //       } else {
+  //         return resolve({
+  //           status: true,
+  //           data: dd,
+  //           message: "Transection has not been created",
+  //         });
+  //       }
+  //     } catch (error) {
+  //       return resolve({
+  //         status: false,
+  //         message: "Please try after some time" + error,
+  //       });
+  //     }
+  //   });
+  // },
 
   updatesubscriptiononword: async (datas) => {
     return new Promise(async (resolve) => {

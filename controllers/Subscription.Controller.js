@@ -376,14 +376,14 @@ module.exports = {
     });
   },
 
-  updateAllSelcted: async (daSubscriptionDatatas) => {
+  updateAllSelcted: async (SubscriptionData) => {
     return new Promise(async (resolve) => {
       console.log(SubscriptionData);
 
       
       try {
-        if (SubscriptionData[0].isSelected === false) {
-          SubscriptionData.map((data) => {
+        if (SubscriptionData.isSelected === false) {
+          SubscriptionData.alldata.map((data) => {
             Subscription.updateMany(
               { _id: data._id },
               {
@@ -399,7 +399,7 @@ module.exports = {
                 startDate: data.startDate,
                 productValue: data.productValue,
                 OnceUpdate:data.OnceUpdate,
-                isSelected:true,
+                isSelected:SubscriptionData.isSelected,
               },
               { new: true, upsert: true },
               (err, data) => {
@@ -422,7 +422,7 @@ module.exports = {
           });
         } else {
           console.log("inside else");
-          SubscriptionData.map((data) => {
+          SubscriptionData.alldata.map((data) => {
             Subscription.updateMany(
               { _id: data._id },
               {
@@ -438,7 +438,7 @@ module.exports = {
                 startDate: data.startDate,
                 productValue: data.productValue,
                 OnceUpdate:data.OnceUpdate,
-                isSelected:false,
+                isSelected:SubscriptionData.isSelected,
               },
               { new: true, upsert: true },
               (err, data) => {

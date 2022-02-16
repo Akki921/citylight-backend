@@ -89,6 +89,7 @@ module.exports = {
                     locality: SubscriptionData.locality,
                     city: SubscriptionData.city,
                     startDate: SubscriptionData.startDate,
+                    OnceUpdate:SubscriptionData.OnceUpdate,
                     productValue: SubscriptionData.productValue,
                   },
                   { new: true, upsert: true }
@@ -120,6 +121,7 @@ module.exports = {
                     address: SubscriptionData.address,
                     locality: SubscriptionData.locality,
                     city: SubscriptionData.city,
+                    OnceUpdate:SubscriptionData.OnceUpdate,
                     startDate: SubscriptionData.startDate,
                     productValue: SubscriptionData.productValue,
                   },
@@ -157,6 +159,7 @@ module.exports = {
                   locality: SubscriptionData.locality,
                   city: SubscriptionData.city,
                   startDate: SubscriptionData.startDate,
+                  OnceUpdate:SubscriptionData.OnceUpdate,
                   productValue: SubscriptionData.productValue,
                 });
                 newSubscription.save(async (error, Subscription) => {
@@ -187,6 +190,7 @@ module.exports = {
                   locality: SubscriptionData.locality,
                   city: SubscriptionData.city,
                   startDate: SubscriptionData.startDate,
+                  OnceUpdate:SubscriptionData.OnceUpdate,
                   productValue: SubscriptionData.productValue,
                 });
                 newSubscription.save(async (error, Subscription) => {
@@ -269,6 +273,7 @@ module.exports = {
                     city: data.city,
                     startDate: data.startDate,
                     productValue: data.productValue,
+                    OnceUpdate:data.OnceUpdate,
                     iscancle: data.iscancle,
                     isSelected: data.isSelected,
                   },
@@ -305,6 +310,7 @@ module.exports = {
                     city: data.city,
                     startDate: data.startDate,
                     productValue: data.productValue,
+                    OnceUpdate:data.OnceUpdate,
                     iscancle: data.iscancle,
                     isSelected: datas.isSelected,
                   },

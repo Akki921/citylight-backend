@@ -473,7 +473,7 @@ module.exports = {
         let test = [];
 
         for (let i = 0; i < SubscriptionData.length; i++) {
-          //  console. log( Data.slipdata[i]);
+            console. log(SubscriptionData[i]);
           test.push(SubscriptionData[i]._id);
         }
         Subscription.find({ _id: { $in: test } }).exec((err, data) => {

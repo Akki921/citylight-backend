@@ -15,19 +15,19 @@ router.get("/getalldelivary",async(req,res)=>{
     if(!Delivary) return res.status(400).json(Delivary);
     res.status(200).json(Delivary);
 })
-// router.post("/updatesubscription", async (req, res, next) => {
-//     let subscriptionupdate = await subscriptionupdate.updateiscancle(req.body);
-//     //console.log(req.body)
-//     if (!subscriptionupdate.status) return res.status(400).json(subscriptionupdate);
+router.post("/update", async (req, res, next) => {
+    let subscriptionupdate = await DelivaryHandler.updatedelivary(req.body);
+    //console.log(req.body)
+    if (!subscriptionupdate.status) return res.status(400).json(subscriptionupdate);
   
-//     res.status(200).json(stockUpdate);
-//   });
+    res.status(200).json(subscriptionupdate);
+  });
 
-//   router.post("/updateisselected", async (req, res, next) => {
-//     let subscriptionupdate = await SubscriptionHandler.updateisSelcted(req.body);
-//     if (!subscriptionupdate.status) return res.status(400).json(subscriptionupdate);
-//     res.status(200).json(subscriptionupdate);
-//   });
+  router.post("/insert", async (req, res, next) => {
+    let subscriptionupdate = await DelivaryHandler.insertdelivary(req.body);
+    if (!subscriptionupdate.status) return res.status(400).json(subscriptionupdate);
+    res.status(200).json(subscriptionupdate);
+  });
 
 //   router.post("/updateAllSelcted", async (req, res, next) => {
 //     let subscriptionupdate = await SubscriptionHandler.updateAllSelcted(req.body);

@@ -5,10 +5,7 @@ const subscriptionSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  // subDate: {
-  //   type: Date,
-  // },
-  // startFrom: [{ Start: Date, qtyperday: Number }],
+  OnceUpdate: [{ Start: Date, qtyoftheday: Number }],
 
   customer: {
     type: mongoose.Schema.Types.ObjectId,
@@ -36,7 +33,7 @@ const subscriptionSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "CityAvailability",
   },
-  customDates: [{ Start: Date}],
+  customDates: [{ Start: Date }],
   QtyperDay: {
     type: Number,
   },

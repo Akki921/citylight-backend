@@ -5,7 +5,7 @@ const subscriptionSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  OnceUpdate: [{ Start: Date, qtyoftheday: Number }],
+  // OnceUpdate: [{ Start: Date, qtyoftheday: Number }],
 
   customer: {
     type: mongoose.Schema.Types.ObjectId,

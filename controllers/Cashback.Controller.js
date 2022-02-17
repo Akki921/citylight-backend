@@ -98,9 +98,10 @@ module.exports = {
   },
 
   getAllCashbackWalletDataById: async (id) => {
+      console.log(id)
     return new Promise(async (resolve) => {
       try {
-        Cashback.find({ userid: id }, async (err, data) => {
+        Cashback.find({ userId: id }, async (err, data) => {
           if (err)
             return resolve({
               status: false,

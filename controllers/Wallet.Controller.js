@@ -100,7 +100,7 @@ module.exports = {
   getWalletDataById: async (id) => {
     return new Promise(async (resolve) => {
       try {
-        Wallet.find({ _id: id }, async (err, data) => {
+        Wallet.find({ userId: id }, async (err, data) => {
           if (err)
             return resolve({
               status: false,

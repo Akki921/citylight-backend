@@ -128,7 +128,7 @@ module.exports = {
     const availableBalances = parseInt(availableBalance);
     const credits = parseInt(credit);
     const debits = parseInt(debit);
-    console.log(credits, debits, availableBalances);
+    console.log(credits, debits, availableBalances,id);
     return new Promise(async (resolve) => {
       try {
         if (availableBalances >= 0) {
@@ -179,7 +179,7 @@ module.exports = {
               if (error) {
                 return resolve({
                   status: true,
-                  message: "something went wrong",
+                  message: "something went wrong"+error,
                 });
               }
               if (data) {

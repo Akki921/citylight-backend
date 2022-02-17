@@ -20,19 +20,16 @@ router.get("/getAllCashbackWallet", async (req, res, next) => {
   });
 
 
-router.post("/makeTransaction",  async (req, res, next) => {
- 
-    let transactionMake = await walletHandler.makeTransaction(req.body);
-  
+router.post("/CashbackTransaction",  async (req, res, next) => {
+    let transactionMake = await cashbackHandler.makeTransaction(req.body);
      if (!transactionMake.status) return res.status(400).json(transactionMake);
-  
     res.status(200).json(transactionMake);
   });
 
 
-  router.get("/getAllTransactionbyid/:id", async (req, res, next) => {
+  router.get("/getAllCashbackTransactionbyid/:id", async (req, res, next) => {
     console.log('req.params.id,',req.params.id);
-    let TransactionGet = await walletHandler.getAllTransactionbyid(req.params.id);
+    let TransactionGet = await cashbackHandler.getAllTransactionbyid(req.params.id);
   
      if (!TransactionGet.status) return res.status(400).json(TransactionGet);
   
@@ -40,13 +37,13 @@ router.post("/makeTransaction",  async (req, res, next) => {
   });
 
 
-//   router.get("/getCashbackWallet/:id", async (req, res, next) => {
-//     let WalletData = await walletHandler.getWalletDataById(req.params.id);
+  router.get("/getCashbackWallet/:id", async (req, res, next) => {
+    let TransactionGet = await cashbackHandler.getAllCashbackWalletDataById(req.params.id);
   
-//     // if (!brandCreate.status) return res.status(400).json(brandCreate);
+     if (!TransactionGet.status) return res.status(400).json(TransactionGet);
   
-//     res.status(200).json(WalletData);
-//   });
+    res.status(200).json(TransactionGet);
+  });
 
 router.post("/makeorderfullfilled",  async (req, res, next) => {
  

@@ -19,6 +19,7 @@ module.exports = {
                 message: "Please try after some time"+err,
               });
             if (data)
+            
               return resolve({
                 status: false,
                 message: "Wallet is already created",
@@ -73,7 +74,7 @@ module.exports = {
     return new Promise(async (resolve) => {
       try {
         Cashback.find({})
-          .populate("userId", "username")
+          .populate("userId", "username mobile")
           .exec((error, data) => {
             if (error)
               return resolve({
@@ -121,9 +122,9 @@ module.exports = {
     });
   },
 
-  makeTransaction: async (WalletData) => {
-    //   console.log(WalletData);
-    const { cashbackBalance, debit, credit,    } = WalletData;
+  makeTransaction: async (CashbackData) => {
+      console.log(CashbackData);
+    const { cashbackBalance, debit, credit,id } = CashbackData;
     const cashbackBalances = parseInt(cashbackBalance);
     const credits = parseInt(credit);
     const debits = parseInt(debit);
@@ -133,7 +134,7 @@ module.exports = {
         if (cashbackBalances >= 0) {
           if (debits > 0) {
             var newTrasaction = new Transaction({
-              walletId: WalletData.id,
+             CashbackWalletId: CashbackData.id,
               debit: debits,
               cashbackBalance: cashbackBalances - debits,
             });
@@ -146,7 +147,7 @@ module.exports = {
               }
               if (data) {
                 Cashback.findOneAndUpdate(
-                  { _id: data.walletId },
+                  { _id: data.CashbackWalletId },
                   { cashbackBalance: data.cashbackBalance },
                   (err, data) => {
                     if (err) {
@@ -167,11 +168,11 @@ module.exports = {
               }
             });
           } else if (credits > 0) {
-            console.log("enter into credits", WalletData.id);
+            console.log("enter into credits", CashbackData.id);
             var newTrasaction = new Transaction({
-              walletId: WalletData.id,
+                CashbackWalletId: CashbackData.id,
               credit: credits,
-              availableBalance: availableBalances + credits,
+              cashbackBalance: cashbackBalances + credits,
             });
             newTrasaction.save((error, data) => {
               console.log(data);
@@ -182,9 +183,9 @@ module.exports = {
                 });
               }
               if (data) {
-                Wallet.findOneAndUpdate(
-                  { _id: data.walletId },
-                  { availableBalance: data.availableBalance },
+                Cashback.findOneAndUpdate(
+                  { _id: data.CashbackWalletId },
+                  { cashbackBalance: data.cashbackBalance },
                   (err, data) => {
                     if (err) {
                       return resolve({
@@ -224,7 +225,7 @@ module.exports = {
     return new Promise(async (resolve) => {
       try {
         Transaction.find(
-          { walletId: { $in: mongoose.Types.ObjectId(id) } },
+          { CashbackWalletId: { $in: mongoose.Types.ObjectId(id) } },
           async (err, data) => {
             if (err)
               return resolve({

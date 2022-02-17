@@ -26,6 +26,7 @@ const CustomerCollection =require("./routes/customercollection.route");
 const SubscriptionRoute =require("./routes/subscription.route");
 const VoccationRoute =require("./routes/Voccation.route");
 const DelivaryRoute =require("./routes/delivary.route");
+const CashbackRoute =require("./routes/cashback.route");
 const cors = require("cors");
 const multer = require("multer");
 //const path = require("path/posix");
@@ -73,6 +74,7 @@ mongoose
   app.use("/api/module",moduleRoute);
   app.use("/api/brand",BrandRoute);
   app.use("/api/wallet",WalletRoute);
+  app.use("/api/cashback",CashbackRoute);
   app.use("/api/category",categoryRoute); 
   app.use("/api/product",productRoute);
   app.use("/api/coupanCode",coupanCode);

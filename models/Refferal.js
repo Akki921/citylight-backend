@@ -10,6 +10,7 @@ const refferalSchema = new mongoose.Schema({
   createdDate: {
     type: Date,
   },
+  
   createdBy: {
     type: String,
     default:"Admin"

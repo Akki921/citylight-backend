@@ -6,10 +6,10 @@ const customerCollectionSchema = mongoose.Schema({
     required: true,
     trim: true,
   },
-  selectCustomer: {
+  selectCustomer:[{
     type: mongoose.Schema.Types.ObjectId,
     ref: "CustomerProfile",
-  },
+  }],
   createdDate: {
     type: Date,
   },

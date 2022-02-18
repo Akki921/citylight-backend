@@ -21,6 +21,7 @@ const CityRoute =require("./routes/city.route");
 const CityAvaibilityRoute =require("./routes/cityAvailability.route");
 const StockRoute =require("./routes/stock.route");
 const OrderRoute =require("./routes/order.route");
+const SupportRoute =require("./routes/support.route");
 const CustomerProfile =require("./routes/CustomerProfile.route");
 const CustomerCollection =require("./routes/customercollection.route");
 const SubscriptionRoute =require("./routes/subscription.route");
@@ -87,7 +88,7 @@ mongoose
   app.use("/api/subscription",SubscriptionRoute);
   app.use("/api/voccation",VoccationRoute);
   app.use("/api/delivary",DelivaryRoute);
-  
+  app.use("/api/support",SupportRoute);
   //app.use('/uploads', express.static(path.join(__dirname, '/uploads/product')));
   app.use('/uploads', express.static('uploads'));
  

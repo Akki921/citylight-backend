@@ -79,6 +79,32 @@ module.exports = {
     });
   },
 
+  getSupportProfileid: async (id) => {
+    console.log(id);
+    return new Promise(async (resolve) => {
+      try {
+        Support.find({ customerId: { _id: id } }).exec((error, data) => {
+          if (error)
+            return resolve({
+              status: false,
+              message: "Please try after some time",
+            });
+          if (data)
+            return resolve({
+              status: true,
+              data: data,
+              message: "Support retrieved successfully",
+            });
+        });
+      } catch (error) {
+        return resolve({
+          status: false,
+          message: "Please try after some time",
+        });
+      }
+    });
+  },
+
   updateStock: async (stockData) => {
     return new Promise(async (resolve) => {
       console.log("stockData,", stockData);

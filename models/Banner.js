@@ -20,6 +20,6 @@ const BannerSchema = new mongoose.Schema({
     type: String,
     default: "admin",
   },
-});
+}); 
 
 module.exports = new mongoose.model("Banner", BannerSchema);

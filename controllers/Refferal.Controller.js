@@ -1,59 +1,65 @@
 const Refferal = require("../models/Refferal");
-const Login  =require("../models/CustomerLogin");
+// const Login  =require("../models/CustomerLogin");
 const mongoose = require("mongoose");
 module.exports = {
   createRefferal: async (RefferalData) => {
+     console.log("first",RefferalData);
     const { newUserDiscount, refreeDiscount } = RefferalData;
     const userdiscount = parseInt(newUserDiscount);
     const rediscount = parseInt(refreeDiscount);
     return new Promise(async (resolve) => {
       try {
+        let referid=12345678;
         if (userdiscount >= 0 && rediscount >= 0) {
-          var refer = Refferal?.findOne({
-            _id: mongoose.Types.ObjectId(RefferalData._id),
-          });
-          if (refer) {
-            Refferal.findOneAndUpdate(
-              { _id: RefferalData._id },
-              { newUserDiscount: userdiscount, refreeDiscount: rediscount },
-              { new: true, upsert: true }
-            ).exec((err, data) => {
+          Refferal.findOne({ referid:referid}).exec(
+            (err, data) => {
+              console.log('data',data)
               if (data) {
-                return resolve({
-                  status: true,
-                  message: "Refferal is updated !",
-                  data: data,
+  
+                Refferal.findOneAndUpdate(
+                  { _id: data._id },
+                  { newUserDiscount: userdiscount, refreeDiscount: rediscount },
+                  { new: true, upsert: true }
+                ).exec((err, data) => {
+                  if (data) {
+                    return resolve({
+                      status: true,
+                      message: "Refferal is updated !",
+                      data: data,
+                    });
+                  } else if (err) {
+                    return resolve({
+                      status: false,
+                      message: "Refferal updating failed !"+err,
+                      data: data,
+                    });
+                  }
                 });
-              } else if (err) {
-                return resolve({
-                  status: false,
-                  message: "Refferal updating failed !",
-                  data: data,
+              } else {
+                console.log("create");
+                var newRefferal = new Refferal({
+                  newUserDiscount: userdiscount,
+                  refreeDiscount: rediscount,
+                  referid:referid,
+                  CreatedDate: new Date(),
                 });
+                newRefferal.save(async (error, Refferal) => {
+                  if (error)
+                    return resolve({
+                      status: false,
+                      message: "Please try after some time",
+                    });
+                  if (Refferal) {
+                    return resolve({
+                      status: true,
+                      data: Refferal,
+                      message: "Refferal has been created",
+                    });
+                  }
+                })
               }
-            });
-          } else {
-            var newRefferal = new Refferal({
-              newUserDiscount: userdiscount,
-              refreeDiscount: rediscount,
-              CreatedDate: new Date(),
-            });
-            newRefferal.save(async (error, Refferal) => {
-              if (error)
-                return resolve({
-                  status: false,
-                  message: "Please try after some time",
-                });
-              if (Refferal) {
-                return resolve({
-                  status: true,
-                  data: Refferal,
-                  message: "Refferal has been created",
-                });
-              }
-            });
-            // }
-          }
+            }
+          );
         } else {
           return resolve({
             status: false,
@@ -94,57 +100,4 @@ module.exports = {
       }
     });
   }, 
-
-  verifyRefferal: async (RefferalData) => {
-    const { newUserDiscount, refreeDiscount } = RefferalData;
-    const userdiscount = parseInt(newUserDiscount);
-    const rediscount = parseInt(refreeDiscount);
-    return new Promise(async (resolve) => {
-      try {
-        Login.findOne({ stockName: supportData.stockName }).exec(
-          (err, data) => {
-            if (data) {
-              return resolve({
-                status: true,
-                message: "stock is already insert !",
-                data: data,
-              });
-            } else {
-              var newStock = new Stock({
-                complainNO: supportData.stockName,
-                customerId: supportData.category,
-                name: supportData.sku,
-                complainCategory: supportData.quantity,
-                camplainDate: supportData.deliveryToday,
-                camplainDetail: supportData.deliveryTomorrow,
-                camplainDetail: supportData.city,
-                productType: supportData.productType,
-                status: supportData.tags,
-                createdDate: new Date(),
-              });
-              newStock.save(async (error, Stock) => {
-                if (error)
-                  return resolve({
-                    status: false,
-                    message: "Please try after some time",
-                  });
-                if (Stock) {
-                  return resolve({
-                    status: true,
-                    data: Stock,
-                    message: "Stock has been created",
-                  });
-                }
-              });
-            }
-          }
-        );
-      } catch (error) {
-        return resolve({
-          status: false,
-          message: "Please try after some time" + error,
-        });
-      }
-    });
-  },
 };

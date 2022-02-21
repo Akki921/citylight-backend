@@ -18,6 +18,7 @@ const CustomerLoginSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "CityAvailability", 
   },
+
   isActive: {
     type: Boolean,
     default: true,

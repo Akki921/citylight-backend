@@ -105,39 +105,48 @@ module.exports = {
     });
   },
 
-  updateStock: async (stockData) => {
+  updateSupport: async (SupportData) => {
     return new Promise(async (resolve) => {
-      console.log("stockData,", stockData);
+      console.log("SupportData,", SupportData);
       try {
-        let rests = Stock.findOneAndUpdate(
-          { _id: stockData.id },
-          {
-            stockName: stockData.stockNamec,
-            category: stockData.category,
-            sku: stockData.sku,
-            quantity: stockData.quantity,
-            deliveryToday: stockData.deliveryToday,
-            deliveryTomorrow: stockData.deliveryTomorrow,
-            city: stockData.city,
-            productType: stockData.productType,
-            tags: stockData.tags,
-          },
-          { new: true, upsert: true }
-        ).exec((err, data) => {
-          if (data) {
-            return resolve({
-              status: true,
-              message: "stock is updated !",
-              data: data,
-            });
-          } else if (err) {
-            return resolve({
-              status: false,
-              message: "stock updating failed !",
-              data: data,
-            });
-          }
-        });
+        if (SupportData) {
+          SupportData.map((data) => {
+            Support.updateMany(
+              { _id: data._id },
+              {
+                complainNo: data.complainNo,
+                customerId: data.customerId,
+                complain: data.complain,
+                note: data.note,
+                status: data.status,
+                complainCategory: data.complainCategory,
+                Resolution: data.Resolution,
+                complainDate: new Date(),
+              },
+              (err, data) => {
+                if (err) {
+                  return resolve({
+                    status: true,
+                    message: "there is a problem",
+                  });
+                }
+                if (data) {
+                  console.log("succesfull", data);
+                  return resolve({
+                    status: true,
+                    data2: data,
+                    message: "Support Update SUccessfully successfully",
+                  });
+                }
+              }
+            );
+          });
+        } else {
+          return resolve({
+            status: true,
+            message: "not any data to update",
+          });
+        }
       } catch (error) {
         return resolve({
           status: false,

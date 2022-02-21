@@ -8,10 +8,8 @@ module.exports = {
    console.log(Data);
       try {
           let test=[];
-
           for(let i = 0; i < Data.slipdata.length; i++) {
-          //  console. log( Data.slipdata[i]);
-            test.push( Data.slipdata[i].subNo)
+           test.push( Data.slipdata[i].subNo)
         }
         console. log( test);
        AddressSlip.find({ 'subNo':{$in:test}}).exec( async(err, data) => {
@@ -39,9 +37,6 @@ module.exports = {
              }
           }
         });
-      
-       
-     
       } catch (error) {
         return resolve({
           status: false,

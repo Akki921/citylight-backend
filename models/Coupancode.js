@@ -12,7 +12,7 @@ const coupanSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, ref: "Product" 
 
     },
-    productCollection : {
+    productCollection : { 
         type: mongoose.Schema.Types.ObjectId, ref: "ProductCollection" 
     },
     applyCustomer : {
@@ -24,7 +24,7 @@ const coupanSchema = mongoose.Schema({
     startDate : {
         type : Date
     },
-    endData : {
+    endDate : {
         type : Date
     },
     discount : {

@@ -171,7 +171,7 @@ module.exports = {
           } else if (credits > 0) {
             console.log("enter into credits", CashbackData.id);
             var newTrasaction = new Transaction({
-                CashbackWalletId: CashbackData.id,
+              CashbackWalletId: CashbackData.id,
               credit: credits,
               cashbackBalance: cashbackBalances + credits,
             });

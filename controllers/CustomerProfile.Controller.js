@@ -1,5 +1,9 @@
 const CustomerProfile = require("../models/CustomerProfile");
 const CityAvailability = require("../models/CityAvailability");
+const Cashback = require("../models/Cashback");
+const Wallet = require("../models/Wallet");
+const Transaction = require("../models/Transaction");
+const { generateOTP, fast2sms } = require("../utils/otp.util");
 module.exports = {
   // createCustomerProfile: async (Data) => {
   //   return new Promise(async (resolve) => {
@@ -129,6 +133,7 @@ module.exports = {
                 locality: data.locality,
                 ringtheBell: data.ringtheBell,
                 slottime: data.slottime,
+                refercode: data.refercode,
               },
               { new: true, upsert: true }
             ).exec((err, data) => {
@@ -147,31 +152,403 @@ module.exports = {
               }
             });
           } else {
-            var newCustomerProfile = new CustomerProfile({
-              login: Data.login,
-              username: Data.username,
-              houseno: Data.houseno,
-              phone: Data.phone,
-              address: Data.address,
-              city: Data.city,
-              locality: Data.locality,
-              ringtheBell: Data.ringtheBell,
-              slottime: Data.slottime,
-            });
-            newCustomerProfile.save(async (error, Profile) => {
-              if (error)
-                return resolve({
-                  status: false,
-                  message: "Please try after some time",
-                });
-              if (Profile) {
-                return resolve({
-                  status: true,
-                  data: Profile,
-                  message: "Profile has been created",
-                });
-              }
-            });
+            let pres;
+            let verify=123456;
+            let refercashback='62131c36a4315fb6de3e6fc6';
+            let newusercashback;
+            let refreeusercashback;
+            if (verify !== undefined) {
+              const refercode = generateOTP(6);
+
+              CustomerProfile.findOne({ refercode:verify })
+              .populate("refercashback", "newUserDiscount refreeDiscount")
+              .exec(
+                (err, data) => {
+                  newusercashback=data.refercashback.newUserDiscount;
+                  refreeusercashback=data.refercashback.refreeDiscount;
+                  let count = data.refercount + 1;
+                  console.log("count", data);
+                  CustomerProfile.findOneAndUpdate(
+                    { _id: data._id },
+                    {
+                      login: data.login,
+                      username: data.username,
+                      phone: data.phone,
+                      houseno: data.houseno,
+                      address: data.address,
+                      city: data.city,
+                      locality: data.locality,
+                      ringtheBell: data.ringtheBell,
+                      slottime: data.slottime,
+                      refercode: data.refercode,
+                      refercount: count,
+                    },
+                    { new: true, upsert: true }
+                  );
+                  console.log('data finr',data)
+                  if (data) {
+                    Cashback.findOne({ userId: data._id })
+                    .exec(
+                      (err, cashback) => {
+                        if (cashback) {
+                          var newTrasaction = new Transaction({
+                            CashbackWalletId: cashback._id,
+                            credit: refreeusercashback,
+                            cashbackBalance: cashback.cashbackBalance + refreeusercashback,
+                          });
+                          newTrasaction.save((error, data) => {
+                            console.log(data);
+                            if (error) {
+                              return resolve({
+                                status: true,
+                                message: "something went wrong",
+                              });
+                            }
+                            if (data) {
+                              console.log("cashback balance data", data);
+                              Cashback.findOneAndUpdate(
+                                { _id: data.CashbackWalletId },
+                                { cashbackBalance: data.cashbackBalance },
+                                (err, data) => {
+                                  if (err) {
+                                    return resolve({
+                                      status: true,
+                                      message: "there is a problem",
+                                    });
+                                  }
+                                  if (data) {
+                                    console.log("succesfull", data);
+                                    return resolve({
+                                      status: true,
+                                      data2: data,
+                                      message: "Wallet Recharged successfully",
+                                    });
+                                  }
+                                }
+                              );
+                            }
+                          });
+                        }
+                      }
+                    );
+                  }
+                }
+              ); 
+
+              var newCustomerProfile = new CustomerProfile({
+                login: Data.login,
+                username: Data.username,
+                houseno: Data.houseno,
+                phone: Data.phone,
+                address: Data.address,
+                city: Data.city,
+                locality: Data.locality,
+                ringtheBell: Data.ringtheBell,
+                slottime: Data.slottime,
+                refercode: refercode,
+                refercashback:refercashback,
+              });
+              newCustomerProfile.save(async (error, Profile) => {
+                if (error)
+                  return resolve({
+                    status: false,
+                    message: "Please try after some time"+error,
+                  });
+                if (Profile) {
+                  Wallet.findOne(
+                    {
+                      userId: Profile._id,
+                    },
+                    async (err, data) => {
+                      if (err)
+                        return resolve({
+                          status: false,
+                          message: "Please try after some time"+err,
+                        });
+                      if (data)
+                        return resolve({
+                          status: false,
+                          message: "Wallet is already created",
+                        });
+                      var newWallet = new Wallet({
+                        userId: Profile._id,
+                        FirstName: Profile.username,
+                        Mobile: Profile.phone,
+                        CreatedDate: new Date(),
+                        CreatedBy: 0,
+                      });
+
+                      newWallet.save(async (error, wallet) => {
+                        if (error)
+                          return resolve({
+                            status: false,
+                            message: "Please try after some time"+error,
+                          });
+                        if (wallet) {
+                          var newTrasaction = new Transaction({
+                            walletId: wallet._id,
+                          });
+                          newTrasaction.save(async (error, transaction) => {
+                            if (error)
+                              return resolve({
+                                status: false,
+                                message: "Please try after some time"+error,
+                              });
+                            return resolve({
+                              status: true,
+                              data: { wallet, transaction },
+                              message: "Wallet has been created",
+                            });
+                          });
+                        }
+                        return resolve({
+                          status: true,
+                          data: wallet,
+                          message: "Wallet has been created",
+                        });
+                      });
+                    }
+                  );
+                  Cashback.findOne(
+                    {
+                      userId: Profile._id,
+                    },
+                    async (err, data) => {
+                      if (err)
+                        return resolve({
+                          status: false,
+                          message: "Please try after some time" + err,
+                        });
+                      if (data)
+                        return resolve({
+                          status: false,
+                          message: "cashback is already created",
+                        });
+                      var newCashback = new Cashback({
+                        userId: Profile._id,
+                        CreatedDate: new Date(),
+                        CreatedBy: 0,
+                      });
+
+                      newCashback.save(async (error, cashback) => {
+                        if (error)
+                          return resolve({
+                            status: false,
+                            message: "Please try after some time"+error,
+                          });
+                        if (cashback) {
+                          var newTrasaction = new Transaction({
+                            CashbackWalletId: cashback._id,
+                          });
+                          newTrasaction.save(async (error, transaction) => {
+                            if (error)
+                              return resolve({
+                                status: false,
+                                message: "Please try after some time"+error,
+                              });
+                            if (cashback) {
+                              Cashback.findOne({ _id: cashback._id }).exec(
+                                (err, cashback) => {
+                                  if (cashback) {
+                                    var newTrasaction = new Transaction({
+                                      CashbackWalletId: cashback._id,
+                                      credit: newusercashback,
+                                      cashbackBalance:
+                                        cashback.cashbackBalance + newusercashback,
+                                    });
+                                    newTrasaction.save((error, data) => {
+                                      console.log(data);
+                                      if (error) {
+                                        return resolve({
+                                          status: true,
+                                          message: "something went wrong"+error,
+                                        });
+                                      }
+                                      if (data) {
+                                        console.log(
+                                          "cashback balance data",
+                                          data
+                                        );
+                                        Cashback.findOneAndUpdate(
+                                          { _id: data.CashbackWalletId },
+                                          {
+                                            cashbackBalance:
+                                              data.cashbackBalance,
+                                          },
+                                          (err, data) => {
+                                            if (err) {
+                                              return resolve({
+                                                status: true,
+                                                message: "there is a problem"+err,
+                                              });
+                                            }
+                                            if (data) {
+                                              console.log("succesfull", data);
+                                              return resolve({
+                                                status: true,
+                                                data2: data,
+                                                message:
+                                                  "cashback Recharged successfully",
+                                              });
+                                            }
+                                          }
+                                        );
+                                      }
+                                    });
+                                  }
+                                }
+                              );
+                            }
+                          });
+                        }
+                        return resolve({
+                          status: true,
+                          data: pres,
+                          message:
+                            "profile has beeen created successfully has been created",
+                        });
+                      });
+                    }
+                  );
+                }
+              });
+
+            
+            } else {
+                const refercode = generateOTP(6);
+              var newCustomerProfile = new CustomerProfile({
+                login: Data.login,
+                username: Data.username,
+                houseno: Data.houseno,
+                phone: Data.phone,
+                address: Data.address,
+                city: Data.city,
+                locality: Data.locality,
+                ringtheBell: Data.ringtheBell,
+                slottime: Data.slottime,
+                refercode:refercode,
+                refercashback:refercashback
+              });
+              newCustomerProfile.save(async (error, Profile) => {
+                pres = Profile;
+                if (error)
+                  return resolve({
+                    status: false,
+                    message: "Please try after some time"+error,
+                  });
+                if (Profile) {
+                  console.log("Profile", Profile);
+                  Wallet.findOne(
+                    {
+                      userId: Profile._id,
+                    },
+                    async (err, data) => {
+                      if (err)
+                        return resolve({
+                          status: false,
+                          message: "Please try after some time"+err,
+                        });
+                      if (data)
+                        return resolve({
+                          status: false,
+                          message: "Wallet is already created",
+                        });
+                      var newWallet = new Wallet({
+                        userId: Profile._id,
+                        FirstName: Profile.username,
+                        Mobile: Profile.phone,
+                        CreatedDate: new Date(),
+                        CreatedBy: 0,
+                      });
+
+                      newWallet.save(async (error, wallet) => {
+                        if (error)
+                          return resolve({
+                            status: false,
+                            message: "Please try after some time" + error,
+                          });
+                        if (wallet) {
+                          var newTrasaction = new Transaction({
+                            walletId: wallet._id,
+                          });
+                          newTrasaction.save(async (error, transaction) => {
+                            if (error)
+                              return resolve({
+                                status: false,
+                                message: "Please try after some time" + error,
+                              });
+                            return resolve({
+                              status: true,
+                              data: { wallet, transaction },
+                              message: "Wallet has been created",
+                            });
+                          });
+                        }
+                        return resolve({
+                          status: true,
+                          // data: wallet,
+                          message: "profile has been created",
+                        });
+                      });
+                    }
+                  );
+
+             ///////////////////cashback wallet///////////////
+                  Cashback.findOne(
+                    {
+                      userId: Profile._id,
+                    },
+                    async (err, data) => {
+                      if (err)
+                        return resolve({
+                          status: false,
+                          message: "Please try after some time" + err,
+                        });
+                      if (data)
+                        return resolve({
+                          status: false,
+                          message: "cashback is already created",
+                        });
+                      var newCashback = new Cashback({
+                        userId: Profile._id,
+                        CreatedDate: new Date(),
+                        CreatedBy: 0,
+                      });
+
+                      newCashback.save(async (error, cashback) => {
+                        if (error)
+                          return resolve({
+                            status: false,
+                            message: "Please try after some time",
+                          });
+                        if (cashback) {
+                          var newTrasaction = new Transaction({
+                            CashbackWalletId: cashback._id,
+                          });
+                          newTrasaction.save(async (error, transaction) => {
+                            if (error)
+                              return resolve({
+                                status: false,
+                                message: "Please try after some time",
+                              });
+                            return resolve({
+                              status: true,
+                              data: { cashback, transaction },
+                              message: "cashback has been created",
+                            });
+                          });
+                        }
+                        return resolve({
+                          status: true,
+                          data: cashback,
+                          message: "cashback has been created",
+                        });
+                      });
+                    }
+                  );
+                }
+              });
+            }
           }
         });
       } catch (error) {

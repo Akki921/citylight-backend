@@ -34,6 +34,21 @@ const CustomerProfileSchema = new mongoose.Schema({
   slottime: {
     type: String,
   },
+  refercode: {
+    type: Number,
+  },
+  refercount: {
+    type: Number,
+  },
+  referlink: {
+    type: String,
+    default:'not yet',
+  },
+  refercashback: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Refferal",
+   // default:"62131c36a4315fb6de3e6fc6"
+  },
 });
 
 module.exports = new mongoose.model("CustomerProfile", CustomerProfileSchema);

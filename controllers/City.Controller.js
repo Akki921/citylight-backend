@@ -102,34 +102,4 @@ module.exports = {
     });
   },
 
-//   editCityAvailability: async (CityData)=>{
-//     return new Promise(async (resolve) => {
-//         try {
-//           CityAvailability.findOneAndUpdate({_id:CityData._id},{ CityName: CityData.CityName,
-
-//             },{new:true,upsert:true}).exec((err, data) => { 
-//                 if( data){
-//                     return resolve({
-//                         status: true,
-//                         message: "City Availability is updated !",
-//                         data:data,
-//                       });
-//                    }else if(err){
-//                     return resolve({
-//                         status: false,
-//                         message: "City Availability updating failed !",
-//                         data:data,
-//                       });
-//                    }
-//             });
-           
-//         } catch (error) {
-//             return resolve({
-//               status: false,
-//               message: "Please try after some time"+e,
-//             });
-//           }
-//         });
-//   },
-
 };

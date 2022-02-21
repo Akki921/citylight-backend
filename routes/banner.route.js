@@ -16,4 +16,17 @@ router.get("/getallbanner",async(req,res)=>{
     res.status(200).json(getbanner);
 })
 
+router.get("/getbanner/:id",async(req,res)=>{
+    const getbanner= await BannerHandler.getbannerbyId(req.params.id);
+    if(!getbanner) return res.status(400).json(getbanner);
+    res.status(200).json(getbanner);
+})
+router.delete("/deletebanner/:id",async(req,res)=>{
+    console.log('req.params.id,',req.params.id);
+    const deletebanner= await BannerHandler.deletebannerbyId(req.params.id);
+    if(!deletebanner) return res.status(400).json(deletebanner);
+    res.status(200).json(deletebanner);
+})
+
+
 module.exports=router;

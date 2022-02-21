@@ -19,6 +19,7 @@ module.exports = {
                         banner: BannerData.banner,
                         url: BannerData.url,
                         status: BannerData.status,
+                        description:BannerData.description,
                         createdDate: data.createdDate, 
                     },
                     { new: true, upsert: true }
@@ -42,6 +43,7 @@ module.exports = {
               banner: BannerData.banner,
               url: BannerData.url,
               status: BannerData.status,
+              description:BannerData.description,
               createdDate: new Date(), 
             });
             newBanner.save(async (error, Banner) => {
@@ -94,5 +96,59 @@ module.exports = {
       }
     });
   },
+////////////delete banner
+deletebannerbyId: async (id) => {
+    console.log(id);
+    return new Promise(async (resolve) => {
+      try {
+        Banner.deleteOne({ _id: id})
+          .exec((error, data) => {
+            if (error)
+              return resolve({
+                status: false,
+                message: "Please try after some time",
+              });
+            if (data)
+              return resolve({
+                status: true,
+                data: data,
+                message: "Banner deleted successfully successfully",
+              });
+          });
+      } catch (error) {
+        return resolve({
+          status: false,
+          message: "Please try after some time",
+        });
+      }
+    });
+  },
 
+  //////////////////get by id
+  getbannerbyId: async (id) => {
+    console.log(id);
+    return new Promise(async (resolve) => {
+      try {
+        Banner.findOne({ _id: id})
+          .exec((error, data) => {
+            if (error)
+              return resolve({
+                status: false,
+                message: "Please try after some time",
+              });
+            if (data)
+              return resolve({
+                status: true,
+                data: data,
+                message: "Banner get successfully successfully",
+              });
+          });
+      } catch (error) {
+        return resolve({
+          status: false,
+          message: "Please try after some time",
+        });
+      }
+    });
+  },
 };

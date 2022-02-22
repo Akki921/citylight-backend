@@ -123,7 +123,7 @@ app.post("/catimg", single, (req, res) => {
 });
 
 var banner = upload.fields([{ name: "bannerImg" }]);
-app.post("/bannerImg", banner, (req, res) => {
+app.post("/bannerImgs", banner, (req, res) => {
   console.log(req.file);
   res.send("bannerImg file upload succecsfuly");
 });

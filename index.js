@@ -123,9 +123,9 @@ app.post("/catimg", single, (req, res) => {
 });
 
 var banner = upload.fields([{ name: "bannerImg" }]);
-app.post("/banner", banner, (req, res) => {
+app.post("/bannerImg", banner, (req, res) => {
   console.log(req.file);
-  res.send("banner file upload succecsfuly");
+  res.send("bannerImg file upload succecsfuly");
 });
 app.listen(PORT, () => {
   console.log(`server running at port:${PORT}`);

@@ -4,6 +4,7 @@ const CustomerProfile =require("../models/CustomerProfile")
 module.exports = {
   //register new CustomerCollection
   createCustomerCollection: async (CustomerCollectionData) => {
+    console.log("first,",CustomerCollectionData)
     return new Promise(async (resolve) => {
       try {
         CustomerCollection.findOne(
@@ -32,11 +33,11 @@ module.exports = {
               if (error)
                 return resolve({
                   status: false,
-                  message: "Please try after some time",
+                  message: "Please try after some time"+error,
                 });
               return resolve({
                 status: true,
-                data: newCustomerCollection,
+                data: CustomerCollection,
                 message: "CustomerCollection has been created",
               });
             });
@@ -54,10 +55,10 @@ module.exports = {
 
   createCustomerCollectionquery: async (CustomerCollectionData) => {
     return new Promise(async (resolve) => {
-      console.log(CustomerCollectionData)
+      console.log("dcsxz",CustomerCollectionData)
       try {
-        const df =CustomerCollectionData.dd; 
-        CustomerProfile.find(df, async (err, data) => {
+        const df =CustomerCollectionData; 
+        CustomerProfile.find( async (err, data) => {
           console.log(data)
           if (err)
             return resolve({

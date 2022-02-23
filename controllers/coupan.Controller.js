@@ -4,58 +4,55 @@ const Coupan = require("../models/Coupancode");
 exports.newCoupancode = async (req, res) => {
   const {
     coupanCode,
-    id,
-    individual_names,
-    discount,
-    applyProduct,
-    productCollection,
     applyCustomer,
-    customerCollection,
-    startDate,
-    endDate,
+    applyProduct,
+    customerCollections,
     description,
+    endDate,
+    productCollection,
+    startDate,
+    discount
   } = req.body;
-  if (discount && endDate) {
+  console.log("first", req.body);
+  if (discount) {
     try {
-      Coupan.findOne({ coupanCode: coupanCode  }).exec(
-        (err, data) => {
-          if (data) {
-            console.log("update");
-            return resolve({
-              status: true,
-              message: "Category is already insert !",
-              data: data,
+      Coupan.findOne({ coupanCode: coupanCode }).exec((err, data) => {
+        if (data) {
+          console.log("update");
+          return resolve({
+            status: true,
+            message: "coupan is already insert !",
+            data: data,
+          });
+        } else {
+          console.log("create");
+          const couponCodeDiscount = new Coupan({
+            coupanCode: coupanCode,
+            discount: discount,
+            applyProduct: applyProduct,
+           // productCollection: productCollection,
+            applyCustomer: applyCustomer,
+            customerCollections: customerCollections,
+            startDate: startDate,
+            endDate: endDate,
+            description: description,
+          });
+          couponCodeDiscount.save(async (error, coupan) => {
+            if (error)
+            return res.status(400).json({
+              status: false,
+              message: "Coupon not Code created"+error,
             });
-          } else {
-            console.log("create");
-            const couponCodeDiscount = new Coupan({
-              coupanCode: coupanCode,
-              discount : discount,
-              applyProduct : applyProduct,
-              productCollection :  productCollection,
-              applyCustomer :  applyCustomer,
-              customerCollections :   customerCollection,
-              startDate :  startDate,
-              endDate : endDate,
-              description : description,
-            });
-            couponCodeDiscount.save(async (error, coupan) => {
-              if (error)
-                return resolve({
-                  status: false,
-                  message: "Please try after some time",
-                });
-              if (coupan) {
-                return resolve({
-                  status: true,
-                  data: coupan,
-                  message: "coupan has been created",
-                });
-              }
-            });
-          }
+            if (coupan) {
+              return res.status(400).json({
+                status: false,
+                data:coupan,
+                message: "Coupon Code created",
+              });
+            }
+          });
         }
-      );
+      });
       //     db.Coupancode.findOne({applyproduct});
       //     db.Coupancode.findOne({applyCustomer});
       //       if (applyProduct  === "milk"){

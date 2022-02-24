@@ -8,19 +8,19 @@ const coupanSchema = mongoose.Schema({
             unique: true 
     },
     
-    applyProduct : {
+    applyProduct : [{_id:{
         type: mongoose.Schema.Types.ObjectId, ref: "Product" 
 
-    },
+    }}],
     productCollection : { 
         type: mongoose.Schema.Types.ObjectId, ref: "ProductCollection" 
     },
-    applyCustomer : {
+    applyCustomer : [{_id:{
         type: mongoose.Schema.Types.ObjectId, ref: "User"  
-    },
-    customerCollections : {
+    }}],
+    customerCollections : [{_id:{
         type: mongoose.Schema.Types.ObjectId, ref: "CustomerCollections"  
-    },
+    }}],
     startDate : {
         type : Date
     },

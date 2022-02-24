@@ -121,7 +121,7 @@ exports.updatecoupan = async (req, res) => {
         if (data.coupanCount >= coupancount) {
 
           let rests = Coupan.findOneAndUpdate(
-            { _id:  _id },
+            { _id:coupanid },
             {
               coupanCode: data.coupanCode,
               discount: data.discount,
@@ -141,7 +141,7 @@ exports.updatecoupan = async (req, res) => {
             { new: true, upsert: true }
           ).exec((err, data) => {
             if (data) {
-              return res.status(400).json({
+              return res.status(200).json({
                 status: true,
                 message: "coupan is updated !",
                 data: data,
@@ -175,7 +175,7 @@ exports.updatecoupan = async (req, res) => {
           { new: true, upsert: true }
         ).exec((err, data) => {
           if (data) {
-            return res.status(400).json({
+            return res.status(200).json({
               status: true,
               message: "coupan count is updated !",
               data: data,

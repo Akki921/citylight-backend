@@ -12,7 +12,9 @@ exports.newCoupancode = async (req, res) => {
     productCollection,
     startDate,
     discount,
-    minValue
+    minValue,
+    totalCoupanLimit,
+    percustomerLimit,
   } = req.body;
   console.log("first", req.body);
   if (discount) {
@@ -31,24 +33,26 @@ exports.newCoupancode = async (req, res) => {
             coupanCode: coupanCode,
             discount: discount,
             applyProduct: applyProduct,
-           // productCollection: productCollection,
+            // productCollection: productCollection,
             applyCustomer: applyCustomer,
             customerCollections: customerCollections,
             startDate: startDate,
             endDate: endDate,
             description: description,
-            minValue:minValue
+            minValue: minValue,
+            totalCoupanLimit: totalCoupanLimit,
+            percustomerLimit: percustomerLimit,
           });
           couponCodeDiscount.save(async (error, coupan) => {
             if (error)
-            return res.status(400).json({
-              status: false,
-              message: "Coupon not Code created"+error,
-            });
+              return res.status(400).json({
+                status: false,
+                message: "Coupon not Code created" + error,
+              });
             if (coupan) {
               return res.status(400).json({
                 status: false,
-                data:coupan,
+                data: coupan,
                 message: "Coupon Code created",
               });
             }
@@ -104,4 +108,98 @@ exports.getCoupan = async (req, res) => {
       return res.status(201).send(coupanCode);
     }
   });
+};
+
+exports.updatecoupan = async (req, res) => {
+  const { coupanid, coupancount } = req.body;
+  console.log("first", req.body);
+
+  try {
+    Coupan.findOne({ _id: coupanid }).exec((err, data) => {
+      if (data) {
+        console.log("data",data)
+        if (data.coupanCount >= coupancount) {
+
+          let rests = Coupan.findOneAndUpdate(
+            { _id:  _id },
+            {
+              coupanCode: data.coupanCode,
+              discount: data.discount,
+              applyProduct: data.applyProduct,
+              // productCollection:data. productCollection,
+              applyCustomer: data.applyCustomer,
+              customerCollections: data.customerCollections,
+              startDate: data.startDate,
+              endDate: Date.now(),
+              description: data.description,
+              minValue: data.minValue,
+              totalCoupanLimit: data.totalCoupanLimit,
+              percustomerLimit: data.percustomerLimit,
+              coupanCount: coupancount,
+              isRunning: false,
+            },
+            { new: true, upsert: true }
+          ).exec((err, data) => {
+            if (data) {
+              return res.status(400).json({
+                status: true,
+                message: "coupan is updated !",
+                data: data,
+              });
+            } else if (err) {
+              return res.status(400).json({
+                status: false,
+                message: "coupan updating failed !",
+                data: data,
+              });
+            }
+          });
+        } else {
+              let rests = Coupan.findOneAndUpdate(
+          { _id: coupanid },
+          {
+            coupanCode: data.coupanCode,
+            discount: data.discount,
+            applyProduct: data.applyProduct,
+            // productCollection:data. productCollection,
+            applyCustomer: data.applyCustomer,
+            customerCollections: data.customerCollections,
+            startDate: data.startDate,
+            endDate: data.endDate,
+            description: data.description,
+            minValue: data.minValue,
+            totalCoupanLimit: data.totalCoupanLimit,
+            percustomerLimit: data.percustomerLimit,
+            coupanCount: coupancount,
+          },
+          { new: true, upsert: true }
+        ).exec((err, data) => {
+          if (data) {
+            return res.status(400).json({
+              status: true,
+              message: "coupan count is updated !",
+              data: data,
+            });
+          } else {
+            return res.status(400).json({
+              status: false,
+              message: "coupan updating failed !" + err,
+            });
+          }
+        });
+        }
+      } 
+      else{
+        return res.status(400).json({
+          status: false,
+          message: "coupan not found !",
+        });
+      }
+    });
+  } catch (error) {
+    return res.status(400).json({
+      status: false,
+      message: "Invalid Product id or Coupon Code...",
+    });
+  }
 };

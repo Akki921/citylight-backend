@@ -83,7 +83,9 @@ module.exports = {
   getAllCustomerCollection: async () => {
     return new Promise(async (resolve) => {
       try {
-        CustomerCollection.find({}, async (err, data) => {
+        CustomerCollection.find()
+        .populate("selectCustomer.id")
+        .exec((err, data) => {
           if (err)
             return resolve({
               status: false,

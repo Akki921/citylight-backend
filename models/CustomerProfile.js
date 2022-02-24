@@ -49,6 +49,12 @@ const CustomerProfileSchema = new mongoose.Schema({
     ref: "Refferal",
    // default:"62131c36a4315fb6de3e6fc6"
   },
+  coupanCode: [ {
+    coupanid: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Coupancode",
+    },
+  },]
 });
 
 module.exports = new mongoose.model("CustomerProfile", CustomerProfileSchema);

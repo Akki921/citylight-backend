@@ -28,4 +28,9 @@ router.get("/getcustomerprofile/:id",async(req,res)=>{
     res.status(200).json(addProfile);
 })
 
+router.post("/updatecoupancode",async(req,res)=>{
+    const addProfile=await CustomerProfileHandler.updatecoupancode(req.body);
+    if(!addProfile) return res.status(400).json(addProfile);
+    res.status(200).json(addProfile);
+})
 module.exports=router;

@@ -52,13 +52,11 @@ module.exports = {
     });
   },
 
-
   createCustomerCollectionquery: async (CustomerCollectionData) => {
     return new Promise(async (resolve) => {
       console.log("dcsxz",CustomerCollectionData)
       try {
-        const df =CustomerCollectionData; 
-        CustomerProfile.find( async (err, data) => {
+        CustomerProfile.find(CustomerCollectionData.query, async (err, data) => {
           console.log(data)
           if (err)
             return resolve({
@@ -105,4 +103,5 @@ module.exports = {
       }
     });
   },
+  
 };

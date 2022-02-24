@@ -32,6 +32,9 @@ const coupanSchema = mongoose.Schema({
     },
     description : {
         type : String
-    }
+    },
+    minValue: {
+        type : Number
+    },
 });
 module.exports = new mongoose.model("Coupancode", coupanSchema);

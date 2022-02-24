@@ -29,6 +29,7 @@ const VoccationRoute = require("./routes/Voccation.route");
 const DelivaryRoute = require("./routes/delivary.route");
 const CashbackRoute = require("./routes/cashback.route");
 const Banner = require("./routes/banner.route");
+const TransactionRoute = require("./routes/transaction.route");
 const cors = require("cors");
 const multer = require("multer");
 //const path = require("path/posix");
@@ -85,9 +86,10 @@ app.use("/api/subscription", SubscriptionRoute);
 app.use("/api/voccation", VoccationRoute);
 app.use("/api/delivary", DelivaryRoute);
 app.use("/api/support", SupportRoute);
+app.use("/api/transaction", TransactionRoute);
+app.use("/api/banner", Banner);
 //app.use('/uploads', express.static(path.join(__dirname, '/uploads/product')));
 app.use("/uploads", express.static("uploads"));
-app.use("/api/banner", Banner);
 const fileStorageEngine = multer.diskStorage({
   destination: (req, file, cb) => {
     let pathimage = path.join(

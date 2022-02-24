@@ -11,7 +11,8 @@ exports.newCoupancode = async (req, res) => {
     endDate,
     productCollection,
     startDate,
-    discount
+    discount,
+    minValue
   } = req.body;
   console.log("first", req.body);
   if (discount) {
@@ -36,6 +37,7 @@ exports.newCoupancode = async (req, res) => {
             startDate: startDate,
             endDate: endDate,
             description: description,
+            minValue:minValue
           });
           couponCodeDiscount.save(async (error, coupan) => {
             if (error)

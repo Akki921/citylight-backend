@@ -58,6 +58,10 @@ const coupanSchema = mongoose.Schema({
   coupanCount:{
     type: Number,
     default: 0, 
+  },
+  flagged:{
+    type: Boolean,
+    default: false, 
   }
 });
 module.exports = new mongoose.model("Coupancode", coupanSchema);

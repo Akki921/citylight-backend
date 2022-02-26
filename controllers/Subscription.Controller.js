@@ -476,19 +476,18 @@ module.exports = {
           .populate("product", "productName thumbnail sellingprice offerprice description")
           .populate("city", "cityName")
           .populate("locality", "locality")
-          .populate("brand")
           .exec((error, data) => {
             if (error)
               return resolve({
-                status: true,
+                status: false,
                 data: data,
-                message: "Subscription retrieved successfully",
+                message: "Subscription not retrieved successfully"+error,
               });
             if (data) {
               return resolve({
                 status: true,
                 data: data,
-                message: "Order retrieved successfully",
+                message: "Subscription retrieved successfully",
               });
             }
           });

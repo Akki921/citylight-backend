@@ -1,10 +1,11 @@
 const Category = require("../models/Category");
+const Product = require("../models/Product");
 module.exports = {
   createCategory: async (CategoryData) => {
-console.log(CategoryData);
+    console.log(CategoryData);
     return new Promise(async (resolve) => {
       try {
-       // console.log('CategoryData',CategoryData);
+        // console.log('CategoryData',CategoryData);
         Category.findOne({ CategoryName: CategoryData.name }).exec(
           (err, data) => {
             if (data) {
@@ -55,8 +56,7 @@ console.log(CategoryData);
       try {
         Category.findOneAndUpdate(
           { _id: datas._id },
-          { Status: datas.Status, 
-            categoryImage: datas.catimage,},
+          { Status: datas.Status, categoryImage: datas.catimage },
           { new: true, upsert: true }
         ).exec((err, data) => {
           if (err)
@@ -107,7 +107,7 @@ console.log(CategoryData);
 
   editupdatecategory: async (CategoryData) => {
     return new Promise(async (resolve) => {
-     // console.log('CategoryData',CategoryData)
+      // console.log('CategoryData',CategoryData)
       try {
         let rests = Category.findOneAndUpdate(
           { _id: CategoryData.id },
@@ -137,6 +137,70 @@ console.log(CategoryData);
         return resolve({
           status: false,
           message: "Please try after some time" + e,
+        });
+      }
+    });
+  },
+
+  addcount: async (CategoryData) => {
+    console.log(CategoryData);
+    return new Promise(async (resolve) => {
+      try {
+        // console.log('CategoryData',CategoryData);
+        Product.find({ category: CategoryData.cagtegoryid }).exec(
+          (err, data) => {
+            console.log("first fet", data.length);
+            if (data) {
+              Category.findOne({ _id: CategoryData.cagtegoryid }).exec(
+                (err, datas) => {
+                  console.log("at category", data.length);
+                  if (datas) {
+                    Category.findOneAndUpdate(
+                      { _id: datas._id },
+                      {
+                        CategoryName: datas.categoryname,
+                        Description: datas.discription,
+                        Status: datas.status,
+                        categoryImage: datas.catimage,
+                        count: data.length,
+                      },
+                      { new: true, upsert: true }
+                    ).exec((err, data) => {
+                      if (err)
+                        return resolve({
+                          status: false,
+                          message: "Please try after some time" + err,
+                        });
+                      if (data)
+                        return resolve({
+                          status: true,
+                          data: data,
+                          message: "Data retrieved successfully",
+                        });
+                    });
+                  } else {
+                    console.log("create");
+                    return resolve({
+                      status: false,
+                      message: "nothing to update count !",
+                      data: data,
+                    });
+                  }
+                }
+              );
+            } else {
+              return resolve({
+                status: false,
+                message: "nothing to update count !",
+                data: data,
+              });
+            }
+          }
+        );
+      } catch (error) {
+        return resolve({
+          status: false,
+          message: "Please try after some time" + error,
         });
       }
     });

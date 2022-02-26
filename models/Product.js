@@ -76,5 +76,11 @@ const productSchema = mongoose.Schema({
   createdDate: {
     type: Date,
   },
+  newCustomerPriceEndeDate: {
+    type: Date,
+  },
+  vendor: {
+    type: String,
+  },
 });
 module.exports = new mongoose.model("Product", productSchema);

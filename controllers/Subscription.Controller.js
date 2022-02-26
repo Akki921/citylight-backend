@@ -473,9 +473,10 @@ module.exports = {
         Subscription.find({ customer: { _id: id } })
 
           .populate("customer", "username login")
-          .populate("product", "productName thumbnail sellingprice offerprice")
+          .populate("product", "productName thumbnail sellingprice offerprice description")
           .populate("city", "cityName")
           .populate("locality", "locality")
+          .populate("brand")
           .exec((error, data) => {
             if (error)
               return resolve({

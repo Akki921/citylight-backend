@@ -32,6 +32,10 @@ const categorySchema = new mongoose.Schema({
     type: String,
     default:"admin"
   },
+  count: {
+    type: Number,
+    default:0
+  },
 });
 
 module.exports = new mongoose.model("Category", categorySchema);

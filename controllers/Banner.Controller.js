@@ -21,6 +21,7 @@ module.exports = {
                         status: BannerData.status,
                         description:BannerData.description,
                         createdDate: data.createdDate, 
+                        screenName:BannerData.screenName,
                     },
                     { new: true, upsert: true }
                   ).exec((err, data) => { 
@@ -45,6 +46,7 @@ module.exports = {
               status: BannerData.status,
               description:BannerData.description,
               createdDate: new Date(), 
+              screenName:BannerData.screenName,
             });
             newBanner.save(async (error, Banner) => {
               if (error)

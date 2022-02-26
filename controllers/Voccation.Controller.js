@@ -13,7 +13,7 @@ module.exports = {
                 {
                   ProfileId: VoccationData.ProfileId,
                   StartDate: VoccationData.StartDate,
-                   EndDate: VoccationData.EndDate,
+                  EndDate: VoccationData.EndDate,
                   city: VoccationData.city,
                   locality: VoccationData.locality,
                   cutOffTime: VoccationData.cutOffTime,

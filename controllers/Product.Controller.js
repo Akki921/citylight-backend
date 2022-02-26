@@ -1,4 +1,5 @@
 const Product = require("../models/Product");
+
 const { populate } = require("../models/Wallet");
 const ObjectID = require("mongodb").ObjectId;
 let product;
@@ -28,6 +29,8 @@ exports.createProduct = (req, res) => {
     SGST,
     city,
     locality,
+    newCustomerPriceEndeDate,
+    vendor
   } = req.body;
   console.log(
     " req.body,",
@@ -54,7 +57,9 @@ exports.createProduct = (req, res) => {
     IGST,
     SGST,
     city,
-    locality
+    locality,
+    newCustomerPriceEndeDate,
+    vendor
   );
   if (productImage.length > 0 && thumbnail.length == 0) {
     product = new Product({
@@ -81,6 +86,8 @@ exports.createProduct = (req, res) => {
       SGST,
       city,
       locality,
+      newCustomerPriceEndeDate,
+      vendor
     });
   } else if (productImage.length == 0 && thumbnail.length > 0) {
     product = new Product({
@@ -106,6 +113,8 @@ exports.createProduct = (req, res) => {
       SGST,
       city,
       locality,
+      newCustomerPriceEndeDate,
+      vendor
     });
   } else if (productImage.length > 0 && thumbnail.length > 0) {
     product = new Product({
@@ -132,6 +141,8 @@ exports.createProduct = (req, res) => {
       SGST,
       city,
       locality,
+      newCustomerPriceEndeDate,
+      vendor
     });
   } else {
     product = new Product({
@@ -156,6 +167,8 @@ exports.createProduct = (req, res) => {
       SGST,
       city,
       locality,
+      newCustomerPriceEndeDate,
+      vendor
     });
   }
 
@@ -217,6 +230,8 @@ exports.updateproduct = async (req, res) => {
         SGST,
         city,
         locality,
+        newCustomerPriceEndeDate,
+        vendor
       } = req.body;
 
       console.log(
@@ -244,7 +259,9 @@ exports.updateproduct = async (req, res) => {
         IGST,
         SGST,
         city,
-        locality
+        locality,
+        newCustomerPriceEndeDate,
+        vendor
       );
       if (thumbnail !== undefined && productImage === undefined) {
         Product.findOneAndUpdate(
@@ -273,6 +290,8 @@ exports.updateproduct = async (req, res) => {
             SGST: SGST,
             city: city,
             locality: locality,
+            newCustomerPriceEndeDate:newCustomerPriceEndeDate,
+            vendor:vendor
           },
           { new: true, upsert: true }
         ).exec((err, data) => {
@@ -318,6 +337,8 @@ exports.updateproduct = async (req, res) => {
             SGST: SGST,
             city: city,
             locality: locality,
+            newCustomerPriceEndeDate:newCustomerPriceEndeDate,
+            vendor:vendor
           },
           { new: true, upsert: true }
         ).exec((err, data) => {
@@ -364,6 +385,8 @@ exports.updateproduct = async (req, res) => {
             SGST: SGST,
             city: city,
             locality: locality,
+            newCustomerPriceEndeDate:newCustomerPriceEndeDate,
+            vendor:vendor
           },
           { new: true, upsert: true }
         ).exec((err, data) => {
@@ -408,6 +431,8 @@ exports.updateproduct = async (req, res) => {
             SGST: SGST,
             city: city,
             locality: locality,
+            newCustomerPriceEndeDate:newCustomerPriceEndeDate,
+            vendor:vendor
           },
           { new: true, upsert: true }
         ).exec((err, data) => {
@@ -468,6 +493,8 @@ exports.updateproductqty = async (req, res) => {
               SGST: data.SGST,
               city: data.city,
               locality: data.locality,
+              newCustomerPriceEndeDate:newCustomerPriceEndeDate,
+              vendor:vendor
             },
             { new: true, upsert: true }
           ).exec((err, data) => {
@@ -512,6 +539,8 @@ exports.updateproductqty = async (req, res) => {
               SGST: data.SGST,
               city: data.city,
               locality: data.locality,
+              newCustomerPriceEndeDate:newCustomerPriceEndeDate,
+             vendor:vendor 
             },
             { new: true, upsert: true }
           ).exec((err, data) => {
@@ -540,3 +569,4 @@ exports.updateproductqty = async (req, res) => {
     });
   }
 };
+1

@@ -125,14 +125,14 @@ module.exports = {
               { _id: data._id },
               {
                 login: data.login,
-                username: data.username,
-                phone: data.phone,
-                houseno: data.houseno,
-                address: data.address,
-                city: data.city,
-                locality: data.locality,
-                ringtheBell: data.ringtheBell,
-                slottime: data.slottime,
+                username: Data.username,
+                phone: Data.phone,
+                houseno: Data.houseno,
+                address: Data.address,
+                city: Data.city,
+                locality: Data.locality,
+                ringtheBell: Data.ringtheBell,
+                slottime: Data.slottime,
                 refercode: data.refercode,
               },
               { new: true, upsert: true }
@@ -153,7 +153,8 @@ module.exports = {
             });
           } else {
             let pres;
-            let verify = 123456;
+           let verify;
+           // = 123456;
             let refercashback = "62131c36a4315fb6de3e6fc6";
             let newusercashback;
             let refreeusercashback;

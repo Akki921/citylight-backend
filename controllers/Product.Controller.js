@@ -572,4 +572,3 @@ exports.updateproductqty = async (req, res) => {
     });
   }
 };
-1

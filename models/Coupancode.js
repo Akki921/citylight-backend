@@ -2,18 +2,18 @@ const mongoose = require("mongoose");
 const coupanSchema = mongoose.Schema({
   coupanCode: { type: String, min: 5, max: 15, require: true, unique: true },
 
-  applyProduct: [
-    {
-      id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Product",
-      },
-    },
-  ],
-  productCollection: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "ProductCollection",
-  },
+  // applyProduct: [
+  //   {
+  //     id: {
+  //       type: mongoose.Schema.Types.ObjectId,
+  //       ref: "Product",
+  //     },
+  //   },
+  // ],
+  // productCollection: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "ProductCollection",
+  // },
   applyCustomer: [
     {
       id: {

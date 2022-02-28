@@ -5,7 +5,7 @@ exports.newCoupancode = async (req, res) => {
   const {
     coupanCode,
     applyCustomer,
-    applyProduct,
+    //applyProduct,
     customerCollections,
     description,
     endDate,
@@ -32,7 +32,7 @@ exports.newCoupancode = async (req, res) => {
           const couponCodeDiscount = new Coupan({
             coupanCode: coupanCode,
             discount: discount,
-            applyProduct: applyProduct,
+           // applyProduct: applyProduct,
             // productCollection: productCollection,
             applyCustomer: applyCustomer,
             customerCollections: customerCollections,
@@ -102,7 +102,7 @@ exports.newCoupancode = async (req, res) => {
 // here is the get api for coupanCode.....
 exports.getCoupan = async (req, res) => {
   Coupan.find()
-    .populate("applyProduct.id")
+    .populate("applyCustomer.id")
     .exec((error, coupanCode) => {
       if (error) {
         return res.status(400).send("the error is.... ", error);
@@ -120,13 +120,13 @@ exports.updatecoupan = async (req, res) => {
     Coupan.findOne({ _id: coupanid }).exec((err, data) => {
       if (data) {
         console.log("data", data);
-        if (data.coupanCount >= coupancount) {
+        if (data.coupanCount == coupancount) {
           let rests = Coupan.findOneAndUpdate(
             { _id: coupanid },
             {
               coupanCode: data.coupanCode,
               discount: data.discount,
-              applyProduct: data.applyProduct,
+            //  applyProduct: data.applyProduct,
               // productCollection:data. productCollection,
               applyCustomer: data.applyCustomer,
               customerCollections: data.customerCollections,
@@ -216,7 +216,7 @@ exports.stopcoupan = async (req, res) => {
           {
             coupanCode: data.coupanCode,
             discount: data.discount,
-            applyProduct: data.applyProduct,
+            //applyProduct: data.applyProduct,
             // productCollection:data. productCollection,
             applyCustomer: data.applyCustomer,
             customerCollections: data.customerCollections,

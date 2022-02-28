@@ -22,6 +22,7 @@ const BannerSchema = new mongoose.Schema({
   },
   screenName:{
     type: String,
+    unique:true,
   },
 }); 
 

@@ -226,9 +226,11 @@ module.exports = {
   getAllTransactionbyid: async (id) => {
     return new Promise(async (resolve) => {
       try {
+        
         Transaction.find(
-          { walletId: { $in: mongoose.Types.ObjectId(id) } },
-          async (err, data) => {
+          { walletId: { $in: mongoose.Types.ObjectId(id) } })
+          .sort({ createdAt: -1 })
+         .exec( async (err, data) => {
             if (err)
               return resolve({
                 status: false,

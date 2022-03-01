@@ -227,8 +227,11 @@ module.exports = {
   getAllTransactionbyid: async (id) => {
     return new Promise(async (resolve) => {
       try {
+        sort = [('timestamp', DESCENDING)]
         Transaction.find(
-          { CashbackWalletId: { $in: mongoose.Types.ObjectId(id) } },
+          { CashbackWalletId: { $in: mongoose.Types.ObjectId(id) } })
+          .sort(sort)
+          .exec(
           async (err, data) => {
             if (err)
               return resolve({

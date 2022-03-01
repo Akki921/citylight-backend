@@ -185,6 +185,7 @@ exports.createProduct = (req, res) => {
 
 exports.getproduct = async (req, res) => {
   Product.find({})
+  .sort({ productName: -1 }).collation({ locale: "en", caseLevel: true })
     .populate("category", "CategoryName Description")
     .populate("brand", " BrandName")
     .populate("city")

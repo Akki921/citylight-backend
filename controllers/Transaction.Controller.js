@@ -12,7 +12,11 @@ module.exports = {
   getAllTransaction: async (id) => {
     return new Promise(async (resolve) => {
       try {
-        Transaction.find(
+
+       
+        Transaction.find()
+        .sort({ createdAt: -1 }).collation({ locale: "en", caseLevel: true })
+        .exec(
           async (err, data) => {
             if (err)
               return resolve({

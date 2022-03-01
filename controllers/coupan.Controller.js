@@ -103,6 +103,7 @@ exports.newCoupancode = async (req, res) => {
 exports.getCoupan = async (req, res) => {
   Coupan.find()
     .populate("applyCustomer.id")
+    .sort({ coupanCode: -1 }).collation({ locale: "en", caseLevel: true })
     .exec((error, coupanCode) => {
       if (error) {
         return res.status(400).send("the error is.... ", error);

@@ -85,6 +85,7 @@ module.exports = {
       try {
 
           CityAvailability.find({})
+          .sort({ locality: -1 }).collation({ locale: "en", caseLevel: true })
           .populate("city", "id cityName")
           .exec((error, data) => {
             if (error)

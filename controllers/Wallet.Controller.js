@@ -74,6 +74,7 @@ module.exports = {
     return new Promise(async (resolve) => {
       try {
         Wallet.find({})
+        .sort({ FirstName: -1 }).collation({ locale: "en", caseLevel: true })
           .populate("userId", "username")
           .exec((error, data) => {
             if (error)

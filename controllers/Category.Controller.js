@@ -83,7 +83,10 @@ module.exports = {
   getAllCategory: async () => {
     return new Promise(async (resolve) => {
       try {
-        Category.find({}, async (err, data) => {
+       
+        Category.find({})
+        .sort({ CategoryName: -1 }).collation({ locale: "en", caseLevel: true })
+        .exec(async (err, data) => {
           if (err)
             return resolve({
               status: false,

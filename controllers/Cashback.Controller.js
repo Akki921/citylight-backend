@@ -101,7 +101,9 @@ module.exports = {
       console.log(id)
     return new Promise(async (resolve) => {
       try {
-        Cashback.find({ userId: id }, async (err, data) => {
+        Cashback.find({ userId: id })
+        .sort({ username: -1 }).collation({ locale: "en", caseLevel: true })
+        .exec(async (err, data) => {
           if (err)
             return resolve({
               status: false,

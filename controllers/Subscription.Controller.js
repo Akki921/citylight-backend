@@ -471,7 +471,7 @@ module.exports = {
     return new Promise(async (resolve) => {
       try {
         Subscription.find({ customer: { _id: id } })
-
+        .sort({ subNo: -1 }).collation({ locale: "en", caseLevel: true })
           .populate("customer", "username login")
           .populate("product", "productName thumbnail sellingprice offerprice description vendor")
           .populate("city", "cityName")

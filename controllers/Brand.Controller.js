@@ -75,7 +75,7 @@ module.exports = {
     return new Promise(async (resolve) => {
       try {
         Brand.find({})
-        .sort({ BrandName: -1 }).collation({ locale: "en", caseLevel: true })
+        .sort({ username: -1 }).collation({ locale: "en", caseLevel: true })
         .exec(async(err, data) => {
           if (err)
             return resolve({

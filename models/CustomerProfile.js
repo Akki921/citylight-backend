@@ -10,6 +10,9 @@ const CustomerProfileSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  profileimg: {
+    type: String,
+  },
   phone: {
     type: Number,
   },

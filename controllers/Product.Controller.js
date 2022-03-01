@@ -30,7 +30,7 @@ exports.createProduct = (req, res) => {
     city,
     locality,
     newCustomerPriceEndeDate,
-    vendor
+    vendor,
   } = req.body;
   console.log(
     " req.body,",
@@ -87,7 +87,7 @@ exports.createProduct = (req, res) => {
       city,
       locality,
       newCustomerPriceEndeDate,
-      vendor
+      vendor,
     });
   } else if (productImage.length == 0 && thumbnail.length > 0) {
     product = new Product({
@@ -115,7 +115,7 @@ exports.createProduct = (req, res) => {
       city,
       locality,
       newCustomerPriceEndeDate,
-      vendor
+      vendor,
     });
   } else if (productImage.length > 0 && thumbnail.length > 0) {
     product = new Product({
@@ -144,7 +144,7 @@ exports.createProduct = (req, res) => {
       city,
       locality,
       newCustomerPriceEndeDate,
-      vendor
+      vendor,
     });
   } else {
     product = new Product({
@@ -171,21 +171,26 @@ exports.createProduct = (req, res) => {
       city,
       locality,
       newCustomerPriceEndeDate,
-      vendor
+      vendor,
     });
   }
 
   product.save((err, data) => {
     if (err) return res.status(400).json({ err });
     if (data) {
-      return res.status(200).json({ data });
+      return res.status(200).json({
+        status: true,
+        data: data,
+        message: "Product create successfully.",
+      });
     }
   });
 };
 
 exports.getproduct = async (req, res) => {
   Product.find({})
-  .sort({ productName: -1 }).collation({ locale: "en", caseLevel: true })
+    .sort({ productName: -1 })
+    .collation({ locale: "en", caseLevel: true })
     .populate("category", "CategoryName Description")
     .populate("brand", " BrandName")
     .populate("city")
@@ -235,7 +240,7 @@ exports.updateproduct = async (req, res) => {
         city,
         locality,
         newCustomerPriceEndeDate,
-        vendor
+        vendor,
       } = req.body;
 
       console.log(
@@ -294,8 +299,8 @@ exports.updateproduct = async (req, res) => {
             SGST: SGST,
             city: city,
             locality: locality,
-            newCustomerPriceEndeDate:newCustomerPriceEndeDate,
-            vendor:vendor
+            newCustomerPriceEndeDate: newCustomerPriceEndeDate,
+            vendor: vendor,
           },
           { new: true, upsert: true }
         ).exec((err, data) => {
@@ -341,8 +346,8 @@ exports.updateproduct = async (req, res) => {
             SGST: SGST,
             city: city,
             locality: locality,
-            newCustomerPriceEndeDate:newCustomerPriceEndeDate,
-            vendor:vendor
+            newCustomerPriceEndeDate: newCustomerPriceEndeDate,
+            vendor: vendor,
           },
           { new: true, upsert: true }
         ).exec((err, data) => {
@@ -389,8 +394,8 @@ exports.updateproduct = async (req, res) => {
             SGST: SGST,
             city: city,
             locality: locality,
-            newCustomerPriceEndeDate:newCustomerPriceEndeDate,
-            vendor:vendor
+            newCustomerPriceEndeDate: newCustomerPriceEndeDate,
+            vendor: vendor,
           },
           { new: true, upsert: true }
         ).exec((err, data) => {
@@ -435,8 +440,8 @@ exports.updateproduct = async (req, res) => {
             SGST: SGST,
             city: city,
             locality: locality,
-            newCustomerPriceEndeDate:newCustomerPriceEndeDate,
-            vendor:vendor
+            newCustomerPriceEndeDate: newCustomerPriceEndeDate,
+            vendor: vendor,
           },
           { new: true, upsert: true }
         ).exec((err, data) => {
@@ -497,8 +502,8 @@ exports.updateproductqty = async (req, res) => {
               SGST: data.SGST,
               city: data.city,
               locality: data.locality,
-              newCustomerPriceEndeDate:newCustomerPriceEndeDate,
-              vendor:vendor
+              newCustomerPriceEndeDate: newCustomerPriceEndeDate,
+              vendor: vendor,
             },
             { new: true, upsert: true }
           ).exec((err, data) => {
@@ -543,8 +548,8 @@ exports.updateproductqty = async (req, res) => {
               SGST: data.SGST,
               city: data.city,
               locality: data.locality,
-              newCustomerPriceEndeDate:newCustomerPriceEndeDate,
-             vendor:vendor 
+              newCustomerPriceEndeDate: newCustomerPriceEndeDate,
+              vendor: vendor,
             },
             { new: true, upsert: true }
           ).exec((err, data) => {

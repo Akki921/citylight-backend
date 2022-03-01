@@ -34,7 +34,7 @@ module.exports = {
                       } else if (err) {
                         return resolve({
                           status: false,
-                          message: "stock updating failed !",
+                          message: "Bannee updating failed !"+err,
                           data: data,
                         });
                       }
@@ -52,7 +52,7 @@ module.exports = {
               if (error)
                 return resolve({
                   status: false,
-                  message: "Please try after some time",
+                  message: "Please try after some time"+error,
                 });
                 if(Banner){
               return resolve({

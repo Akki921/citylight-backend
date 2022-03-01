@@ -129,6 +129,12 @@ app.post("/banner", banner, (req, res) => {
   console.log(req.file);
   res.send("bannerImg file upload succecsfuly"+req.file);
 });
+
+var profileimg = upload.fields([{ name: "profileImg" }]);
+app.post("/profileimg", profileimg, (req, res) => {
+  console.log(req.file);
+  res.send("profileimg file upload succecsfuly"+req.file);
+});
 app.listen(PORT, () => {
   console.log(`server running at port:${PORT}`);
 });

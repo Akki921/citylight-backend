@@ -74,7 +74,9 @@ module.exports = {
   getAllBand: async () => {
     return new Promise(async (resolve) => {
       try {
-        Brand.find({}, async (err, data) => {
+        Brand.find({})
+        .sort({ BrandName: -1 }).collation({ locale: "en", caseLevel: true })
+        .exec(async(err, data) => {
           if (err)
             return resolve({
               status: false,

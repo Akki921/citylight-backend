@@ -86,9 +86,11 @@ module.exports = {
   //   },
 
   getProfiles: async () => {
+
     return new Promise(async (resolve) => {
       try {
-        CustomerProfile.find({})
+        CustomerProfile.find()
+        .sort({ username: -1 }).collation({ locale: "en", caseLevel: true })
           .populate("login", "phone")
           .populate("city", "cityName")
           .populate("locality", "locality")
@@ -153,8 +155,8 @@ module.exports = {
             });
           } else {
             let pres;
-           let verify;
-           // = 123456;
+            let verify;
+            // = 123456;
             let refercashback = "62131c36a4315fb6de3e6fc6";
             let newusercashback;
             let refreeusercashback;
@@ -597,53 +599,53 @@ module.exports = {
       console.log(Data);
       try {
         CustomerProfile.findOne({ login: Data.login }).exec((err, data) => {
-          console.log("first",data)
+          console.log("first", data);
           if (data) {
-            CustomerProfile.findOne({ coupanCode: { $in: Data.coupancode } }).exec(
-              (err, datas) => {
-                console.log("datas",datas,Data.coupancode)
-                if (datas) {
-                  return resolve({
-                    status: true,
-                    message: "coupanCode is already created !",
-                    data: datas,
-                  });
-                } else {
-                  CustomerProfile.findOneAndUpdate(
-                    { _id: data._id },
-                    {
-                      login: data.login,
-                      username: data.username,
-                      phone: data.phone,
-                      houseno: data.houseno,
-                      address: data.address,
-                      city: data.city,
-                      locality: data.locality,
-                      ringtheBell: data.ringtheBell,
-                      slottime: data.slottime,
-                      refercode: data.refercode,
-                      refercount: data.refercount,
-                      coupanCode:Data.coupancode
-                    },
-                    { new: true, upsert: true }
-                  ).exec((err, data) => {
-                    if (data) {
-                      return resolve({
-                        status: true,
-                        message: "login details  is updated !",
-                        data: data,
-                      });
-                    } else if (err) {
-                      return resolve({
-                        status: false,
-                        message: "coupan details is updating failed !",
-                        data: data,
-                      });
-                    }
-                  });
-                }
+            CustomerProfile.findOne({
+              coupanCode: { $in: Data.coupancode },
+            }).exec((err, datas) => {
+              console.log("datas", datas, Data.coupancode);
+              if (datas) {
+                return resolve({
+                  status: true,
+                  message: "coupanCode is already created !",
+                  data: datas,
+                });
+              } else {
+                CustomerProfile.findOneAndUpdate(
+                  { _id: data._id },
+                  {
+                    login: data.login,
+                    username: data.username,
+                    phone: data.phone,
+                    houseno: data.houseno,
+                    address: data.address,
+                    city: data.city,
+                    locality: data.locality,
+                    ringtheBell: data.ringtheBell,
+                    slottime: data.slottime,
+                    refercode: data.refercode,
+                    refercount: data.refercount,
+                    coupanCode: Data.coupancode,
+                  },
+                  { new: true, upsert: true }
+                ).exec((err, data) => {
+                  if (data) {
+                    return resolve({
+                      status: true,
+                      message: "login details  is updated !",
+                      data: data,
+                    });
+                  } else if (err) {
+                    return resolve({
+                      status: false,
+                      message: "coupan details is updating failed !",
+                      data: data,
+                    });
+                  }
+                });
               }
-            );
+            });
           } else {
             return resolve({
               status: false,

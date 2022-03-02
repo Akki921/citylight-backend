@@ -32,7 +32,7 @@ const subscriptionSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "CityAvailability",
   },
-  customDates: [{ Start: Date }],
+  customDates: [{ Start: Date,qtyoftheday: Number }],
   QtyperDay: {
     type: Number,
   },

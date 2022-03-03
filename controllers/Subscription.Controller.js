@@ -411,7 +411,7 @@ module.exports = {
                   console.log("succesfull", data);
                   return resolve({
                     status: true,
-                    data2: data,
+                    data: data,
                     message: "subscription  update successfully",
                   });
                 }

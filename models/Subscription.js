@@ -32,9 +32,17 @@ const subscriptionSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "CityAvailability",
   },
-  customDates: [{ Start: Date,qtyoftheday: Number }],
+  customDates: [{ Start: Date,qtyoftheday: Number}],
   QtyperDay: {
     type: Number,
+  },
+  QtyDelivered: {
+    type: Number,
+    default:0
+  },
+  Qtyfullfilled: {
+    type: Number,
+    default:0
   },
   iscancle: {
     type: Boolean,

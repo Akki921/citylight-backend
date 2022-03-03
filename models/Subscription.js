@@ -36,6 +36,9 @@ const subscriptionSchema = new mongoose.Schema({
   QtyperDay: {
     type: Number,
   },
+  QtytobeDelivered: {
+    type: Number,
+  },
   QtyDelivered: {
     type: Number,
     default:0

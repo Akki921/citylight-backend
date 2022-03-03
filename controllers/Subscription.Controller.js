@@ -295,7 +295,7 @@ module.exports = {
                 });
               } else {
                 console.log("inside else");
-               Subscription.findOneAndUpdate(
+                Subscription.findOneAndUpdate(
                   { _id: data._id },
                   {
                     subNo: data.subNo,
@@ -471,9 +471,12 @@ module.exports = {
     return new Promise(async (resolve) => {
       try {
         Subscription.find({ customer: { _id: id } })
-        .sort({ product: -1 })
+          .sort({ product: -1 })
           .populate("customer", "username login")
-          .populate("product", "productName thumbnail sellingprice offerprice description vendor")
+          .populate(
+            "product",
+            "productName thumbnail sellingprice offerprice description vendor"
+          )
           .populate("city", "cityName")
           .populate("locality", "locality")
           .exec((error, data) => {
@@ -481,7 +484,7 @@ module.exports = {
               return resolve({
                 status: false,
                 data: data,
-                message: "Subscription not retrieved successfully"+error,
+                message: "Subscription not retrieved successfully" + error,
               });
             if (data) {
               return resolve({
@@ -608,6 +611,60 @@ module.exports = {
               );
             });
           }
+        });
+      } catch (error) {
+        return resolve({
+          status: false,
+          message: "Please try after some time2" + error,
+        });
+      }
+    });
+  },
+
+  updateAllFullfilled: async (SubscriptionData) => {
+    return new Promise(async (resolve) => {
+      console.log(SubscriptionData);
+
+      try {
+        SubscriptionData.PassFullfilledData.map((data) => {
+          Subscription.updateone(
+            { _id: data._id },
+            {
+              subNo: data.subNo,
+              customer: data.customer,
+              product: data.product,
+              customDates: data.customDates,
+              QtyperDay: data.QtyperDay,
+              frequency: data.frequency,
+              address: data.address,
+              locality: data.locality,
+              city: data.city,
+              startDate: data.startDate,
+              productValue: data.productValue,
+              OnceUpdate: data.OnceUpdate,
+              isSelected: SubscriptionData.isSelected,
+              QtytobeDelivered: SubscriptionData.QtytobeDelivered,
+              QtyDelivered: SubscriptionData.QtytobeDelivered,
+              Qtyfullfilled: SubscriptionData.Qtyfullfilled,
+            },
+            { new: true, upsert: true },
+            (err, data) => {
+              if (err) {
+                return resolve({
+                  status: true,
+                  message: "there is a problem",
+                });
+              }
+              if (data) {
+                console.log("succesfull", data);
+                return resolve({
+                  status: true,
+                  data: data,
+                  message: "subscription  update successfully",
+                });
+              }
+            }
+          );
         });
       } catch (error) {
         return resolve({

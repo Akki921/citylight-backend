@@ -14,6 +14,11 @@ const subscriptionSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Product",
   },
+  delivaryBoy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Role",
+    default:'1'
+  },
   startDate: { type: Date },
   productValue: {
     type: Number,
@@ -55,6 +60,10 @@ const subscriptionSchema = new mongoose.Schema({
   isSelected: {
     type: Boolean,
     default: false,
+  },
+  isDelivered: {
+    type: Boolean,
+    default: true,
   },
 });
 

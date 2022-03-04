@@ -28,5 +28,11 @@ router.delete("/roledelete/:id", async (req, res, next) => {
   
     res.status(200).json(rolesData);
   });
+router.get("/getrole", async (req, res, next) => {
+  let rolesData = await roleHandler.getRole();
 
+  if (!rolesData.status) return res.status(400).json(rolesData);
+
+  res.status(200).json(rolesData);
+});
 module.exports = router;

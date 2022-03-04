@@ -646,13 +646,71 @@ module.exports = {
               QtytobeDelivered: data.QtytobeDelivered,
               QtyDelivered: data.QtyDelivered,
               Qtyfullfilled: data.Qtyfullfilled,
+              isDelivered: false,
+              delivaryBoy: data.delivaryBoy
             },
             { new: true, upsert: true },
             (err, data) => {
               if (err) {
                 return resolve({
                   status: false,
-                  message: "there is a problem"+err,
+                  message: "there is a problem" + err,
+                });
+              }
+              if (data) {
+                console.log("succesfull", data);
+                return resolve({
+                  status: true,
+                  data: data,
+                  message: "subscription  update successfully",
+                });
+              }
+            }
+          );
+        });
+      } catch (error) {
+        return resolve({
+          status: false,
+          message: "Please try after some time2" + error,
+        });
+      }
+    });
+  },
+
+  updateAllAssignOrder: async (SubscriptionData) => {
+    return new Promise(async (resolve) => {
+      console.log(SubscriptionData);
+
+      try {
+        SubscriptionData.PassFullfilledData.map((data) => {
+          Subscription.updateMany(
+            { _id: data._id },
+            {
+              subNo: data.subNo,
+              customer: data.customer._id,
+              product: data.product._id,
+              customDates: data.customDates,
+              QtyperDay: data.QtyperDay,
+              frequency: data.frequency,
+              address: data.address,
+              locality: data.locality._id,
+              city: data.city._id,
+              startDate: data.startDate,
+              productValue: data.productValue,
+              OnceUpdate: data.OnceUpdate,
+              isSelected: data.isSelected,
+              QtytobeDelivered: data.QtytobeDelivered,
+              QtyDelivered: data.QtyDelivered,
+              Qtyfullfilled: data.Qtyfullfilled,
+              isDelivered: false,
+              delivaryBoy: data.delivaryBoy
+            },
+            { new: true, upsert: true },
+            (err, data) => {
+              if (err) {
+                return resolve({
+                  status: false,
+                  message: "there is a problem" + err,
                 });
               }
               if (data) {

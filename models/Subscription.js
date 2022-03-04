@@ -38,12 +38,15 @@ const subscriptionSchema = new mongoose.Schema({
   },
   QtytobeDelivered: {
     type: Number,
+    default:0
   },
   QtyDelivered: {
     type: Number,
+    default:0
   },
   Qtyfullfilled: {
     type: Number,
+    default:0
   },
   iscancle: {
     type: Boolean,

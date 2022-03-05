@@ -17,7 +17,7 @@ const subscriptionSchema = new mongoose.Schema({
   delivaryBoy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Role",
-    default:null
+    default:'61e548d7fcaece036ac44144'
   },
   startDate: { type: Date },
   productValue: {

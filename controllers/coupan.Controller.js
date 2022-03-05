@@ -49,7 +49,7 @@ exports.newCoupancode = async (req, res) => {
                 message: "Coupon not Code created" + error,
               });
             if (coupan) {
-              return res.status(400).json({
+              return res.status(200).json({
                 status: false,
                 data: coupan,
                 message: "Coupon Code created",

@@ -5,16 +5,15 @@ exports.newCoupancode = async (req, res) => {
   const {
     coupanCode,
     applyCustomer,
-    customerType,
     customerCollections,
     description,
     endDate,
-    productCollection,
     startDate,
     discount,
     minValue,
     totalCoupanLimit,
     percustomerLimit,
+    customerType
   } = req.body;
   console.log("first", req.body);
   if (discount) {

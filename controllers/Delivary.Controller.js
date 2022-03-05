@@ -8,44 +8,61 @@ module.exports = {
 
     return new Promise(async (resolve) => {
       try {
-        // let test = [];
-        // let od = [];
-        // let fd=[];
+        let test = [];
+        let od = [];
+        let fd = [];
 
-        // for (let i = 0; i < DelivaryData.length; i++) {
-        //   //  console. log( Data.slipdata[i]);
-        //   test.push(DelivaryData[i].subNo);
-        //   if (
-        //     DelivaryData[i].todayDate.split("T")[0].split("-").join("-") ===
-        //     datetime.toISOString().slice(0, 10)
-        //   ) {
-        //     console.log("if running");
-        //     od.push(DelivaryData[i]);
-        //   }
-        //   else{
-        //      fd.push(DelivaryData[i])
-        //   }
-        // }
-        // console.log(test,"od", od,"fd",fd);
-        // Delivary.find({ subNo: { $in: test } }).exec(async (err, data) => {
-        //let dg = data[0].todayDate.toISOString().slice(0, 10);
-
-        if (DelivaryData[0] !== undefined) {
-          let dd = await Delivary.insertMany(DelivaryData);
-          // console.log('dd0',dd);
-          if (dd) {
-            return resolve({
-              status: true,
-              data: dd,
-              message: "Address Slip has been created",
-            });
-          }
-        } else {
-          return resolve({
-            status: true,
-            message: "Address Slip has not been Updated",
-          });
+        for (let i = 0; i < DelivaryData.DelivaryData.length; i++) {
+          //  console. log( Data.slipdata[i]);
+          test.push(DelivaryData.DelivaryData[i].subNo);
+          // if (
+          //   DelivaryData.DelivaryData[i].todayDate.split("T")[0].split("-").join("-") ===
+          //   datetime.toISOString().slice(0, 10)
+          // ) {
+          //   console.log("if running");
+          //   od.push(DelivaryData.DelivaryData[i]);
+          // }
+          // else{
+          //    fd.push(DelivaryData.DelivaryData[i])
+          // }
         }
+        console.log(test, "od", od, "fd", fd);
+        Delivary.find({ subNo: { $in: test }, isDelivared: true }).exec(
+          async (err, data) => {
+            console.log("allreasy data", data);
+            if (data[0] === undefined) {
+              let dd = await Delivary.insertMany(DelivaryData.DelivaryData);
+              // console.log('dd0',dd);
+              if (dd) {
+                return resolve({
+                  status: true,
+                  data: dd,
+                  message: "Delivary Slip has been created",
+                });
+              } else {
+                return resolve({
+                  status: true,
+                  message: "Delivary Slip has not created",
+                });
+              }
+            } else {
+              let dd = await Delivary.updateMany(DelivaryData.DelivaryData);
+              console.log("update", dd);
+              if (dd) {
+                return resolve({
+                  status: true,
+                  data: dd,
+                  message: "Delivary Slip has been updated",
+                });
+              } else {
+                return resolve({
+                  status: true,
+                  message: "Delivary Slip has not been updated",
+                });
+              }
+            }
+          }
+        );
       } catch (error) {
         return resolve({
           status: false,

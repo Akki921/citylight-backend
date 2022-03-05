@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
 
 const deliverySchema = new mongoose.Schema({
+  DelivaryNo: {
+    type: Number,
+  },
   subNo: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Subscription",
@@ -13,25 +16,18 @@ const deliverySchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Product",
   },
-  QtyDeliverd: {
-    type: Number,
+  isDelivared: {
+    type: Boolean,
+    default: false,
   },
-   QtyFullfilled: {
-    type: Number,
-   default:0,
-  },
-  QtyNotFullfilled: {
-    type: Number,
-   default: 0,
-  },
-  Status: {
-    type: String,
-    default: 'pending',
+  isSelcted: {
+    type: Boolean,
+    default: false,
   },
   todayDate: {
     type: Date,
-  },
-
+    default:Date.now()
+  },  
 });
 
 module.exports = new mongoose.model("Delivary", deliverySchema);

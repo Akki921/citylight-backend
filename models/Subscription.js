@@ -17,7 +17,7 @@ const subscriptionSchema = new mongoose.Schema({
   delivaryBoy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Role",
-    default: null
+    default:null
   },
   startDate: { type: Date },
   productValue: {
@@ -61,10 +61,7 @@ const subscriptionSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  isDelivered: {
-    type: Boolean,
-    default: true,
-  },
+ 
 });
 
 module.exports = new mongoose.model("Subscription", subscriptionSchema);

@@ -23,6 +23,10 @@ const subscriptionSchema = new mongoose.Schema({
   productValue: {
     type: Number,
   },
+  isAssign: {
+    type: Boolean,
+    default: false,
+  },
   frequency: {
     type: String,
   },

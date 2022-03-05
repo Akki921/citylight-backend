@@ -13,21 +13,10 @@ module.exports = {
         let fd = [];
 
         for (let i = 0; i < DelivaryData.DelivaryData.length; i++) {
-          //  console. log( Data.slipdata[i]);
           test.push(DelivaryData.DelivaryData[i].subNo);
-          // if (
-          //   DelivaryData.DelivaryData[i].todayDate.split("T")[0].split("-").join("-") ===
-          //   datetime.toISOString().slice(0, 10)
-          // ) {
-          //   console.log("if running");
-          //   od.push(DelivaryData.DelivaryData[i]);
-          // }
-          // else{
-          //    fd.push(DelivaryData.DelivaryData[i])
-          // }
         }
         console.log(test, "od", od, "fd", fd);
-        Delivary.find({ subNo: { $in: test }, isDelivared: true }).exec(
+        Delivary.find({ subNo: { $in: test }, isDelivared: false }).exec(
           async (err, data) => {
             console.log("allreasy data", data);
             if (data[0] === undefined) {
@@ -46,20 +35,36 @@ module.exports = {
                 });
               }
             } else {
-              let dd = await Delivary.updateMany(DelivaryData.DelivaryData);
-              console.log("update", dd);
-              if (dd) {
-                return resolve({
-                  status: true,
-                  data: dd,
-                  message: "Delivary Slip has been updated",
-                });
-              } else {
-                return resolve({
-                  status: true,
-                  message: "Delivary Slip has not been updated",
-                });
-              }
+              data.map((str) => {
+                Delivary.updateMany(
+                  { _id: str._id },
+                  {
+                    subNo: str.subNo,
+                    customer: str.customer,
+                    product: str.product,
+                    isDelivared: str.isDelivared,
+                    isSelcted: str.isSelcted,
+                    todayDate: str.todayDate,
+                  },
+                  { new: true, upsert: true },
+                  (err, data) => {
+                    if (err) {
+                      return resolve({
+                        status: false,
+                        message: "there is a problem" + err,
+                      });
+                    }
+                    if (data) {
+                      console.log("succesfull", data);
+                      return resolve({
+                        status: true,
+                        data: data,
+                        message: "Delivary  update successfully",
+                      });
+                    }
+                  }
+                );
+              });
             }
           }
         );

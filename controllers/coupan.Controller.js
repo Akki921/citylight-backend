@@ -5,7 +5,7 @@ exports.newCoupancode = async (req, res) => {
   const {
     coupanCode,
     applyCustomer,
-    //applyProduct,
+    customerType,
     customerCollections,
     description,
     endDate,
@@ -32,7 +32,7 @@ exports.newCoupancode = async (req, res) => {
           const couponCodeDiscount = new Coupan({
             coupanCode: coupanCode,
             discount: discount,
-           // applyProduct: applyProduct,
+            customerType: customerType,
             // productCollection: productCollection,
             applyCustomer: applyCustomer,
             customerCollections: customerCollections,
@@ -127,7 +127,7 @@ exports.updatecoupan = async (req, res) => {
             {
               coupanCode: data.coupanCode,
               discount: data.discount,
-            //  applyProduct: data.applyProduct,
+             customerType: data.customerType,
               // productCollection:data. productCollection,
               applyCustomer: data.applyCustomer,
               customerCollections: data.customerCollections,
@@ -162,7 +162,7 @@ exports.updatecoupan = async (req, res) => {
             {
               coupanCode: data.coupanCode,
               discount: data.discount,
-              applyProduct: data.applyProduct,
+              customerType: data.customerType,
               // productCollection:data. productCollection,
               applyCustomer: data.applyCustomer,
               customerCollections: data.customerCollections,
@@ -217,7 +217,7 @@ exports.stopcoupan = async (req, res) => {
           {
             coupanCode: data.coupanCode,
             discount: data.discount,
-            //applyProduct: data.applyProduct,
+            customerType: data.customerType,
             // productCollection:data. productCollection,
             applyCustomer: data.applyCustomer,
             customerCollections: data.customerCollections,

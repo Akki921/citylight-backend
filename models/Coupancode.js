@@ -10,10 +10,9 @@ const coupanSchema = mongoose.Schema({
   //     },
   //   },
   // ],
-  // productCollection: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: "ProductCollection",
-  // },
+  customerType: {
+    type: String,
+  },
   applyCustomer: [
     {
       id: {

@@ -700,7 +700,8 @@ module.exports = {
               QtytobeDelivered: data.QtytobeDelivered,
               QtyDelivered: data.QtyDelivered,
               Qtyfullfilled: data.Qtyfullfilled,
-              delivaryBoy:data.delivaryBoy
+              delivaryBoy:data.delivaryBoy,
+              isAssign:data.isAssign
             },
             { new: true, upsert: true },
             (err, data) => {

@@ -74,7 +74,8 @@ module.exports = {
     return new Promise(async (resolve) => {
       try {
         Wallet.find({})
-        .sort({ FirstName: -1 }).collation({ locale: "en", caseLevel: true })
+          .sort({ FirstName: -1 })
+          .collation({ locale: "en", caseLevel: true })
           .populate("userId", "username")
           .exec((error, data) => {
             if (error)
@@ -99,7 +100,7 @@ module.exports = {
   },
 
   getWalletDataById: async (id) => {
-    console.log(id)
+    console.log(id);
     return new Promise(async (resolve) => {
       try {
         Wallet.find({ userId: id }, async (err, data) => {
@@ -130,7 +131,7 @@ module.exports = {
     const availableBalances = parseInt(availableBalance);
     const credits = parseInt(credit);
     const debits = parseInt(debit);
-    console.log(credits, debits, availableBalances,id);
+    console.log(credits, debits, availableBalances, id);
     return new Promise(async (resolve) => {
       try {
         if (availableBalances >= 0) {
@@ -181,7 +182,7 @@ module.exports = {
               if (error) {
                 return resolve({
                   status: true,
-                  message: "something went wrong"+error,
+                  message: "something went wrong" + error,
                 });
               }
               if (data) {
@@ -226,11 +227,9 @@ module.exports = {
   getAllTransactionbyid: async (id) => {
     return new Promise(async (resolve) => {
       try {
-        
-        Transaction.find(
-          { walletId: { $in: mongoose.Types.ObjectId(id) } })
+        Transaction.find({ walletId: { $in: mongoose.Types.ObjectId(id) } })
           .sort({ createdAt: -1 })
-         .exec( async (err, data) => {
+          .exec(async (err, data) => {
             if (err)
               return resolve({
                 status: false,
@@ -242,8 +241,7 @@ module.exports = {
                 data: data,
                 message: "Data retrieved successfully",
               });
-          }
-        );
+          });
       } catch (error) {
         return resolve({
           status: false,
@@ -253,82 +251,36 @@ module.exports = {
     });
   },
 
-  // createAddressSlip: async (Data) => {
-  //   return new Promise(async (resolve) => {
-  //     console.log(Data);
-  //     try {
-  //       CustomerProfile.findOne({ customer: Data.user }).exec((err, data) => {
-  //         if (data) {
-  //           return resolve({
-  //             status: true,
-  //             message: "profile is already created !",
-  //             data: data,
-  //           });
-  //         } else {
-  //           var newprofile = new CustomerProfile({
-  //             login: Data.login,
-  //             username: Data.username,
-  //             houseno: Data.houseno,
-  //             address: Data.address,
-  //             city: Data.city,
-  //             locality: Data.locality,
-  //             ringtheBell: Data.ringtheBell,
-  //           });
-  //           newprofile.save(async (error, data) => {
-  //             if (error)
-  //               return resolve({
-  //                 status: false,
-  //                 message: "Please try after some time",
-  //               });
-  //             if (data) {
-  //               return resolve({
-  //                 status: true,
-  //                 data: City,
-  //                 message: "Profile has been created",
-  //               });
-  //             }
-  //           });
-  //         }
-  //       });
-  //     } catch (error) {
-  //       return resolve({
-  //         status: false,
-  //         message: "Please try after some time" + error,
-  //       });
-  //     }
-  //   });
-  // },
-
-  makefullfilledorder: async (WalletData) => {
+  makefullfillewalletdpayment: async (WalletData) => {
     return new Promise(async (resolve) => {
-      //console.log(WalletData);
+      console.log("WalletData", WalletData);
       try {
         if (WalletData) {
-          let dd = await Transaction.insertMany(WalletData.Debiteddata);
-          console.log('dd',dd)
+          let dd = await Transaction.insertMany(WalletData.WalletData);
+          console.log("dd", dd);
           if (dd) {
-            dd.map((data)=>{ 
-            Wallet.updateMany(
-              { _id: data.walletId },
-              { availableBalance: data.availableBalance },
-              (err, data) => {
-                if (err) {
-                  return resolve({
-                    status: true,
-                    message: "there is a problem",
-                  });
+            dd.map((data) => {
+              Wallet.updateMany(
+                { _id: data.walletId },
+                { $set: { availableBalance: data.availableBalance } },
+                (err, data) => {
+                  if (err) {
+                    return resolve({
+                      status: true,
+                      message: "there is a problem",
+                    });
+                  }
+                  if (data) {
+                    console.log("succesfull", data);
+                    return resolve({
+                      status: true,
+                      data2: data,
+                      message: "Wallet Recharged successfully",
+                    });
+                  }
                 }
-                if (data) {
-                  console.log("succesfull", data);
-                  return resolve({
-                    status: true,
-                    data2: data,
-                    message: "Wallet Recharged successfully",
-                  });
-                }
-              }
-            );
-          })
+              );
+            });
           } else {
             return resolve({
               status: true,

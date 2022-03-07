@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 module.exports = {
   //register new Wallet
   createCashbackWallet: async (CashbackData) => {
-      console.log(CashbackData)
+    console.log(CashbackData);
     return new Promise(async (resolve) => {
       try {
         Cashback.findOne(
@@ -16,10 +16,9 @@ module.exports = {
             if (err)
               return resolve({
                 status: false,
-                message: "Please try after some time"+err,
+                message: "Please try after some time" + err,
               });
             if (data)
-            
               return resolve({
                 status: false,
                 message: "Wallet is already created",
@@ -38,7 +37,7 @@ module.exports = {
                 });
               if (cashback) {
                 var newTrasaction = new Transaction({
-                    CashbackWalletId: cashback._id,
+                  CashbackWalletId: cashback._id,
                 });
                 newTrasaction.save(async (error, transaction) => {
                   if (error)
@@ -64,7 +63,7 @@ module.exports = {
       } catch (error) {
         return resolve({
           status: false,
-          message: "Please try after some time"+error,
+          message: "Please try after some time" + error,
         });
       }
     });
@@ -91,31 +90,32 @@ module.exports = {
       } catch (error) {
         return resolve({
           status: false,
-          message: "Please try after some time"+error,
+          message: "Please try after some time" + error,
         });
       }
     });
   },
 
   getAllCashbackWalletDataById: async (id) => {
-      console.log(id)
+    console.log(id);
     return new Promise(async (resolve) => {
       try {
         Cashback.find({ userId: id })
-        .sort({ username: -1 }).collation({ locale: "en", caseLevel: true })
-        .exec(async (err, data) => {
-          if (err)
-            return resolve({
-              status: false,
-              message: "Please try after some time",
-            });
-          if (data)
-            return resolve({
-              status: true,
-              data: data,
-              message: "Data retrieved successfully",
-            });
-        });
+          .sort({ username: -1 })
+          .collation({ locale: "en", caseLevel: true })
+          .exec(async (err, data) => {
+            if (err)
+              return resolve({
+                status: false,
+                message: "Please try after some time",
+              });
+            if (data)
+              return resolve({
+                status: true,
+                data: data,
+                message: "Data retrieved successfully",
+              });
+          });
       } catch (error) {
         return resolve({
           status: false,
@@ -126,8 +126,8 @@ module.exports = {
   },
 
   makeTransaction: async (CashbackData) => {
-      console.log(CashbackData);
-    const { cashbackBalance, debit, credit,id } = CashbackData;
+    console.log(CashbackData);
+    const { cashbackBalance, debit, credit, id } = CashbackData;
     const cashbackBalances = parseInt(cashbackBalance);
     const credits = parseInt(credit);
     const debits = parseInt(debit);
@@ -137,7 +137,7 @@ module.exports = {
         if (cashbackBalances >= 0) {
           if (debits > 0) {
             var newTrasaction = new Transaction({
-             CashbackWalletId: CashbackData.id,
+              CashbackWalletId: CashbackData.id,
               debit: debits,
               cashbackBalance: cashbackBalances - debits,
             });
@@ -227,12 +227,11 @@ module.exports = {
   getAllTransactionbyid: async (id) => {
     return new Promise(async (resolve) => {
       try {
-       
-        Transaction.find(
-          { CashbackWalletId: { $in: mongoose.Types.ObjectId(id) } })
+        Transaction.find({
+          CashbackWalletId: { $in: mongoose.Types.ObjectId(id) },
+        })
           .sort({ createdAt: -1 })
-          .exec(
-          async (err, data) => {
+          .exec(async (err, data) => {
             if (err)
               return resolve({
                 status: false,
@@ -244,8 +243,7 @@ module.exports = {
                 data: data,
                 message: "Data retrieved successfully",
               });
-          }
-        );
+          });
       } catch (error) {
         return resolve({
           status: false,
@@ -255,6 +253,55 @@ module.exports = {
     });
   },
 
- 
- 
+  makefullfilledCashbackpayment: async (cashbackData) => {
+    return new Promise(async (resolve) => {
+      console.log("cashbackData", cashbackData);
+      try {
+        if (cashbackData) {
+          let dd = await Transaction.insertMany(cashbackData.cashbackData);
+          console.log("dd", dd);
+          if (dd) {
+            dd.map((data) => {
+              Cashback.updateMany(
+                { _id: data.walletId },
+                { $set: { availableBalance: data.availableBalance } },
+                (err, data) => {
+                  if (err) {
+                    return resolve({
+                      status: true,
+                      message: "there is a problem",
+                    });
+                  }
+                  if (data) {
+                    console.log("succesfull", data);
+                    return resolve({
+                      status: true,
+                      data2: data,
+                      message: "Wallet Recharged successfully",
+                    });
+                  }
+                }
+              );
+            });
+          } else {
+            return resolve({
+              status: true,
+              data: dd,
+              message: "Transection has not been created",
+            });
+          }
+        } else {
+          return resolve({
+            status: true,
+            message: "transection is failed because of no data",
+          });
+        }
+      } catch (error) {
+        return resolve({
+          status: false,
+          message: "Please try after some time" + error,
+        });
+      }
+    });
+  },
 };

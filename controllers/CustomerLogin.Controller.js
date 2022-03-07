@@ -74,7 +74,7 @@ module.exports = {
               if (error)
                 return resolve({
                   status: false,
-                  message: "Please try after some time",
+                  message: "Please try after some time"+error,
                 });
               if (Login) {
               

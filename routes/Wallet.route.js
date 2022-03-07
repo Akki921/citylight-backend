@@ -56,9 +56,9 @@ router.post("/makeTransaction",  async (req, res, next) => {
 //     res.status(200).json(walletCreate);
 //   });
 
-router.post("/makeorderfullfilled",  async (req, res, next) => {
+router.post("/makefullfillewalletpayment",  async (req, res, next) => {
  
-  let transactionMake = await walletHandler.makefullfilledorder(req.body);
+  let transactionMake = await walletHandler.makefullfillewalletdpayment(req.body);
 
   // if (!userCreate.status) return res.status(400).json(userCreate);
 

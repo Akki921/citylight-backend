@@ -20,14 +20,25 @@ const deliverySchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+
+  QtytobeDelivered: {
+    type: Number,
+  },
+  Qtyfullfilled: {
+    type: Number,
+  },
+  QtyDelivered: {
+    type: Number,
+  },
+
   isSelcted: {
     type: Boolean,
     default: false,
   },
   todayDate: {
     type: Date,
-    default:Date.now()
-  },  
+    default: Date.now(),
+  },
 });
 
 module.exports = new mongoose.model("Delivary", deliverySchema);

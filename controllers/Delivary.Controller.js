@@ -45,6 +45,9 @@ module.exports = {
                     isDelivared: str.isDelivared,
                     isSelcted: str.isSelcted,
                     todayDate: str.todayDate,
+                    QtytobeDelivered: str.QtytobeDelivered,
+                    Qtyfullfilled: str.Qtyfullfilled,
+                    QtyDelivered: str.QtyDelivered,
                   },
                   { new: true, upsert: true },
                   (err, data) => {
@@ -81,38 +84,38 @@ module.exports = {
     return new Promise(async (resolve) => {
       console.log(datas);
       try {
-        Subscription.findOne({ _id: new ObjectId(`${datas.subid}`) }).exec(
+        Delivary.findOne({ _id: new ObjectId(`${datas.subid}`) }).exec(
           (err, data) => {
             console.log(data);
             if (data) {
               if (datas.isSelected === undefined) {
-                Subscription.findOneAndUpdate(
+                Delivary.findOneAndUpdate(
                   { _id: data._id },
                   {
+                    DelivaryNo: data.DelivaryNo,
                     subNo: data.subNo,
-                    subDate: data.subDate,
-                    // startFrom: data.startFrom,
-                    order: data.order,
                     customer: data.customer,
                     product: data.product,
-                    // QtyperDay: data.QtyperDay,
-                    // frequency: data.frequency,
-                    endDate: data.endDate,
-                    iscancle: data.iscancle,
-                    isSelected: data.isSelected,
+                    isDelivared: data.isDelivared,
+                    isSelcted: data.isSelcted,
+                    todayDate: data.todayDate,
+                    QtytobeDelivered: data.QtytobeDelivered,
+                    Qtyfullfilled: data.Qtyfullfilled,
+                    QtyDelivered: data.QtyDelivered,
+                    todayDate: data.todayDate,
                   },
                   { new: true, upsert: true }
                 ).exec((err, data) => {
                   if (data) {
                     return resolve({
                       status: true,
-                      message: "subscription details  is updated !",
+                      message: "Delivary details  is updated !",
                       data: data,
                     });
                   } else if (err) {
                     return resolve({
                       status: false,
-                      message: "subscription details is updating failed !",
+                      message: "Delivary details is updating failed !",
                       data: data,
                     });
                   }
@@ -120,33 +123,33 @@ module.exports = {
               } else {
                 console.log("inside else");
 
-                Subscription.findOneAndUpdate(
+                Delivary.findOneAndUpdate(
                   { _id: data._id },
                   {
+                    DelivaryNo: data.DelivaryNo,
                     subNo: data.subNo,
-                    subDate: data.subDate,
-                    // startFrom: data.startFrom,
-                    order: data.order,
                     customer: data.customer,
                     product: data.product,
-                    // QtyperDay: data.QtyperDay,
-                    // frequency: data.frequency,
-                    // endDate: data.endDate,
-                    iscancle: data.iscancle,
-                    isSelected: datas.isSelected,
+                    isDelivared: data.isDelivared,
+                    isSelcted: datas.isSelected,
+                    todayDate: data.todayDate,
+                    QtytobeDelivered: data.QtytobeDelivered,
+                    Qtyfullfilled: data.Qtyfullfilled,
+                    QtyDelivered: data.QtyDelivered,
+                    todayDate: data.todayDate,
                   },
                   { new: true, upsert: true }
                 ).exec((err, data) => {
                   if (data) {
                     return resolve({
                       status: true,
-                      message: "subscription   is updated !",
+                      message: "Delivary   is updated !",
                       data: data,
                     });
                   } else if (err) {
                     return resolve({
                       status: false,
-                      message: "subscription   details is updating failed !",
+                      message: "Delivary   details is updating failed !",
                       data: data,
                     });
                   }
@@ -168,12 +171,12 @@ module.exports = {
     return new Promise(async (resolve) => {
       try {
         Delivary.find({})
-          // .populate(
-          //   "order",
-          //   "orderNo qtyperday startDate product frequency productValue  address locality"
-          // )
-          // .populate("customer", "username login")
-          // .populate("product", "productName thumbnail")
+          .populate(
+            "subNo",
+            "subNo address QtyDelivered Qtyfullfilled QtytobeDelivered isDelivered productValue delivaryBoy"
+          )
+          .populate("customer", "username")
+          .populate("product", "productName")
           .exec((error, data) => {
             if (error)
               return resolve({
@@ -193,6 +196,94 @@ module.exports = {
         return resolve({
           status: false,
           message: "Please try after some time" + error,
+        });
+      }
+    });
+  },
+
+  updateAllSelcted: async (SubscriptionData) => {
+    return new Promise(async (resolve) => {
+      console.log(SubscriptionData);
+
+      try {
+        if (SubscriptionData.isSelected === false) {
+          SubscriptionData.alldata.map((data) => {
+            Delivary.updateMany(
+              { _id: data._id },
+              {
+                DelivaryNo: data.DelivaryNo,
+                subNo: data.subNo,
+                customer: data.customer,
+                product: data.product,
+                isDelivared: data.isDelivared,
+                isSelcted: SubscriptionData.isSelected,
+                todayDate: data.todayDate,
+                QtytobeDelivered: data.QtytobeDelivered,
+                Qtyfullfilled: data.Qtyfullfilled,
+                QtyDelivered: data.QtyDelivered,
+                todayDate: data.todayDate,
+              },
+              { new: true, upsert: true },
+              (err, data) => {
+                if (err) {
+                  return resolve({
+                    status: true,
+                    message: "there is a problem",
+                  });
+                }
+                if (data) {
+                  console.log("succesfull", data);
+                  return resolve({
+                    status: true,
+                    data: data,
+                    message: "subscription  update successfully",
+                  });
+                }
+              }
+            );
+          });
+        } else {
+          console.log("inside else");
+          SubscriptionData.alldata.map((data) => {
+            Delivary.updateMany(
+              { _id: data._id },
+              {
+                DelivaryNo: data.DelivaryNo,
+                subNo: data.subNo,
+                customer: data.customer,
+                product: data.product,
+                isDelivared: data.isDelivared,
+                isSelcted: SubscriptionData.isSelected,
+                todayDate: data.todayDate,
+                QtytobeDelivered: data.QtytobeDelivered,
+                Qtyfullfilled: data.Qtyfullfilled,
+                QtyDelivered: data.QtyDelivered,
+                todayDate: data.todayDate,
+              },
+              { new: true, upsert: true },
+              (err, data) => {
+                if (err) {
+                  return resolve({
+                    status: true,
+                    message: "there is a problem",
+                  });
+                }
+                if (data) {
+                  console.log("succesfull", data);
+                  return resolve({
+                    status: true,
+                    data2: data,
+                    message: "subscription  update successfully",
+                  });
+                }
+              }
+            );
+          });
+        }
+      } catch (error) {
+        return resolve({
+          status: false,
+          message: "Please try after some time2" + error,
         });
       }
     });

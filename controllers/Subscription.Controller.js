@@ -475,7 +475,7 @@ module.exports = {
           .populate("customer", "username login")
           .populate(
             "product",
-            "productName thumbnail sellingprice offerprice description vendor"
+            "productName thumbnail sellingprice offerprice description vendor stock"
           )
           .populate("city", "cityName")
           .populate("locality", "locality")

@@ -23,8 +23,13 @@ router.post("/update", async (req, res, next) => {
     res.status(200).json(subscriptionupdate);
   });
 
-  router.post("/createDelivary", async (req, res, next) => {
-    let subscriptionupdate = await DelivaryHandler.createDelivary(req.body);
+  router.post("/updateisSelect", async (req, res, next) => {
+    let subscriptionupdate = await DelivaryHandler.updateisSelcted(req.body);
+    if (!subscriptionupdate.status) return res.status(400).json(subscriptionupdate);
+    res.status(200).json(subscriptionupdate);
+  });
+  router.post("/updateallSelect", async (req, res, next) => {
+    let subscriptionupdate = await DelivaryHandler.updateAllSelcted(req.body);
     if (!subscriptionupdate.status) return res.status(400).json(subscriptionupdate);
     res.status(200).json(subscriptionupdate);
   });

@@ -38,12 +38,12 @@ const productSchema = mongoose.Schema({
   price: {
     type: Number,
   },
-  sellingprice: {
-    type: Number,
-  },
-  // offerprice: {
+  // sellingprice: {
   //   type: Number,
   // },
+  offerprice: {
+    type: Number,
+  },
   offerfornewcustomer: {
     type: Number,
   },

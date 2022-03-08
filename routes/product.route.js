@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { createProduct,getproduct,updateproduct,updateproductqty} = require("../controllers/Product.Controller");
+const { createProduct,getproduct,updateproduct,updateproductqty,deleteProduct} = require("../controllers/Product.Controller");
 
 router.post(
   "/addproduct",
@@ -12,7 +12,8 @@ updateproduct);
 router.post("/updateqty",
 updateproductqty);
 router.get("/getproduct", getproduct);
-
+router.post("/deleteproduct",
+deleteProduct);
 // router.get("/product/deleteproduct/:id", async (req, res) => {
 //   const produtdelete = await deleteproduct(req.params.id);
 //   res.send(produtdelete);

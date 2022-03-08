@@ -82,5 +82,9 @@ const productSchema = mongoose.Schema({
   vendor: {
     type: String,
   },
+  isDeleted: {
+    type: Boolean,
+    default:false
+  },
 });
 module.exports = new mongoose.model("Product", productSchema);

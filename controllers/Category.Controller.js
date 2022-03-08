@@ -208,4 +208,37 @@ module.exports = {
       }
     });
   },
+
+
+  DeleteCategory: async (CategoryData) => {
+    console.log(BrandData);
+    return new Promise(async (resolve) => {
+      try {
+        let rests = Category.findOneAndUpdate(
+          { _id: CategoryData._id },
+          { $set: { isDeleted: true } },
+          { new: true, upsert: true }
+        ).exec((err, data) => {
+          if (data) {
+            return resolve({
+              status: true,
+              message: "Category is updated !",
+              data: data,
+            });
+          } else if (err) {
+            return resolve({
+              status: false,
+              message: "Category updating failed !",
+              data: data,
+            });
+          }
+        });
+      } catch (error) {
+        return resolve({
+          status: false,
+          message: "Please try after some time" + e,
+        });
+      }
+    });
+  },
 };

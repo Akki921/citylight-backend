@@ -470,7 +470,7 @@ exports.updateproduct = async (req, res) => {
   });
 };
 
-exports.updateproductqty = async (req, res) => {
+exports.updateproductqty  =async (req, res) => {
   const { product, qty } = req.body;
   console.log(product, qty);
   if (product !== undefined) {
@@ -568,6 +568,38 @@ exports.updateproductqty = async (req, res) => {
             }
           });
         }
+      }
+    });
+  } else {
+    return res.status(200).json({
+      status: false,
+      message: "no product id isFound !",
+      data: data,
+    });
+  }
+};
+
+exports.deleteProduct  =async (req, res) => {
+  const { product } = req.body;
+  console.log(product);
+  if (product !== undefined) {
+    let rests = Product.findOneAndUpdate(
+      { _id: product},
+      { $set: { isDeleted: true } },
+      { new: true, upsert: true }
+    ).exec((err, data) => {
+      if (data) {
+        return res.status(200).json({
+          status: true,
+          message: "Product is updated !",
+          data: data,
+        });
+      } else if (err) {
+        return res.status(400).json({
+          status: false,
+          message: "Product updating failed !",
+          data: data,
+        });
       }
     });
   } else {

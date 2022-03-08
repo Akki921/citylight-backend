@@ -41,9 +41,9 @@ const productSchema = mongoose.Schema({
   sellingprice: {
     type: Number,
   },
-  offerprice: {
-    type: Number,
-  },
+  // offerprice: {
+  //   type: Number,
+  // },
   offerfornewcustomer: {
     type: Number,
   },

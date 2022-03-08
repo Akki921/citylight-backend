@@ -211,7 +211,7 @@ module.exports = {
 
 
   DeleteCategory: async (CategoryData) => {
-    console.log(BrandData);
+    console.log(CategoryData);
     return new Promise(async (resolve) => {
       try {
         let rests = Category.findOneAndUpdate(

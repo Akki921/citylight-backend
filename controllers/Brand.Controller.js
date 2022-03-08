@@ -75,20 +75,21 @@ module.exports = {
     return new Promise(async (resolve) => {
       try {
         Brand.find({})
-        .sort({ username: -1 }).collation({ locale: "en", caseLevel: true })
-        .exec(async(err, data) => {
-          if (err)
-            return resolve({
-              status: false,
-              message: "Please try after some time",
-            });
-          if (data)
-            return resolve({
-              status: true,
-              data: data,
-              message: "Data retrieved successfully",
-            });
-        });
+          .sort({ username: -1 })
+          .collation({ locale: "en", caseLevel: true })
+          .exec(async (err, data) => {
+            if (err)
+              return resolve({
+                status: false,
+                message: "Please try after some time",
+              });
+            if (data)
+              return resolve({
+                status: true,
+                data: data,
+                message: "Data retrieved successfully",
+              });
+          });
       } catch (error) {
         return resolve({
           status: false,
@@ -99,7 +100,7 @@ module.exports = {
   },
 
   editupdateBrand: async (BrandData) => {
-    console.log(BrandData)
+    console.log(BrandData);
     return new Promise(async (resolve) => {
       try {
         let rests = Brand.findOneAndUpdate(
@@ -110,6 +111,38 @@ module.exports = {
             isActive: BrandData.isActive,
             comment: BrandData.comment,
           },
+          { new: true, upsert: true }
+        ).exec((err, data) => {
+          if (data) {
+            return resolve({
+              status: true,
+              message: "Brand is updated !",
+              data: data,
+            });
+          } else if (err) {
+            return resolve({
+              status: false,
+              message: "Brand updating failed !",
+              data: data,
+            });
+          }
+        });
+      } catch (error) {
+        return resolve({
+          status: false,
+          message: "Please try after some time" + e,
+        });
+      }
+    });
+  },
+
+  DeleteBrand: async (BrandData) => {
+    console.log(BrandData);
+    return new Promise(async (resolve) => {
+      try {
+        let rests = Brand.findOneAndUpdate(
+          { _id: BrandData._id },
+          { $set: { isDeleted: true } },
           { new: true, upsert: true }
         ).exec((err, data) => {
           if (data) {

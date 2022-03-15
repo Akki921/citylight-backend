@@ -39,6 +39,11 @@ router.post("/addcount", async (req, res, next) => {
   res.status(200).json(categoryCreate);
 });
 
+router.post("/arrangeOrder", async (req, res, next) => {
+  let categoryCreate = await categoryHandler.ArrangeCategory(req.body);
+  res.status(200).json(categoryCreate);
+});
+
 router.post("/deletecategory", async (req, res, next) => {
   let categoryCreate = await categoryHandler.DeleteCategory(req.body);
   res.status(200).json(categoryCreate);

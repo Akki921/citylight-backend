@@ -83,22 +83,22 @@ module.exports = {
   getAllCategory: async () => {
     return new Promise(async (resolve) => {
       try {
-       
         Category.find({})
-        .sort({ CategoryName: -1 }).collation({ locale: "en", caseLevel: true })
-        .exec(async (err, data) => {
-          if (err)
-            return resolve({
-              status: false,
-              message: "Please try after some time",
-            });
-          if (data)
-            return resolve({
-              status: true,
-              data: data,
-              message: "Data retrieved successfully",
-            });
-        });
+          // .sort({ CategoryName: -1 })
+          // .collation({ locale: "en", caseLevel: true })
+          .exec(async (err, data) => {
+            if (err)
+              return resolve({
+                status: false,
+                message: "Please try after some time",
+              });
+            if (data)
+              return resolve({
+                status: true,
+                data: data,
+                message: "Data retrieved successfully",
+              });
+          });
       } catch (error) {
         return resolve({
           status: false,
@@ -209,7 +209,6 @@ module.exports = {
     });
   },
 
-
   DeleteCategory: async (CategoryData) => {
     console.log(CategoryData);
     return new Promise(async (resolve) => {
@@ -218,6 +217,44 @@ module.exports = {
           { _id: CategoryData._id },
           { $set: { isDeleted: true } },
           { new: true, upsert: true }
+        ).exec((err, data) => {
+          if (data) {
+            return resolve({
+              status: true,
+              message: "Category is updated !",
+              data: data,
+            });
+          } else if (err) {
+            return resolve({
+              status: false,
+              message: "Category updating failed !",
+              data: data,
+            });
+          }
+        });
+      } catch (error) {
+        return resolve({
+          status: false,
+          message: "Please try after some time" + e,
+        });
+      }
+    });
+  },
+
+  ArrangeCategory: async (CategoryData) => {
+    console.log(CategoryData);
+    return new Promise(async (resolve) => {
+      try {
+        let rests = Category.findOneAndUpdate(
+          { _id: CategoryData._id },
+          { $set: { index: CategoryData.index } },
+          {
+            multi: false,
+            upsert: true,
+            $sort: {
+              index: 1,
+            },
+          }
         ).exec((err, data) => {
           if (data) {
             return resolve({

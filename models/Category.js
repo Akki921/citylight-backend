@@ -40,5 +40,5 @@ const categorySchema = new mongoose.Schema({
     type: Number,
   }
 });
-ItemSchema.plugin(AutoIncrement, {id:'order_seq',inc_field: 'index'});
+categorySchema.plugin(AutoIncrement, {id:'order_seq',inc_field: 'index'});
 module.exports = new mongoose.model("Category", categorySchema);

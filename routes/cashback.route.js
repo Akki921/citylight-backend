@@ -44,10 +44,8 @@ router.get("/getCashbackWallet/:id", async (req, res, next) => {
   res.status(200).json(TransactionGet);
 });
 
-router.post("/makeordercashbackfullfilled", async (req, res, next) => {
-  let transactionMake = await cashbackHandler.makefullfilledCashbackpayment(
-    req.body
-  );
+router.post("/makefullfilledCashbackpayment", async (req, res, next) => {
+  let transactionMake = await cashbackHandler.makefullfilledCashbackpayment(req.body);
   res.status(200).json(transactionMake);
 });
 

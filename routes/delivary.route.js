@@ -34,11 +34,11 @@ router.post("/update", async (req, res, next) => {
     res.status(200).json(subscriptionupdate);
   });
 
-//   router.post("/updateAllSelcted", async (req, res, next) => {
-//     let subscriptionupdate = await SubscriptionHandler.updateAllSelcted(req.body);
-//     if (!subscriptionupdate.status) return res.status(400).json(subscriptionupdate);
-//     res.status(200).json(subscriptionupdate);
-//   });
+  router.post("/updateAllDelivared", async (req, res, next) => {
+    let subscriptionupdate = await DelivaryHandler.updateAllDeliverd(req.body);
+    if (!subscriptionupdate.status) return res.status(400).json(subscriptionupdate);
+    res.status(200).json(subscriptionupdate);
+  });
 
 //   router.get("/getsubscriptionbylogin/:id",async(req,res)=>{
 //     console.log('req.params.id,',req.params.id);

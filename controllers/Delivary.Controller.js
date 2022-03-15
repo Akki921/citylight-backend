@@ -96,7 +96,7 @@ module.exports = {
                     subNo: data.subNo,
                     customer: data.customer,
                     product: data.product,
-                    isDelivared: data.isDelivared,
+                    isDelivared:false,
                     isSelcted: data.isSelcted,
                     todayDate: data.todayDate,
                     QtytobeDelivered: data.QtytobeDelivered,
@@ -130,7 +130,7 @@ module.exports = {
                     subNo: data.subNo,
                     customer: data.customer,
                     product: data.product,
-                    isDelivared: data.isDelivared,
+                    isDelivared: false,
                     isSelcted: datas.isSelected,
                     todayDate: data.todayDate,
                     QtytobeDelivered: data.QtytobeDelivered,
@@ -215,7 +215,7 @@ module.exports = {
                 subNo: data.subNo,
                 customer: data.customer,
                 product: data.product,
-                isDelivared: data.isDelivared,
+                isDelivared: false,
                 isSelcted: SubscriptionData.isSelected,
                 todayDate: data.todayDate,
                 QtytobeDelivered: data.QtytobeDelivered,
@@ -252,7 +252,7 @@ module.exports = {
                 subNo: data.subNo,
                 customer: data.customer,
                 product: data.product,
-                isDelivared: data.isDelivared,
+                isDelivared: false,
                 isSelcted: SubscriptionData.isSelected,
                 todayDate: data.todayDate,
                 QtytobeDelivered: data.QtytobeDelivered,
@@ -288,4 +288,55 @@ module.exports = {
       }
     });
   },
+ 
+  updateAllDeliverd: async (SubscriptionData) => {
+    return new Promise(async (resolve) => {
+      console.log(SubscriptionData);
+
+      try {
+          SubscriptionData.fullfilleddata.map((data) => {
+            Delivary.updateMany(
+              { _id: data._id },
+              {
+                DelivaryNo: data.DelivaryNo,
+                subNo: data.subNo,
+                customer: data.customer,
+                product: data.product,
+                isDelivared: true,
+                isSelcted: SubscriptionData.isSelected,
+                todayDate: data.todayDate,
+                QtytobeDelivered: data.QtytobeDelivered,
+                Qtyfullfilled: data.Qtyfullfilled,
+                QtyDelivered: data.QtytobeDelivered,
+                todayDate:Date.now(),
+              },
+              { new: true, upsert: true },
+              (err, data) => {
+                if (err) {
+                  return resolve({
+                    status: true,
+                    message: "there is a problem",
+                  });
+                }
+                if (data) {
+                  console.log("succesfull", data);
+                  return resolve({ 
+                    status: true,
+                    data: data,
+                    message: "subscription  update successfully",
+                  });
+                }
+              }
+            );
+          });
+        
+      } catch (error) {
+        return resolve({
+          status: false,
+          message: "Please try after some time2" + error,
+        });
+      }
+    });
+  },
+ 
 };

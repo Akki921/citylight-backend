@@ -256,7 +256,7 @@ module.exports = {
       console.log("WalletData", WalletData);
       try {
         if (WalletData) {
-          let dd = await Transaction.insertMany(WalletData.WalletData);
+          let dd = await Transaction.insertMany(WalletData.walletDebit);
           console.log("dd", dd);
           if (dd) {
             dd.map((data) => {

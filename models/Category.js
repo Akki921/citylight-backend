@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+var AutoIncrement = require('mongoose-sequence')(mongoose);
 const categorySchema = new mongoose.Schema({
   CategoryName: {
     type: String,
@@ -36,6 +36,9 @@ const categorySchema = new mongoose.Schema({
     type: Number,
     default:0
   },
+  index: {
+    type: Number,
+  }
 });
-
+ItemSchema.plugin(AutoIncrement, {id:'order_seq',inc_field: 'index'});
 module.exports = new mongoose.model("Category", categorySchema);

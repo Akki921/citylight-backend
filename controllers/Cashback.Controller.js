@@ -258,13 +258,13 @@ module.exports = {
       console.log("cashbackData", cashbackData);
       try {
         if (cashbackData) {
-          let dd = await Transaction.insertMany(cashbackData.cashbackData);
+          let dd = await Transaction.insertMany(cashbackData.filter);
           console.log("dd", dd);
           if (dd) {
             dd.map((data) => {
               Cashback.updateMany(
-                { _id: data.walletId },
-                { $set: { availableBalance: data.availableBalance } },
+                { _id: data.CashbackWalletId },
+                { $set: { cashbackBalance: data.cashbackBalance } },
                 (err, data) => {
                   if (err) {
                     return resolve({
@@ -277,7 +277,7 @@ module.exports = {
                     return resolve({
                       status: true,
                       data2: data,
-                      message: "Wallet Recharged successfully",
+                      message: "Cashback debited  successfully",
                     });
                   }
                 }

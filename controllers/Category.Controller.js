@@ -84,7 +84,7 @@ module.exports = {
     return new Promise(async (resolve) => {
       try {
         Category.find({})
-          .sort({ index: -1 })
+          .sort({ index: 1 })
           .collation({ locale: "en", caseLevel: true })
           .exec(async (err, data) => {
             if (err)

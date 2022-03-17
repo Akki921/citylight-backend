@@ -270,7 +270,7 @@ module.exports = {
       } catch (error) {
         return resolve({
           status: false,
-          message: "Please try after some time" + e,
+          message: "Please try after some time" + error,
         });
       }
     });

@@ -84,8 +84,8 @@ module.exports = {
     return new Promise(async (resolve) => {
       try {
         Category.find({})
-          // .sort({ CategoryName: -1 })
-          // .collation({ locale: "en", caseLevel: true })
+          .sort({ index: -1 })
+          .collation({ locale: "en", caseLevel: true })
           .exec(async (err, data) => {
             if (err)
               return resolve({
@@ -245,30 +245,27 @@ module.exports = {
     console.log(CategoryData);
     return new Promise(async (resolve) => {
       try {
-        let rests = Category.findOneAndUpdate(
-          { _id: CategoryData._id },
-          { $set: { index: CategoryData.index } },
-          {
-            multi: false,
-            upsert: true,
-            $sort: {
-              index: 1,
-            },
-          }
-        ).exec((err, data) => {
-          if (data) {
-            return resolve({
-              status: true,
-              message: "Category is updated !",
-              data: data,
-            });
-          } else if (err) {
-            return resolve({
-              status: false,
-              message: "Category updating failed !",
-              data: data,
-            });
-          }
+        CategoryData.category.map((data,index) => {
+          Category.updateMany(
+            { _id: data._id },
+            { $set: { index:index+1 } },
+            (err, data) => {
+              if (err) {
+                return resolve({
+                  status: true,
+                  message: "there is a problem",
+                });
+              }
+              if (data) {
+                console.log("succesfull", data);
+                return resolve({
+                  status: true,
+                  data2: data,
+                  message: "Category Update Succefully",
+                });
+              }
+            }
+          );
         });
       } catch (error) {
         return resolve({

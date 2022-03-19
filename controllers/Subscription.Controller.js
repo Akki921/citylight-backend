@@ -262,20 +262,21 @@ module.exports = {
                 Subscription.findOneAndUpdate(
                   { _id: data._id },
                   {
-                    subNo: data.subNo,
-                    customer: data.customer,
-                    product: data.product,
-                    customDates: data.customDates,
-                    QtyperDay: data.QtyperDay,
-                    frequency: data.frequency,
-                    address: data.address,
-                    locality: data.locality,
-                    city: data.city,
-                    startDate: data.startDate,
-                    productValue: data.productValue,
-                    OnceUpdate: data.OnceUpdate,
-                    iscancle: data.iscancle,
-                    isSelected: data.isSelected,
+                    // subNo: data.subNo,
+                    // customer: data.customer,
+                    // product: data.product,
+                    // customDates: data.customDates,
+                    // QtyperDay: data.QtyperDay,
+                    // frequency: data.frequency,
+                    // address: data.address,
+                    // locality: data.locality,
+                    // city: data.city,
+                    // startDate: data.startDate,
+                    // productValue: data.productValue,
+                    // OnceUpdate: data.OnceUpdate,
+                    // iscancle: data.iscancle,
+                    // isSelected: data.isSelected,
+                    $set: {isSelected:SubscriptionData.isSelected}
                   },
                   { new: true, upsert: true }
                 ).exec((err, data) => {
@@ -298,20 +299,21 @@ module.exports = {
                 Subscription.findOneAndUpdate(
                   { _id: data._id },
                   {
-                    subNo: data.subNo,
-                    customer: data.customer,
-                    product: data.product,
-                    customDates: data.customDates,
-                    QtyperDay: data.QtyperDay,
-                    frequency: data.frequency,
-                    address: data.address,
-                    locality: data.locality,
-                    city: data.city,
-                    startDate: data.startDate,
-                    productValue: data.productValue,
-                    OnceUpdate: data.OnceUpdate,
-                    iscancle: data.iscancle,
-                    isSelected: datas.isSelected,
+                    // subNo: data.subNo,
+                    // customer: data.customer,
+                    // product: data.product,
+                    // customDates: data.customDates,
+                    // QtyperDay: data.QtyperDay,
+                    // frequency: data.frequency,
+                    // address: data.address,
+                    // locality: data.locality,
+                    // city: data.city,
+                    // startDate: data.startDate,
+                    // productValue: data.productValue,
+                    // OnceUpdate: data.OnceUpdate,
+                    // iscancle: data.iscancle,
+                    // isSelected: datas.isSelected,
+                    $set: {isSelected:SubscriptionData.isSelected}
                   },
                   { new: true, upsert: true }
                 ).exec((err, data) => {
@@ -385,19 +387,21 @@ module.exports = {
             Subscription.updateMany(
               { _id: data._id },
               {
-                subNo: data.subNo,
-                customer: data.customer,
-                product: data.product,
-                customDates: data.customDates,
-                QtyperDay: data.QtyperDay,
-                frequency: data.frequency,
-                address: data.address,
-                locality: data.locality,
-                city: data.city,
-                startDate: data.startDate,
-                productValue: data.productValue,
-                OnceUpdate: data.OnceUpdate,
-                isSelected: SubscriptionData.isSelected,
+                // subNo: data.subNo,
+                // customer: data.customer,
+                // product: data.product,
+                // customDates: data.customDates,
+                // QtyperDay: data.QtyperDay,
+                // frequency: data.frequency,
+                // address: data.address,
+                // locality: data.locality,
+                // city: data.city,
+                // startDate: data.startDate,
+                // productValue: data.productValue,
+                // OnceUpdate: data.OnceUpdate,
+
+                // isSelected: SubscriptionData.isSelected,
+                $set: {isSelected:SubscriptionData.isSelected}
               },
               { new: true, upsert: true },
               (err, data) => {
@@ -424,19 +428,20 @@ module.exports = {
             Subscription.updateMany(
               { _id: data._id },
               {
-                subNo: data.subNo,
-                customer: data.customer,
-                product: data.product,
-                customDates: data.customDates,
-                QtyperDay: data.QtyperDay,
-                frequency: data.frequency,
-                address: data.address,
-                locality: data.locality,
-                city: data.city,
-                startDate: data.startDate,
-                productValue: data.productValue,
-                OnceUpdate: data.OnceUpdate,
-                isSelected: SubscriptionData.isSelected,
+                // subNo: data.subNo,
+                // customer: data.customer,
+                // product: data.product,
+                // customDates: data.customDates,
+                // QtyperDay: data.QtyperDay,
+                // frequency: data.frequency,
+                // address: data.address,
+                // locality: data.locality,
+                // city: data.city,
+                // startDate: data.startDate,
+                // productValue: data.productValue,
+                // OnceUpdate: data.OnceUpdate,
+                // isSelected: SubscriptionData.isSelected,
+                $set: {isSelected:SubscriptionData.isSelected}
               },
               { new: true, upsert: true },
               (err, data) => {
@@ -684,24 +689,27 @@ module.exports = {
           Subscription.updateMany(
             { _id: data._id },
             {
-              subNo: data.subNo,
-              customer: data.customer,
-              product: data.product,
-              customDates: data.customDates,
-              QtyperDay: data.QtyperDay,
-              frequency: data.frequency,
-              address: data.address,
-              locality: data.locality,
-              city: data.city,
-              startDate: data.startDate,
-              productValue: data.productValue,
-              OnceUpdate: data.OnceUpdate,
-              isSelected: data.isSelected,
-              QtytobeDelivered: data.QtytobeDelivered,
-              QtyDelivered: data.QtyDelivered,
-              Qtyfullfilled: data.Qtyfullfilled,
-              delivaryBoy:data.delivaryBoy,
-              isAssign:data.isAssign
+              // subNo: data.subNo,
+              // customer: data.customer,
+              // product: data.product,
+              // customDates: data.customDates,
+              // QtyperDay: data.QtyperDay,
+              // frequency: data.frequency,
+              // address: data.address,
+              // locality: data.locality,
+              // city: data.city,
+              // startDate: data.startDate,
+              // productValue: data.productValue,
+              // OnceUpdate: data.OnceUpdate,
+              // isSelected: data.isSelected,
+              // QtytobeDelivered: data.QtytobeDelivered,
+              // QtyDelivered: data.QtyDelivered,
+              // Qtyfullfilled: data.Qtyfullfilled,
+              // delivaryBoy:data.delivaryBoy,
+              // isAssign:data.isAssign
+              
+                $set: {isAssign:data.isAssign,isSelected:data.isSelected}
+              
             },
             { new: true, upsert: true },
             (err, data) => {
@@ -722,6 +730,45 @@ module.exports = {
             }
           );
         });
+      } catch (error) {
+        return resolve({
+          status: false,
+          message: "Please try after some time2" + error,
+        });
+      }
+    });
+  },
+
+  updateAfterDelivary: async (SubscriptionData) => {
+    return new Promise(async (resolve) => {
+      console.log(SubscriptionData);
+
+      try {
+        // SubscriptionData.PassFullfilledData.map((data) => {
+        //   Subscription.updateMany(
+        //     { _id: data._id },
+        //     {
+        //       $set: {isAssign:true}
+        //     },
+        //     { new: true, upsert: true },
+        //     (err, data) => {
+        //       if (err) {
+        //         return resolve({
+        //           status: false,
+        //           message: "there is a problem" + err,
+        //         });
+        //       }
+        //       if (data) {
+        //         console.log("succesfull", data);
+        //         return resolve({
+        //           status: true,
+        //           data: data,
+        //           message: "subscription  update successfully",
+        //         });
+        //       }
+        //     }
+        //   );
+        // });
       } catch (error) {
         return resolve({
           status: false,

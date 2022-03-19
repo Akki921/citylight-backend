@@ -276,7 +276,7 @@ module.exports = {
                     // OnceUpdate: data.OnceUpdate,
                     // iscancle: data.iscancle,
                     // isSelected: data.isSelected,
-                    $set: {isSelected:SubscriptionData.isSelected}
+                    $set: {isSelected:datas.isSelected}
                   },
                   { new: true, upsert: true }
                 ).exec((err, data) => {
@@ -313,7 +313,7 @@ module.exports = {
                     // OnceUpdate: data.OnceUpdate,
                     // iscancle: data.iscancle,
                     // isSelected: datas.isSelected,
-                    $set: {isSelected:SubscriptionData.isSelected}
+                    $set: {isSelected:datas.isSelected}
                   },
                   { new: true, upsert: true }
                 ).exec((err, data) => {
@@ -742,33 +742,32 @@ module.exports = {
   updateAfterDelivary: async (SubscriptionData) => {
     return new Promise(async (resolve) => {
       console.log(SubscriptionData);
-
       try {
-        // SubscriptionData.PassFullfilledData.map((data) => {
-        //   Subscription.updateMany(
-        //     { _id: data._id },
-        //     {
-        //       $set: {isAssign:true}
-        //     },
-        //     { new: true, upsert: true },
-        //     (err, data) => {
-        //       if (err) {
-        //         return resolve({
-        //           status: false,
-        //           message: "there is a problem" + err,
-        //         });
-        //       }
-        //       if (data) {
-        //         console.log("succesfull", data);
-        //         return resolve({
-        //           status: true,
-        //           data: data,
-        //           message: "subscription  update successfully",
-        //         });
-        //       }
-        //     }
-        //   );
-        // });
+        SubscriptionData.fullfilleddata.map((data) => {
+          Subscription.updateMany(
+            { _id: data.subNo._id },
+            {
+              $set: {isAssign:false}
+            },
+            { new: true, upsert: true },
+            (err, data) => {
+              if (err) {
+                return resolve({
+                  status: false,
+                  message: "there is a problem" + err,
+                });
+              }
+              if (data) {
+                console.log("succesfull", data);
+                return resolve({
+                  status: true,
+                  data: data,
+                  message: "subscription  update successfully",
+                });
+              }
+            }
+          );
+        });
       } catch (error) {
         return resolve({
           status: false,
